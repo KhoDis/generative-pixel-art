@@ -1,27 +1,77 @@
-# React + TypeScript + Vite
+# Pixel Art Renderer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a TypeScript-based pixel art renderer that allows you to create scenes using simple primitives. It provides a set of builder functions to construct and organize elements in the renderer.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Installation](#installation)
+- [Usage](#usage)
+- [File Structure](#file-structure)
+- [Contributing](#contributing)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Clone the repository and install dependencies:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```bash
+git clone https://github.com/KhoDis/generative-pixel-art.git
+cd generative-pixel-art
+npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Usage
+
+To use the pixel art renderer, follow these steps:
+
+1. Import the necessary functions and types:
+
+   ```typescript
+   import { leaf, group, pixel } from './src/renderer/builders';
+    import { rect, circle, line } from './src/renderer/primitives';
+   import { Point, Color, Group, Pixel } from './src/renderer/types';
+   ```
+
+2. Create a scene using the provided builder functions:
+
+   ```typescript
+   const myScene: Group = group([
+     rect(10, 5, { r: 255, g: 0, b: 0 }), // Red rectangle
+     circle(8, { r: 0, g: 255, b: 0 }), // Green circle
+     line({ x: 5, y: 5 }, { x: 15, y: 15 }, { r: 0, g: 0, b: 255 }), // Blue line
+   ]);
+   ```
+
+3. Render the scene using the renderer component:
+
+   ```typescript
+   import KonvaRenderer from './src/renderer/KonvaRenderer';
+
+   // ...
+
+   return (
+     <KonvaRenderer
+       canvasWidth={50}
+       canvasHeight={50}
+       scale={2}
+       scene={myScene}
+     />
+   );
+   ```
+
+4. Adjust parameters such as canvas dimensions, scale, and scene composition to customize the output.
+
+## File Structure
+
+The project follows the following file structure:
+
+- `src/components/`: React components (currently only the renderer)
+- `src/renderer/`: Core files for the pixel art renderer
+    - `builders.ts`: Builder/helper functions for constructing elements
+    - `primitives.ts`: Functions for creating basic shapes
+    - `types.ts`: Shared types used in the renderer
+- `src/app/`: Application entry point and main components
+- `public/`: Static assets
+
+## Contributing
+
+Contributions are welcome! If you have suggestions or improvements, feel free to open an issue or create a pull request.
