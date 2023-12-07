@@ -1,5 +1,5 @@
 import { Color, Group, Point } from "./types.ts";
-import { leaf, pixel } from "./utils.ts";
+import { leaf, pixel } from "./builders.ts";
 
 export function rect(width: number, height: number, color: Color): Group {
   const pixels = [];

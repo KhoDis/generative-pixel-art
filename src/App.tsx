@@ -1,9 +1,9 @@
 import "./App.css";
 
 import PixelArtRenderer from "./components/KonvaRenderer.tsx";
-import { Color, Group } from "./components/types.ts";
-import { group } from "./components/utils.ts";
-import { circle, line, rect } from "./components/primitives.ts";
+import { Color, Group } from "./renderer/types.ts";
+import { group } from "./renderer/builders.ts";
+import { circle, line, rect } from "./renderer/primitives.ts";
 
 const red: Color = { r: 255, g: 0, b: 0 };
 const green: Color = { r: 0, g: 255, b: 0 };
