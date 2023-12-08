@@ -1,7 +1,7 @@
 import { Group as KonvaGroup, Layer, Rect, Stage } from "react-konva";
 import { ReactNode } from "react";
 
-import { Group } from "../renderer/types.ts";
+import { Blot, Group, Sprite } from "../renderer/types.ts";
 
 export type KonvaRendererProps = {
   scene: Group;
@@ -19,34 +19,64 @@ const renderGroup = (group: Group, key: number, scale: number): ReactNode => {
         {groups.map((subGroup, index) => renderGroup(subGroup, index, scale))}
       </KonvaGroup>
     );
+  } else if (group.type === "blot") {
+    return renderBlot(group, key, scale);
+  } else if (group.type === "sprite") {
+    return renderSprite(group, key, scale);
   } else {
-    return renderLeaf(group, key, scale);
+    return null;
   }
 };
 
-const renderLeaf = (leaf: Group, key: number, scale: number): ReactNode => {
-  if (leaf.type === "leaf") {
-    const { anchor, pixels } = leaf;
+const renderBlot = (blot: Blot, key: number, scale: number): ReactNode => {
+  const { anchor, pixels } = blot;
 
-    return (
-      <KonvaGroup key={key} x={anchor.x * scale} y={anchor.y * scale}>
-        {pixels.map((pixel, index) => (
-          <Rect
-            key={index}
-            x={pixel.position.x * scale}
-            y={pixel.position.y * scale}
-            width={scale}
-            height={scale}
-            fill={`rgba(${pixel.color.r}, ${pixel.color.g}, ${pixel.color.b}, ${
-              pixel.color.a ?? 1
-            })`}
-          />
-        ))}
-      </KonvaGroup>
-    );
-  } else {
-    return renderGroup(leaf, key, scale);
-  }
+  return (
+    <KonvaGroup key={key} x={anchor.x * scale} y={anchor.y * scale}>
+      {pixels.map((pixel, index) => (
+        <Rect
+          key={index}
+          x={pixel.position.x * scale}
+          y={pixel.position.y * scale}
+          width={scale}
+          height={scale}
+          fill={`rgba(${pixel.pixel.r}, ${pixel.pixel.g}, ${pixel.pixel.b}, ${
+            pixel.pixel.a ?? 1
+          })`}
+        />
+      ))}
+    </KonvaGroup>
+  );
+};
+
+const renderSprite = (
+  sprite: Sprite,
+  key: number,
+  scale: number,
+): ReactNode => {
+  const { anchor, matrix } = sprite;
+
+  return (
+    <KonvaGroup key={key} x={anchor.x * scale} y={anchor.y * scale}>
+      {matrix.map((row, rowIndex) =>
+        row.map(
+          (pixel, columnIndex) =>
+            pixel && (
+              <Rect
+                key={`${rowIndex}-${columnIndex}`}
+                x={columnIndex * scale}
+                y={rowIndex * scale}
+                width={scale}
+                height={scale}
+                fill={`rgba(${pixel.r}, ${pixel.g}, ${pixel.b}, ${
+                  pixel.a ?? 1
+                })`}
+              />
+            ),
+        ),
+      )}
+    </KonvaGroup>
+  );
 };
 
 function KonvaRenderer({

@@ -16,13 +16,26 @@ export type Group =
       groups: Group[];
       anchor: Point;
     }
-  | {
-      type: "leaf";
-      pixels: Pixel[];
-      anchor: Point;
-    };
+  | Blot
+  | Sprite;
 
-export type Pixel = {
-  position: Point;
-  color: Color;
+export type Blot = {
+  type: "blot";
+  pixels: Placement[];
+  anchor: Point;
 };
+
+export type Optional<T> = T | null;
+
+export type Sprite = {
+  type: "sprite";
+  matrix: Optional<Pixel>[][];
+  anchor: Point;
+};
+
+export type Placement = {
+  position: Point;
+  pixel: Pixel;
+};
+
+export type Pixel = Color;
