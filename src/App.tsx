@@ -2,38 +2,167 @@ import "./App.css";
 
 import KonvaRenderer from "./components/KonvaRenderer.tsx";
 import { Group } from "./renderer/types.ts";
-import { group } from "./renderer/builders.ts";
-import blots from "./renderer/blots.ts";
-import sprites from "./renderer/sprites.ts";
+import { blot, group } from "./renderer/builders.ts";
 import colors from "./renderer/colors.ts";
+import { convertBlotToSprite, convertSpriteToBlot } from "./renderer/utils.ts";
+
+const test = blot([
+  {
+    position: { x: 0, y: 0 },
+    pixel: colors.red,
+  },
+  {
+    position: { x: 1, y: 0 },
+    pixel: colors.green,
+  },
+  {
+    position: { x: 0, y: 1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 1, y: 1 },
+    pixel: colors.yellow,
+  },
+  {
+    position: { x: -1, y: 0 },
+    pixel: colors.purple,
+  },
+  {
+    position: { x: 0, y: -1 },
+    pixel: colors.cyan,
+  },
+  {
+    position: { x: -1, y: -1 },
+    pixel: colors.white,
+  },
+  {
+    position: { x: 1, y: -1 },
+    pixel: colors.black,
+  },
+  {
+    position: { x: -4, y: 1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -4, y: 2 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -3, y: 1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -3, y: 2 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -2, y: 1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -2, y: 2 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -1, y: 1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -1, y: 2 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 0, y: 1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 0, y: 2 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 1, y: 1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 1, y: 2 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 2, y: 1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 2, y: 2 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 3, y: 1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 3, y: 2 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 4, y: 1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: 4, y: 2 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -4, y: -1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -4, y: -2 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -3, y: -1 },
+    pixel: colors.blue,
+  },
+  {
+    position: { x: -3, y: -2 },
+    pixel: colors.blue
+  }
+]);
+
+const converted = convertBlotToSprite(test);
+
+const converted2 = convertSpriteToBlot(converted);
 
 const scene: Group = group([
-  group([blots.rect(10, 10, colors.red), blots.rect(5, 5, colors.green)], {
-    x: 0,
-    y: 0,
-  }),
-  group([blots.rect(5, 5, colors.blue), blots.circle(5, colors.red)], {
-    x: 10,
-    y: 10,
-  }),
-  group(
-    [
-      blots.line({ x: 0, y: 0 }, { x: 20, y: 20 }, colors.red),
-      blots.line({ x: 10, y: 0 }, { x: 0, y: 10 }, colors.green),
-      group([blots.line({ x: 0, y: 0 }, { x: 10, y: 5 }, colors.blue)], {
-        x: 0,
-        y: -10,
-      }),
-    ],
-    { x: 20, y: 20 },
-  ),
-  group([sprites.rect(10, 10, colors.yellow)], { x: 30, y: 30 }),
-  group([sprites.circle(10, colors.purple)], { x: 40, y: 40 }),
-  group([sprites.rect(10, 10, colors.red)], { x: 50, y: 50 }),
-  group([sprites.circle(10, colors.red)], { x: 60, y: 60 }),
-  group([sprites.rect(10, 10, colors.green)], { x: 70, y: 70 }),
-  group([sprites.circle(10, colors.green)], { x: 80, y: 80 }),
-]);
+  group([
+    test,
+  ], { x: 10, y: 10 }),
+  group([
+    converted,
+  ], { x: 10, y: 20 }),
+  group([
+    test,
+  ], { x: 20, y: 10 }),
+  group([
+    converted,
+  ], { x: 20, y: 20 }),
+  group([
+    converted,
+  ], { x: 30, y: 10 }),
+  group([
+    test,
+  ], { x: 30, y: 20 }),
+  // test converted2
+  group([
+    converted2,
+  ], { x: 10, y: 30 }),
+  group([
+    converted2,
+  ], { x: 20, y: 30 }),
+  group([
+    test,
+  ], { x: 30, y: 30 }),
+], { x: 10, y: 10 });
 
 function App() {
   return (
