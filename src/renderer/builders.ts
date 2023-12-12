@@ -45,7 +45,3 @@ export function sprite(
 export function place(x: number, y: number, color: Color): Placement {
   return { position: { x, y }, pixel: color };
 }
-
-export function pixel(pixel: Pixel): Pixel {
-  return pixel;
-}
