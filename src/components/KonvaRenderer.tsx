@@ -9,6 +9,7 @@ export type KonvaRendererProps = {
   canvasWidth: number;
   canvasHeight: number;
   scale?: number;
+  addGrid?: boolean;
 };
 
 const renderGroup = (group: Group, key: number, scale: number): ReactNode => {
@@ -80,11 +81,39 @@ const renderSprite = (
   );
 };
 
+function Grid({ width, height, scale }: { width: number; height: number; scale: number }) {
+  return (
+    <>
+      {Array.from({ length: width }, (_, x) => (
+        <Rect
+          key={x}
+          x={x * scale}
+          y={0}
+          width={1}
+          height={height * scale}
+          fill="rgba(0, 0, 0, 0.1)"
+        />
+      ))}
+      {Array.from({ length: height }, (_, y) => (
+        <Rect
+          key={y}
+          x={0}
+          y={y * scale}
+          width={width * scale}
+          height={1}
+          fill="rgba(0, 0, 0, 0.1)"
+        />
+      ))}
+    </>
+  );
+}
+
 function KonvaRenderer({
   canvasWidth,
   canvasHeight,
   scale = 1,
   scene,
+  addGrid = true,
 }: KonvaRendererProps): ReactNode {
   return (
     <Stage width={canvasWidth * scale} height={canvasHeight * scale}>
@@ -97,6 +126,9 @@ function KonvaRenderer({
           height={canvasHeight * scale}
           fill="white"
         />
+
+        {/* Grid */}
+        {addGrid && <Grid width={canvasWidth} height={canvasHeight} scale={scale} />}
 
         {/* Scene */}
         {renderGroup(scene, 0, scale)}
