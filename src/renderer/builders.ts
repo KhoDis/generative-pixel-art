@@ -27,8 +27,8 @@ export function sprite(
   return { type: "sprite", matrix, anchor };
 }
 
-export function place(position: Point, color: Color): Placement {
-  return { position, pixel: color };
+export function place(x: number, y: number, color: Color): Placement {
+  return { position: { x, y }, pixel: color };
 }
 
 export function pixel(pixel: Pixel): Pixel {
