@@ -1,5 +1,5 @@
 import colors from "../colors.ts";
-import { blot, group, place, sprite } from "../builders.ts";
+import { at, blot, group, place, sprite } from "../builders.ts";
 import { flattenToBlot, flattenToSprite } from "./flattening.ts";
 
 const origin = colors.black;
@@ -22,7 +22,7 @@ describe("flattening", () => {
       });
       it("group of pixels", () => {
         const spriteShape = sprite([[origin, fill]], { x: 1, y: 1 });
-        const groupShape = group([spriteShape], { x: 1, y: 1 });
+        const groupShape = at(1, 1, spriteShape);
         const blotShape = flattenToBlot(groupShape);
 
         expect(blotShape).toEqual(
@@ -32,7 +32,7 @@ describe("flattening", () => {
       it("group with multiple sprites", () => {
         const spriteShape1 = sprite([[origin]], { x: 1, y: 1 });
         const spriteShape2 = sprite([[fill]], { x: 2, y: 2 });
-        const groupShape = group([spriteShape1, spriteShape2], { x: 0, y: 0 });
+        const groupShape = group([spriteShape1, spriteShape2]);
         const blotShape = flattenToBlot(groupShape);
 
         expect(blotShape).toEqual(
@@ -42,7 +42,7 @@ describe("flattening", () => {
       it("group with nested groups", () => {
         const spriteShape = sprite([[origin]], { x: 1, y: 1 });
         const nestedGroup = group([spriteShape], { x: 1, y: 1 });
-        const groupShape = group([nestedGroup], { x: 0, y: 0 });
+        const groupShape = group([nestedGroup]);
         const blotShape = flattenToBlot(groupShape);
 
         expect(blotShape).toEqual(blot([place(2, 2, origin)]));
@@ -95,7 +95,7 @@ describe("flattening", () => {
       it("group with multiple blots", () => {
         const blotShape1 = blot([place(1, 1, origin)]);
         const blotShape2 = blot([place(2, 2, fill)]);
-        const groupShape = group([blotShape1, blotShape2], { x: 0, y: 0 });
+        const groupShape = group([blotShape1, blotShape2]);
         const flattenedBlot = flattenToBlot(groupShape);
 
         expect(flattenedBlot).toEqual(
@@ -105,7 +105,7 @@ describe("flattening", () => {
       it("group with nested groups", () => {
         const blotShape = blot([place(2, 2, origin)]);
         const nestedGroup = group([blotShape], { x: 1, y: 1 });
-        const groupShape = group([nestedGroup], { x: 0, y: 0 });
+        const groupShape = group([nestedGroup]);
         const flattenedBlot = flattenToBlot(groupShape);
 
         expect(flattenedBlot).toEqual(blot([place(3, 3, origin)]));
@@ -117,10 +117,12 @@ describe("flattening", () => {
         const blotShape2 = blot([place(2, 2, fill)]);
         const spriteShape1 = sprite([[origin]], { x: 1, y: 1 });
         const spriteShape2 = sprite([[fill]], { x: 2, y: 2 });
-        const groupShape = group(
-          [blotShape1, blotShape2, spriteShape1, spriteShape2],
-          { x: 0, y: 0 },
-        );
+        const groupShape = group([
+          blotShape1,
+          blotShape2,
+          spriteShape1,
+          spriteShape2,
+        ]);
         const flattenedBlot = flattenToBlot(groupShape);
 
         console.log("flattenedBlot", flattenedBlot);
@@ -146,7 +148,7 @@ describe("flattening", () => {
         const spriteShape2 = sprite([[fill]], { x: 2, y: 2 });
         const nestedGroup1 = group([blotShape1, spriteShape1], { x: 1, y: 1 });
         const nestedGroup2 = group([blotShape2, spriteShape2], { x: 2, y: 2 });
-        const groupShape = group([nestedGroup1, nestedGroup2], { x: 0, y: 0 });
+        const groupShape = group([nestedGroup1, nestedGroup2]);
         const flattenedBlot = flattenToBlot(groupShape);
 
         expect(flattenedBlot).toEqual(
@@ -157,7 +159,7 @@ describe("flattening", () => {
         const blotShape1 = blot([place(1, 1, origin)]);
         const blotShape2 = blot([place(2, 2, fill)]);
 
-        const groupShape = group([blotShape1, blotShape2], { x: 0, y: 0 });
+        const groupShape = group([blotShape1, blotShape2]);
         const originalBlot = flattenToBlot(groupShape);
 
         const movedGroup = group([originalBlot], { x: 1, y: 1 });
@@ -169,7 +171,7 @@ describe("flattening", () => {
         expect(originalBlot).toEqual(flattenedMovedBackGroup);
       });
       it("empty group", () => {
-        const groupShape = group([], { x: 0, y: 0 });
+        const groupShape = group([]);
         const flattenedBlot = flattenToBlot(groupShape);
 
         expect(flattenedBlot).toEqual(blot([]));
@@ -246,7 +248,7 @@ describe("flattening", () => {
       it("group with multiple blots", () => {
         const blotShape1 = blot([place(1, 1, origin)]);
         const blotShape2 = blot([place(2, 2, fill)]);
-        const groupShape = group([blotShape1, blotShape2], { x: 0, y: 0 });
+        const groupShape = group([blotShape1, blotShape2]);
         const flattenedSprite = flattenToSprite(groupShape);
 
         expect(flattenedSprite).toEqual(
@@ -262,7 +264,7 @@ describe("flattening", () => {
       it("group with nested groups", () => {
         const blotShape = blot([place(2, 2, origin)]);
         const nestedGroup = group([blotShape], { x: 1, y: 1 });
-        const groupShape = group([nestedGroup], { x: 0, y: 0 });
+        const groupShape = group([nestedGroup]);
         const flattenedSprite = flattenToSprite(groupShape);
 
         expect(flattenedSprite).toEqual(sprite([[origin]], { x: 3, y: 3 }));
@@ -282,13 +284,10 @@ describe("flattening", () => {
         expect(flattenedSprite).toEqual(spriteShape);
       });
       it("a square", () => {
-        const spriteShape = sprite(
-          [
-            [origin, fill],
-            [fill, fill],
-          ],
-          { x: 0, y: 0 },
-        );
+        const spriteShape = sprite([
+          [origin, fill],
+          [fill, fill],
+        ]);
         const flattenedSprite = flattenToSprite(spriteShape);
 
         expect(flattenedSprite).toEqual(spriteShape);
@@ -317,7 +316,7 @@ describe("flattening", () => {
       it("group with multiple sprites", () => {
         const spriteShape1 = sprite([[origin]], { x: 1, y: 1 });
         const spriteShape2 = sprite([[fill]], { x: 2, y: 2 });
-        const groupShape = group([spriteShape1, spriteShape2], { x: 0, y: 0 });
+        const groupShape = group([spriteShape1, spriteShape2]);
         const flattenedSprite = flattenToSprite(groupShape);
 
         expect(flattenedSprite).toEqual(
@@ -333,7 +332,7 @@ describe("flattening", () => {
       it("group with nested groups", () => {
         const spriteShape = sprite([[origin]], { x: 1, y: 1 });
         const nestedGroup = group([spriteShape], { x: 1, y: 1 });
-        const groupShape = group([nestedGroup], { x: 0, y: 0 });
+        const groupShape = group([nestedGroup]);
         const flattenedSprite = flattenToSprite(groupShape);
 
         expect(flattenedSprite).toEqual(sprite([[origin]], { x: 2, y: 2 }));
@@ -345,10 +344,12 @@ describe("flattening", () => {
         const blotShape2 = blot([place(2, 2, fill)]);
         const spriteShape1 = sprite([[origin]], { x: 1, y: 1 });
         const spriteShape2 = sprite([[fill]], { x: 2, y: 2 });
-        const groupShape = group(
-          [blotShape1, blotShape2, spriteShape1, spriteShape2],
-          { x: 0, y: 0 },
-        );
+        const groupShape = group([
+          blotShape1,
+          blotShape2,
+          spriteShape1,
+          spriteShape2,
+        ]);
         const flattenedSprite = flattenToSprite(groupShape);
 
         expect(flattenedSprite).toEqual(
@@ -372,18 +373,21 @@ describe("flattening", () => {
         const flattenedSprite = flattenToSprite(groupShape);
 
         expect(flattenedSprite).toEqual(
-          sprite([
-            [origin, null, null],
-            [null, null, null],
-            [null, null, fill],
-          ], { x: 2, y: 2 }),
+          sprite(
+            [
+              [origin, null, null],
+              [null, null, null],
+              [null, null, fill],
+            ],
+            { x: 2, y: 2 },
+          ),
         );
       });
       it("move flattened group back and forth", () => {
         const blotShape1 = blot([place(1, 1, origin)]);
         const blotShape2 = blot([place(2, 2, fill)]);
 
-        const groupShape = group([blotShape1, blotShape2], { x: 0, y: 0 });
+        const groupShape = group([blotShape1, blotShape2]);
         const originalSprite = flattenToSprite(groupShape);
 
         const movedGroup = group([originalSprite], { x: 1, y: 1 });
@@ -395,7 +399,7 @@ describe("flattening", () => {
         expect(originalSprite).toEqual(flattenedMovedBackGroup);
       });
       it("empty group", () => {
-        const groupShape = group([], { x: 0, y: 0 });
+        const groupShape = group([]);
         const flattenedSprite = flattenToSprite(groupShape);
 
         expect(flattenedSprite).toEqual(sprite([]));
