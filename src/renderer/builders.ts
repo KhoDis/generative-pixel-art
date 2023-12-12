@@ -13,6 +13,10 @@ export function group(groups: Group[], anchor: Point = { x: 0, y: 0 }): Group {
   return { type: "group", groups, anchor };
 }
 
+export function at(x: number, y: number, what: Group): Group {
+  return group([what], { x, y });
+}
+
 export function blot(
   pixels: Placement[],
   anchor: Point = { x: 0, y: 0 },
