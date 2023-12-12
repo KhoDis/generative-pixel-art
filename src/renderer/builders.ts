@@ -17,11 +17,22 @@ export function at(x: number, y: number, what: Group): Group {
   return group([what], { x, y });
 }
 
-export function blot(
-  pixels: Placement[],
-  anchor: Point = { x: 0, y: 0 },
-): Blot {
-  return { type: "blot", pixels, anchor };
+export function blot(pixels: Placement[]): Blot {
+  const pixelsMap = new Map<string, Pixel>();
+  for (const placement of pixels) {
+    const { x, y } = placement.position;
+    pixelsMap.set(`${x}:${y}`, placement.pixel);
+  }
+  return { type: "blot", pixels: pixelsMap };
+}
+
+export function toPlacements(pixels: Map<string, Pixel>): Placement[] {
+  const placements: Placement[] = [];
+  for (const [position, pixel] of pixels) {
+    const [x, y] = position.split(":").map(Number);
+    placements.push({ position: { x, y }, pixel });
+  }
+  return placements;
 }
 
 export function sprite(

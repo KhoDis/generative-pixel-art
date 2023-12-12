@@ -21,8 +21,7 @@ export type Group =
 
 export type Blot = {
   type: "blot";
-  pixels: Placement[];
-  anchor: Point;
+  pixels: Map<string, Pixel>;
 };
 
 export type Optional<T> = T | null;
