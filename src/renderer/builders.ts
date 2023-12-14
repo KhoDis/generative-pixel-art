@@ -18,8 +18,12 @@ export function at(x: number, y: number, what: Group): Group {
   return group([what], { x, y });
 }
 
-export function blot(pixels: Placement[]): Blot {
-  return { type: "blot", pixels: PixelMap.fromPlacements(pixels) };
+export function blot(placements: Placement[]): Blot {
+  const pixelMap = new PixelMap();
+  for (const placement of placements) {
+    pixelMap.set(placement.position, placement.pixel);
+  }
+  return { type: "blot", pixels: pixelMap };
 }
 
 export function sprite(

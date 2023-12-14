@@ -15,14 +15,6 @@ export class PixelMap {
     this.maxY = -Infinity;
   }
 
-  static fromPlacements(placements: Placement[]) {
-    const pixelMap = new PixelMap();
-    for (const placement of placements) {
-      pixelMap.set(placement.position, placement.pixel);
-    }
-    return pixelMap;
-  }
-
   get size(): number {
     return this._map.size;
   }
