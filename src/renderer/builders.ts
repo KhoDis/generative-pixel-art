@@ -1,13 +1,5 @@
-import {
-  Blot,
-  Color,
-  Group,
-  Optional,
-  Pixel,
-  Placement,
-  Point,
-  Sprite,
-} from "./types.ts";
+import { Blot, Color, Group, Optional, Pixel, Placement, Point, Sprite } from "./types.ts";
+import { PixelMap } from "./classes/PixelMap.ts";
 
 export function group(groups: Group[], anchor: Point = { x: 0, y: 0 }): Group {
   return { type: "group", groups, anchor };
@@ -18,21 +10,7 @@ export function at(x: number, y: number, what: Group): Group {
 }
 
 export function blot(pixels: Placement[]): Blot {
-  const pixelsMap = new Map<string, Pixel>();
-  for (const placement of pixels) {
-    const { x, y } = placement.position;
-    pixelsMap.set(`${x}:${y}`, placement.pixel);
-  }
-  return { type: "blot", pixels: pixelsMap };
-}
-
-export function toPlacements(pixels: Map<string, Pixel>): Placement[] {
-  const placements: Placement[] = [];
-  for (const [position, pixel] of pixels) {
-    const [x, y] = position.split(":").map(Number);
-    placements.push({ position: { x, y }, pixel });
-  }
-  return placements;
+  return { type: "blot", pixels: PixelMap.fromPlacements(pixels) };
 }
 
 export function sprite(

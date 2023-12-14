@@ -1,3 +1,5 @@
+import { PixelMap } from "./classes/PixelMap.ts";
+
 export type Point = {
   x: number;
   y: number;
@@ -21,7 +23,7 @@ export type Group =
 
 export type Blot = {
   type: "blot";
-  pixels: Map<string, Pixel>;
+  pixels: PixelMap;
 };
 
 export type Optional<T> = T | null;

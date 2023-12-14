@@ -2,7 +2,6 @@ import { Group as KonvaGroup, Layer, Rect, Stage } from "react-konva";
 import { ReactNode } from "react";
 
 import { Blot, Group, Sprite } from "../renderer/types.ts";
-import { toPlacements } from "../renderer/builders.ts";
 
 export type KonvaRendererProps = {
   scene: Group;
@@ -35,7 +34,7 @@ const renderBlot = (blot: Blot, key: number, scale: number): ReactNode => {
 
   return (
     <KonvaGroup key={key} x={0} y={0}>
-      {toPlacements(pixels).map((pixel, index) => (
+      {pixels.toPlacements().map((pixel, index) => (
         <Rect
           key={index}
           x={pixel.position.x * scale}

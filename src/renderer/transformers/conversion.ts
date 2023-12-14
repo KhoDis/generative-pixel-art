@@ -1,5 +1,5 @@
 import { Blot, Optional, Pixel, Placement, Sprite } from "../types.ts";
-import { blot, place, sprite, toPlacements } from "../builders.ts";
+import { blot, place, sprite } from "../builders.ts";
 
 export function convertBlotToSprite(blot: Blot): Sprite {
   const { pixels } = blot;
@@ -13,7 +13,7 @@ export function convertBlotToSprite(blot: Blot): Sprite {
   let maxX = Number.MIN_SAFE_INTEGER;
   let maxY = Number.MIN_SAFE_INTEGER;
 
-  for (const placement of toPlacements(pixels)) {
+  for (const placement of pixels) {
     const { x, y } = placement.position;
     minX = Math.min(minX, x);
     minY = Math.min(minY, y);
@@ -30,7 +30,7 @@ export function convertBlotToSprite(blot: Blot): Sprite {
     .fill(null)
     .map(() => Array(spriteWidth).fill(null));
 
-  for (const { position, pixel } of toPlacements(pixels)) {
+  for (const { position, pixel } of pixels) {
     const { x, y } = position;
     const newX = x - minX;
     const newY = y - minY;
