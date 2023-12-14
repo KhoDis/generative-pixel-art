@@ -1,14 +1,14 @@
 import { Pixel, Placement, Point } from "../types.ts";
 
 export class PixelMap {
-  private readonly innerMap: Map<string, Pixel>;
+  private readonly _map: Map<string, Pixel>;
   public minX: number;
   public minY: number;
   public maxX: number;
   public maxY: number;
 
   constructor() {
-    this.innerMap = new Map();
+    this._map = new Map();
     this.minX = Infinity;
     this.minY = Infinity;
     this.maxX = -Infinity;
@@ -24,12 +24,12 @@ export class PixelMap {
   }
 
   get size(): number {
-    return this.innerMap.size;
+    return this._map.size;
   }
 
   set(point: Point, pixel: Pixel) {
     const { x, y } = point;
-    this.innerMap.set(`${x}:${y}`, pixel);
+    this._map.set(`${x}:${y}`, pixel);
 
     this.minX = Math.min(this.minX, x);
     this.minY = Math.min(this.minY, y);
@@ -39,16 +39,16 @@ export class PixelMap {
 
   get(point: Point): Pixel | undefined {
     const { x, y } = point;
-    return this.innerMap.get(`${x}:${y}`);
+    return this._map.get(`${x}:${y}`);
   }
 
   remove(point: Point): boolean {
     const { x, y } = point;
-    return this.innerMap.delete(`${x}:${y}`);
+    return this._map.delete(`${x}:${y}`);
   }
 
   *[Symbol.iterator](): IterableIterator<Placement> {
-    for (const [key, pixel] of this.innerMap.entries()) {
+    for (const [key, pixel] of this._map.entries()) {
       const [x, y] = key.split(":").map(Number);
       yield { position: { x, y }, pixel };
     }
@@ -56,7 +56,7 @@ export class PixelMap {
 
   toPlacements(): Placement[] {
     const placements: Placement[] = [];
-    for (const [key, pixel] of this.innerMap) {
+    for (const [key, pixel] of this._map) {
       const [x, y] = key.split(":").map(Number);
       placements.push({ position: { x, y }, pixel });
     }
