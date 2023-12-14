@@ -40,9 +40,9 @@ To use the pixel art renderer, follow these steps:
      [
        blots.rect(10, 5, { r: 255, g: 0, b: 0 }), // Red rectangle
        sprites.circle(8, { r: 0, g: 255, b: 0 }), // Green circle
-       blots.line({ x: 5, y: 5 }, { x: 15, y: 15 }, { r: 0, g: 0, b: 255 }) // Blue line
+       blots.line({ x: 5, y: 5 }, { x: 15, y: 15 }, { r: 0, g: 0, b: 255 }), // Blue line
      ],
-     { x: 0, y: 0 }
+     { x: 0, y: 0 },
    );
    ```
 
@@ -71,10 +71,10 @@ The project follows the following file structure:
 
 - `src/components/`: React components (currently only the renderer)
 - `src/renderer/`: Core files for the pixel art renderer
-    - `builders.ts`: Builder/helper functions for constructing elements
-    - `blots.ts`: Functions for drawing primitives based on random points
-    - `sprites.ts`: Functions for drawing primitives based on a grid of points
-    - `types.ts`: Shared types used in the renderer
+  - `builders.ts`: Builder/helper functions for constructing elements
+  - `blots.ts`: Functions for drawing primitives based on random points
+  - `sprites.ts`: Functions for drawing primitives based on a grid of points
+  - `types.ts`: Shared types used in the renderer
 - `src/app/`: Application entry point and main components
 - `public/`: Static assets
 

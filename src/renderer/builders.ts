@@ -1,4 +1,13 @@
-import { Blot, Color, Group, Optional, Pixel, Placement, Point, Sprite } from "./types.ts";
+import {
+  Blot,
+  Color,
+  Group,
+  Optional,
+  Pixel,
+  Placement,
+  Point,
+  Sprite,
+} from "./types.ts";
 import { PixelMap } from "./classes/PixelMap.ts";
 
 export function group(groups: Group[], anchor: Point = { x: 0, y: 0 }): Group {

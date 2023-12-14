@@ -80,7 +80,15 @@ const renderSprite = (
   );
 };
 
-function Grid({ width, height, scale }: { width: number; height: number; scale: number }) {
+function Grid({
+  width,
+  height,
+  scale,
+}: {
+  width: number;
+  height: number;
+  scale: number;
+}) {
   return (
     <>
       {Array.from({ length: width }, (_, x) => (
@@ -127,7 +135,9 @@ function KonvaRenderer({
         />
 
         {/* Grid */}
-        {addGrid && <Grid width={canvasWidth} height={canvasHeight} scale={scale} />}
+        {addGrid && (
+          <Grid width={canvasWidth} height={canvasHeight} scale={scale} />
+        )}
 
         {/* Scene */}
         {renderGroup(scene, 0, scale)}
