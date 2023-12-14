@@ -13,22 +13,19 @@ describe("conversion", () => {
         const blotShape = blot([place(0, 0, origin)]);
         const spriteShape = convertBlotToSprite(blotShape);
 
-        expect(spriteShape.matrix).toEqual([[origin]]);
-        expect(spriteShape.anchor).toEqual({ x: 0, y: 0 });
+        expect(spriteShape).toEqual(sprite([[origin]]));
       });
       it("a single pixel with offset", () => {
         const blotShape = blot([place(1, 1, origin)]);
         const spriteShape = convertBlotToSprite(blotShape);
 
-        expect(spriteShape.matrix).toEqual([[origin]]);
-        expect(spriteShape.anchor).toEqual({ x: 1, y: 1 });
+        expect(spriteShape).toEqual(sprite([[origin]], { x: 1, y: 1 }));
       });
       it("a single pixel with negative offset", () => {
         const blotShape = blot([place(-1, -1, origin)]);
         const spriteShape = convertBlotToSprite(blotShape);
 
-        expect(spriteShape.matrix).toEqual([[origin]]);
-        expect(spriteShape.anchor).toEqual({ x: -1, y: -1 });
+        expect(spriteShape).toEqual(sprite([[origin]], { x: -1, y: -1 }));
       });
       it("a square", () => {
         const blotShape = blot([
@@ -39,11 +36,12 @@ describe("conversion", () => {
         ]);
         const spriteShape = convertBlotToSprite(blotShape);
 
-        expect(spriteShape.matrix).toEqual([
-          [origin, fill],
-          [fill, fill],
-        ]);
-        expect(spriteShape.anchor).toEqual({ x: 0, y: 0 });
+        expect(spriteShape).toEqual(
+          sprite([
+            [origin, fill],
+            [fill, fill],
+          ]),
+        );
       });
       it("a square with offset", () => {
         const blotShape = blot([
@@ -54,11 +52,15 @@ describe("conversion", () => {
         ]);
         const spriteShape = convertBlotToSprite(blotShape);
 
-        expect(spriteShape.matrix).toEqual([
-          [origin, fill],
-          [fill, fill],
-        ]);
-        expect(spriteShape.anchor).toEqual({ x: 1, y: 1 });
+        expect(spriteShape).toEqual(
+          sprite(
+            [
+              [origin, fill],
+              [fill, fill],
+            ],
+            { x: 1, y: 1 },
+          ),
+        );
       });
       it("a star", () => {
         const blotShape = blot([
@@ -78,21 +80,24 @@ describe("conversion", () => {
         ]);
         const spriteShape = convertBlotToSprite(blotShape);
 
-        expect(spriteShape.matrix).toEqual([
-          [null, null, fill, null, null],
-          [null, fill, fill, fill, null],
-          [fill, fill, origin, fill, fill],
-          [null, fill, fill, fill, null],
-          [null, null, direction, null, null],
-        ]);
-        expect(spriteShape.anchor).toEqual({ x: -2, y: -2 });
+        expect(spriteShape).toEqual(
+          sprite(
+            [
+              [null, null, fill],
+              [null, fill, fill, fill],
+              [fill, fill, origin, fill, fill],
+              [null, fill, fill, fill],
+              [null, null, direction],
+            ],
+            { x: -2, y: -2 },
+          ),
+        );
       });
       it("an empty blot", () => {
         const blotShape = blot([]);
         const spriteShape = convertBlotToSprite(blotShape);
 
-        expect(spriteShape.matrix).toEqual([]);
-        expect(spriteShape.anchor).toEqual({ x: 0, y: 0 });
+        expect(spriteShape).toEqual(sprite([]));
       });
       it("a repeated pixel", () => {
         const blotShape = blot([
@@ -102,8 +107,7 @@ describe("conversion", () => {
         ]);
         const spriteShape = convertBlotToSprite(blotShape);
 
-        expect(spriteShape.matrix).toEqual([[direction]]);
-        expect(spriteShape.anchor).toEqual({ x: 0, y: 0 });
+        expect(spriteShape).toEqual(sprite([[direction]]));
       });
     });
   });

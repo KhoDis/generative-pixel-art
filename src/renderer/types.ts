@@ -1,4 +1,5 @@
 import { PixelMap } from "./classes/PixelMap.ts";
+import { PixelMatrix } from "./classes/PixelMatrix.ts";
 
 export type Point = {
   x: number;
@@ -30,7 +31,7 @@ export type Optional<T> = T | null;
 
 export type Sprite = {
   type: "sprite";
-  matrix: Optional<Pixel>[][];
+  matrix: PixelMatrix;
   anchor: Point;
 };
 

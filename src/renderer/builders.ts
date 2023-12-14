@@ -9,6 +9,7 @@ import {
   Sprite,
 } from "./types.ts";
 import { PixelMap } from "./classes/PixelMap.ts";
+import { PixelMatrix } from "./classes/PixelMatrix.ts";
 
 export function group(groups: Group[], anchor: Point = { x: 0, y: 0 }): Group {
   return { type: "group", groups, anchor };
@@ -30,7 +31,18 @@ export function sprite(
   matrix: Optional<Pixel>[][],
   anchor: Point = { x: 0, y: 0 },
 ): Sprite {
-  return { type: "sprite", matrix, anchor };
+  const length = Math.max(0, ...matrix.map((row) => row.length));
+  const height = matrix.length;
+
+  const pixelMatrix = new PixelMatrix(length, height);
+  for (let y = 0; y < height; y++) {
+    const row = matrix[y];
+    for (let x = 0; x < length; x++) {
+      pixelMatrix.set({ x, y }, row[x] ?? null);
+    }
+  }
+
+  return { type: "sprite", matrix: pixelMatrix, anchor };
 }
 
 export function place(x: number, y: number, color: Color): Placement {

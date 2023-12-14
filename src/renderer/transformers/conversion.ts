@@ -47,9 +47,9 @@ export function convertSpriteToBlot(sprite: Sprite): Blot {
   // Collect non-null pixels along with their positions
   const pixels: Placement[] = [];
 
-  for (let y = 0; y < matrix.length; y++) {
-    for (let x = 0; x < matrix[y].length; x++) {
-      const pixel = matrix[y][x];
+  for (let y = 0; y < matrix.height; y++) {
+    for (let x = 0; x < matrix.width; x++) {
+      const pixel = matrix.get({ x, y });
       if (pixel !== null) {
         pixels.push(place(x + anchor.x, y + anchor.y, pixel));
       }
