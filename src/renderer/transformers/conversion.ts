@@ -8,37 +8,25 @@ export function convertBlotToSprite(blot: Blot): Sprite {
     return sprite([]);
   }
 
-  let minX = Number.MAX_SAFE_INTEGER;
-  let minY = Number.MAX_SAFE_INTEGER;
-  let maxX = Number.MIN_SAFE_INTEGER;
-  let maxY = Number.MIN_SAFE_INTEGER;
-
-  for (const placement of pixels) {
-    const { x, y } = placement.position;
-    minX = Math.min(minX, x);
-    minY = Math.min(minY, y);
-    maxX = Math.max(maxX, x);
-    maxY = Math.max(maxY, y);
-  }
-
   // Calculate the size of the sprite matrix
-  const spriteWidth = maxX - minX + 1;
-  const spriteHeight = maxY - minY + 1;
+  const spriteWidth = pixels.maxX - pixels.minX + 1;
+  const spriteHeight = pixels.maxY - pixels.minY + 1;
 
   // Create the sprite matrix and fill it with nulls using Array.fill
-  const spriteMatrix: Optional<Pixel>[][] = Array(spriteHeight)
-    .fill(null)
-    .map(() => Array(spriteWidth).fill(null));
+  const spriteMatrix: Optional<Pixel>[][] = Array.from(
+    { length: spriteHeight },
+    () => Array.from({ length: spriteWidth })
+  );
 
   for (const { position, pixel } of pixels) {
     const { x, y } = position;
-    const newX = x - minX;
-    const newY = y - minY;
+    const newX = x - pixels.minX;
+    const newY = y - pixels.minY;
 
     spriteMatrix[newY][newX] = pixel;
   }
 
-  return sprite(spriteMatrix, { x: minX, y: minY });
+  return sprite(spriteMatrix, { x: pixels.minX, y: pixels.minY });
 }
 
 export function convertSpriteToBlot(sprite: Sprite): Blot {
