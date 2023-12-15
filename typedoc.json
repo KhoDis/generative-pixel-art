@@ -1,0 +1,12 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "./src/renderer/types.ts",
+    "./src/renderer/shapes.ts",
+    "./src/renderer/colors.ts",
+    "./src/renderer/builders.ts",
+    "./src/renderer/transformers/flatten.ts",
+    "./src/renderer/classes/PixelMap.ts"
+  ],
+  "out": "doc"
+}
