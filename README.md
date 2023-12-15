@@ -27,9 +27,8 @@ To use the pixel art renderer, follow these steps:
 1. Import the necessary functions and types:
 
    ```typescript
-   import { blot, sprites, group, pixel } from "./src/renderer/builders";
-   import blots from "./renderer/blots.ts";
-   import sprites from "./renderer/sprites.ts";
+   import { shape, group, pixel } from "./src/renderer/builders";
+   import shapes from "./renderer/shapes.ts";
    import { Point, Color, Group, Pixel } from "./src/renderer/types";
    ```
 
@@ -38,9 +37,9 @@ To use the pixel art renderer, follow these steps:
    ```typescript
    const myScene: Group = group(
      [
-       blots.rect(10, 5, { r: 255, g: 0, b: 0 }), // Red rectangle
-       sprites.circle(8, { r: 0, g: 255, b: 0 }), // Green circle
-       blots.line({ x: 5, y: 5 }, { x: 15, y: 15 }, { r: 0, g: 0, b: 255 }), // Blue line
+       shapes.rect(10, 5, { r: 255, g: 0, b: 0 }), // Red rectangle
+       shapes.circle(8, { r: 0, g: 255, b: 0 }), // Green circle
+       shapes.line({ x: 5, y: 5 }, { x: 15, y: 15 }, { r: 0, g: 0, b: 255 }), // Blue line
      ],
      { x: 0, y: 0 },
    );
@@ -72,8 +71,7 @@ The project follows the following file structure:
 - `src/components/`: React components (currently only the renderer)
 - `src/renderer/`: Core files for the pixel art renderer
   - `builders.ts`: Builder/helper functions for constructing elements
-  - `blots.ts`: Functions for drawing primitives based on random points
-  - `sprites.ts`: Functions for drawing primitives based on a grid of points
+  - `shapes.ts`: Functions for drawing primitives
   - `types.ts`: Shared types used in the renderer
 - `src/app/`: Application entry point and main components
 - `public/`: Static assets

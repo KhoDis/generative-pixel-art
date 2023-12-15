@@ -1,17 +1,17 @@
 import { Group as KonvaGroup, Layer, Rect, Stage } from "react-konva";
 import { ReactNode } from "react";
 
-import { Blot, Group, Sprite } from "../renderer/types.ts";
+import { Shape, Figure } from "../renderer/types.ts";
 
 export type KonvaRendererProps = {
-  scene: Group;
+  scene: Figure;
   canvasWidth: number;
   canvasHeight: number;
   scale?: number;
   addGrid?: boolean;
 };
 
-const renderGroup = (group: Group, key: number, scale: number): ReactNode => {
+const renderGroup = (group: Figure, key: number, scale: number): ReactNode => {
   if (group.type === "group") {
     const { anchor, groups } = group;
 
@@ -20,17 +20,15 @@ const renderGroup = (group: Group, key: number, scale: number): ReactNode => {
         {groups.map((subGroup, index) => renderGroup(subGroup, index, scale))}
       </KonvaGroup>
     );
-  } else if (group.type === "blot") {
-    return renderBlot(group, key, scale);
-  } else if (group.type === "sprite") {
-    return renderSprite(group, key, scale);
+  } else if (group.type === "shape") {
+    return renderShape(group, key, scale);
   } else {
     return null;
   }
 };
 
-const renderBlot = (blot: Blot, key: number, scale: number): ReactNode => {
-  const { pixels } = blot;
+const renderShape = (shape: Shape, key: number, scale: number): ReactNode => {
+  const { pixels } = shape;
 
   return (
     <KonvaGroup key={key} x={0} y={0}>
@@ -46,36 +44,6 @@ const renderBlot = (blot: Blot, key: number, scale: number): ReactNode => {
           })`}
         />
       ))}
-    </KonvaGroup>
-  );
-};
-
-const renderSprite = (
-  sprite: Sprite,
-  key: number,
-  scale: number,
-): ReactNode => {
-  const { anchor, matrix } = sprite;
-
-  return (
-    <KonvaGroup key={key} x={anchor.x * scale} y={anchor.y * scale}>
-      {matrix.map((row, rowIndex) =>
-        row.map(
-          (pixel, columnIndex) =>
-            pixel && (
-              <Rect
-                key={`${rowIndex}-${columnIndex}`}
-                x={columnIndex * scale}
-                y={rowIndex * scale}
-                width={scale}
-                height={scale}
-                fill={`rgba(${pixel.r}, ${pixel.g}, ${pixel.b}, ${
-                  pixel.a ?? 1
-                })`}
-              />
-            ),
-        ),
-      )}
     </KonvaGroup>
   );
 };
