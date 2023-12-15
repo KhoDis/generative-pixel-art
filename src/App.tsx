@@ -1,62 +1,48 @@
 import "./App.css";
 
 import KonvaRenderer from "./components/KonvaRenderer.tsx";
-import { Group } from "./renderer/types.ts";
-import { at, blot, group, place, sprite } from "./renderer/builders.ts";
-import blots from "./renderer/blots.ts";
-import sprites from "./renderer/sprites.ts";
+import { Figure } from "./renderer/types.ts";
+import builders, { group, move, place } from "./renderer/builders.ts";
+import shapes from "./renderer/shapes.ts";
 import colors from "./renderer/colors.ts";
-import {
-  convertBlotToSprite,
-  convertSpriteToBlot,
-} from "./renderer/transformers/conversion.ts";
-import { flattenToBlot } from "./renderer/transformers/flattening.ts";
+import { flatten } from "./renderer/transformers/flatten.ts";
 
-const star = blot([
-  place(0, 0, colors.black),
-  place(1, 0, colors.red),
-  place(2, 0, colors.red),
-  place(-1, 0, colors.red),
-  place(-2, 0, colors.red),
-  place(0, 1, colors.red),
-  place(0, 2, colors.blue),
-  place(0, -1, colors.red),
-  place(0, -2, colors.red),
-  place(1, 1, colors.red),
-  place(1, -1, colors.red),
-  place(-1, 1, colors.red),
-  place(-1, -1, colors.red),
-]);
+const star = builders.shape(
+  place(colors.black, 0, 0),
+  place(colors.red, 1, 0),
+  place(colors.red, 2, 0),
+  place(colors.red, -1, 0),
+  place(colors.red, -2, 0),
+  place(colors.red, 0, 1),
+  place(colors.red, 0, 2),
+  place(colors.red, 0, -1),
+  place(colors.red, 0, -2),
+  place(colors.red, 1, 1),
+  place(colors.red, 1, -1),
+  place(colors.red, -1, 1),
+  place(colors.red, -1, -1),
+);
 
-const square = sprite([
-  [colors.black, colors.red],
-  [colors.red, colors.red],
-]);
-
-const circleBlot = blots.circle(5, colors.black);
-const circleSprite = sprites.circle(5, colors.black);
-
-const spriteStar = convertBlotToSprite(star);
-const blotSquare = convertSpriteToBlot(square);
-
-const blotStar = convertSpriteToBlot(spriteStar);
-const spriteSquare = convertBlotToSprite(blotSquare);
+const circle = shapes.circle(5, colors.black);
 
 const grouped = group([
-  at(0, 0, blotStar),
-  at(5, 0, spriteSquare),
-  at(0, 5, blotSquare),
-  at(5, 5, spriteStar),
+  move(star, 0, 0),
+  move(star, 10, 0),
+  move(star, 20, 0),
+  move(star, 30, 0),
+  move(star, 40, 0),
+  move(star, 50, 0),
 ]);
 
-const flattenedBlot = flattenToBlot(grouped);
-const flattenedSprite = convertBlotToSprite(flattenedBlot);
+const flattened = flatten(grouped);
 
-const scene: Group = group([
-  at(0, 0, flattenedBlot),
-  at(15, 15, flattenedSprite),
-  at(30, 30, circleBlot),
-  at(45, 45, circleSprite),
+const scene: Figure = group([
+  move(flattened, 0, 0),
+  move(flattened, 0, 10),
+  move(flattened, 0, 20),
+  move(flattened, 0, 30),
+  move(flattened, 0, 40),
+  move(circle, 0, 50),
 ]);
 
 function App() {

@@ -1,50 +1,46 @@
-import {
-  Blot,
-  Color,
-  Group,
-  Optional,
-  Pixel,
-  Placement,
-  Point,
-  Sprite,
-} from "./types.ts";
+import { Figure, Group, Pixel, Placement, Shape } from "./types.ts";
 import { PixelMap } from "./classes/PixelMap.ts";
-import { PixelMatrix } from "./classes/PixelMatrix.ts";
 
-export function group(groups: Group[], anchor: Point = { x: 0, y: 0 }): Group {
-  return { type: "group", groups, anchor };
+export function group(figures: Figure[], x: number = 0, y: number = 0): Group {
+  return { type: "group", groups: figures, anchor: { x, y } };
 }
 
-export function at(x: number, y: number, what: Group): Group {
-  return group([what], { x, y });
+export function combine(...groups: Figure[]): Group {
+  return group(groups);
+}
+/**
+ *
+ *
+ * @param {Figure} what - The figure to move.
+ * @param {number} [x=0] - The x coordinate of the position.
+ * @param {number} [y=0] - The y coordinate of the position.
+ * @returns {Figure} The group placed at the specified position.
+ */
+
+export function move(what: Figure, x: number = 0, y: number = 0): Group {
+  if (what.type === "shape") {
+    return group([what], x, y);
+  }
+
+  return group(what.groups, what.anchor.x + x, what.anchor.y + y);
 }
 
-export function blot(placements: Placement[]): Blot {
+export function shape(...placements: Placement[]): Shape {
   const pixelMap = new PixelMap();
   for (const placement of placements) {
     pixelMap.set(placement.position, placement.pixel);
   }
-  return { type: "blot", pixels: pixelMap };
+  return { type: "shape", pixels: pixelMap };
 }
 
-export function sprite(
-  matrix: Optional<Pixel>[][],
-  anchor: Point = { x: 0, y: 0 },
-): Sprite {
-  const length = Math.max(0, ...matrix.map((row) => row.length));
-  const height = matrix.length;
-
-  const pixelMatrix = new PixelMatrix(length, height);
-  for (let y = 0; y < height; y++) {
-    const row = matrix[y];
-    for (let x = 0; x < length; x++) {
-      pixelMatrix.set({ x, y }, row[x] ?? null);
-    }
-  }
-
-  return { type: "sprite", matrix: pixelMatrix, anchor };
+export function place(pixel: Pixel, x: number = 0, y: number = 0): Placement {
+  return { position: { x, y }, pixel };
 }
 
-export function place(x: number, y: number, color: Color): Placement {
-  return { position: { x, y }, pixel: color };
-}
+export default {
+  group,
+  combine,
+  move,
+  shape,
+  place,
+};

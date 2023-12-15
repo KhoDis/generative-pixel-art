@@ -1,5 +1,4 @@
 import { PixelMap } from "./classes/PixelMap.ts";
-import { PixelMatrix } from "./classes/PixelMatrix.ts";
 
 export type Point = {
   x: number;
@@ -13,26 +12,17 @@ export type Color = {
   a?: number;
 };
 
-export type Group =
-  | {
-      type: "group";
-      groups: Group[];
-      anchor: Point;
-    }
-  | Blot
-  | Sprite;
+export type Figure = Group | Shape;
 
-export type Blot = {
-  type: "blot";
-  pixels: PixelMap;
+export type Group = {
+  type: "group";
+  groups: Figure[];
+  anchor: Point;
 };
 
-export type Optional<T> = T | null;
-
-export type Sprite = {
-  type: "sprite";
-  matrix: PixelMatrix;
-  anchor: Point;
+export type Shape = {
+  type: "shape";
+  pixels: PixelMap;
 };
 
 export type Placement = {
