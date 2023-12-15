@@ -1,10 +1,18 @@
 import { Color, Pixel, Point, Shape } from "./types.ts";
 import { place, shape } from "./builders.ts";
 
+/**
+ * Creates a pixel shape.
+ * @returns The placed pixel as a shape.
+ */
 export function pixel(pixel: Pixel, x: number = 0, y: number = 0): Shape {
   return shape(place(pixel, x, y));
 }
 
+/**
+ * Creates a rectangle.
+ * @returns The rectangle as a shape.
+ */
 export function rect(width: number, height: number, color: Color): Shape {
   const pixels = [];
 
@@ -17,6 +25,10 @@ export function rect(width: number, height: number, color: Color): Shape {
   return shape(...pixels);
 }
 
+/**
+ * Creates a circle.
+ * @returns The circle as a shape.
+ */
 export function circle(radius: number, color: Color): Shape {
   const pixels = [];
 
@@ -31,6 +43,10 @@ export function circle(radius: number, color: Color): Shape {
   return shape(...pixels);
 }
 
+/**
+ * Creates a line.
+ * @returns The line as a shape.
+ */
 export function line(start: Point, end: Point, color: Color): Shape {
   const pixels = [];
 

@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "jest --runInBand --detectOpenHandles --forceExit --coverage",
     "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write ."
+    "prettier:fix": "prettier --write .",
+    "docs": "rimraf docs && typedoc --options typedoc.json"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -35,6 +36,7 @@
     "jest": "^29.7.0",
     "prettier": "3.1.0",
     "ts-jest": "^29.1.1",
+    "typedoc": "^0.25.4",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
