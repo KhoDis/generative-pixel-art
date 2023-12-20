@@ -70,8 +70,10 @@ The project follows the following file structure:
 
 - `src/components/`: React components (currently only the renderer)
 - `src/renderer/`: Core files for the pixel art renderer
+  - `primitives.ts`: Functions for basic constructions of Group and Shape
   - `builders.ts`: Builder/helper functions for constructing elements
   - `shapes/`: Functions for drawing primitives
+  - `algorithms`: Algorithms for advanced manipulations
   - `types.ts`: Shared types used in the renderer
 - `src/app/`: Application entry point and main components
 - `public/`: Static assets
