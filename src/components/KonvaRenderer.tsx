@@ -11,17 +11,17 @@ export type KonvaRendererProps = {
   addGrid?: boolean;
 };
 
-const renderGroup = (group: Figure, key: number, scale: number): ReactNode => {
-  if (group.type === "group") {
-    const { anchor, groups } = group;
+const renderGroup = (figure: Figure, key: number, scale: number): ReactNode => {
+  if (figure.type === "group") {
+    const { anchor, figures } = figure;
 
     return (
       <KonvaGroup key={key} x={anchor.x * scale} y={anchor.y * scale}>
-        {groups.map((subGroup, index) => renderGroup(subGroup, index, scale))}
+        {figures.map((subGroup, index) => renderGroup(subGroup, index, scale))}
       </KonvaGroup>
     );
-  } else if (group.type === "shape") {
-    return renderShape(group, key, scale);
+  } else if (figure.type === "shape") {
+    return renderShape(figure, key, scale);
   } else {
     return null;
   }
