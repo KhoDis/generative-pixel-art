@@ -28,7 +28,7 @@ To use the pixel art renderer, follow these steps:
 
    ```typescript
    import { shape, group, pixel } from "./src/renderer/builders";
-   import shapes from "./renderer/shapes.ts";
+   import shapes from "./renderer/shapes";
    import { Point, Color, Group, Pixel } from "./src/renderer/types";
    ```
 
@@ -71,7 +71,7 @@ The project follows the following file structure:
 - `src/components/`: React components (currently only the renderer)
 - `src/renderer/`: Core files for the pixel art renderer
   - `builders.ts`: Builder/helper functions for constructing elements
-  - `shapes.ts`: Functions for drawing primitives
+  - `shapes/`: Functions for drawing primitives
   - `types.ts`: Shared types used in the renderer
 - `src/app/`: Application entry point and main components
 - `public/`: Static assets
