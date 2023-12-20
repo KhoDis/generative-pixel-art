@@ -1,7 +1,7 @@
 import colors from "../colors.ts";
 import { combine, group, move, place, shape } from "../builders.ts";
 import { flatten } from "./flatten.ts";
-import { pixel } from "../shapes.ts";
+import { pixel } from "../shapes";
 
 const origin = colors.black;
 const fill = colors.red;

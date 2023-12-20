@@ -1,4 +1,4 @@
-import { Figure, Group, Pixel, Placement, Shape } from "./types.ts";
+import { Figure, Group, Pixel, Placement, Point, Shape } from "./types.ts";
 import { PixelMap } from "./classes/PixelMap.ts";
 
 /**
@@ -9,7 +9,7 @@ import { PixelMap } from "./classes/PixelMap.ts";
  * @returns The group of figures.
  */
 export function group(figures: Figure[], x: number = 0, y: number = 0): Group {
-  return { type: "group", groups: figures, anchor: { x, y } };
+  return { type: "group", figures, anchor: { x, y } };
 }
 
 /**
@@ -35,7 +35,7 @@ export function move(figure: Figure, x: number = 0, y: number = 0): Group {
     return group([figure], x, y);
   }
 
-  return group(figure.groups, figure.anchor.x + x, figure.anchor.y + y);
+  return group(figure.figures, figure.anchor.x + x, figure.anchor.y + y);
 }
 
 /**
@@ -64,10 +64,22 @@ export function place(pixel: Pixel, x: number = 0, y: number = 0): Placement {
   return { position: { x, y }, pixel };
 }
 
+/**
+ * Creates a point.
+ * @param x
+ * @param y
+ * @returns The point.
+ * @see Point
+ */
+export function point(x: number, y: number): Point {
+  return { x, y };
+}
+
 export default {
   group,
   combine,
   move,
   shape,
   place,
+  point,
 };

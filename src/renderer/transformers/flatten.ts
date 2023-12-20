@@ -18,11 +18,11 @@ export function flatten(figure: Figure): Shape {
     return figure;
   }
 
-  const { groups, anchor } = figure;
+  const { figures, anchor } = figure;
 
   const result: Placement[] = [];
 
-  for (const nested of groups) {
+  for (const nested of figures) {
     const flattened = flatten(nested);
 
     for (const { position, pixel } of flattened.pixels) {

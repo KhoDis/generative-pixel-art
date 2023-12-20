@@ -37,7 +37,7 @@ export type Figure = Group | Shape;
  */
 export type Group = {
   type: "group";
-  groups: Figure[];
+  figures: Figure[];
   anchor: Point;
 };
 
