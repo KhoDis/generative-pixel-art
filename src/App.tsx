@@ -1,57 +1,33 @@
 import "./App.css";
 
-import KonvaRenderer from "./components/KonvaRenderer.tsx";
-import { Figure } from "./renderer/types.ts";
-import builders, { group, move, place } from "./renderer/builders.ts";
-import shapes from "./renderer/shapes.ts";
-import colors from "./renderer/colors.ts";
+import KonvaRenderer from "./components/KonvaRenderer";
+import { Figure } from "./renderer/types";
+import { combine, move, point } from "./renderer/builders";
+import shapes from "./renderer/shapes";
+import colors from "./renderer/colors";
+import fill from "./renderer/algorithms/fill.ts";
 import { flatten } from "./renderer/transformers/flatten.ts";
+import outline from "./renderer/algorithms/outline.ts";
 
-const star = builders.shape(
-  place(colors.black, 0, 0),
-  place(colors.red, 1, 0),
-  place(colors.red, 2, 0),
-  place(colors.red, -1, 0),
-  place(colors.red, -2, 0),
-  place(colors.red, 0, 1),
-  place(colors.red, 0, 2),
-  place(colors.red, 0, -1),
-  place(colors.red, 0, -2),
-  place(colors.red, 1, 1),
-  place(colors.red, 1, -1),
-  place(colors.red, -1, 1),
-  place(colors.red, -1, -1),
+const triangle = shapes.polygon(
+  [point(0, 0), point(10, 0), point(0, 10)],
+  colors.red,
+  true,
 );
 
-const circle = shapes.circle(5, colors.black);
+const filledTriangle = fill(flatten(triangle), point(3, 3), colors.blue);
 
-const grouped = group([
-  move(star, 0, 0),
-  move(star, 10, 0),
-  move(star, 20, 0),
-  move(star, 30, 0),
-  move(star, 40, 0),
-  move(star, 50, 0),
-]);
+const outlinedTriangle = outline(filledTriangle, colors.black, true);
 
-const flattened = flatten(grouped);
-
-const scene: Figure = group([
-  move(flattened, 0, 0),
-  move(flattened, 0, 10),
-  move(flattened, 0, 20),
-  move(flattened, 0, 30),
-  move(flattened, 0, 40),
-  move(circle, 0, 50),
-]);
+const scene: Figure = combine(move(outlinedTriangle, 10, 10));
 
 function App() {
   return (
     <KonvaRenderer
-      canvasWidth={100}
-      canvasHeight={100}
+      canvasWidth={50}
+      canvasHeight={50}
       scene={scene}
-      scale={5}
+      scale={20}
     />
   );
 }
