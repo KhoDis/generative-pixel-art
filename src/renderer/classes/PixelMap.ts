@@ -66,6 +66,26 @@ export class PixelMap {
   }
 
   /**
+   * Checks if the map contains a pixel at the given point.
+   * @param point - The point to check.
+   * @returns True if the map contains a pixel at the given point; otherwise, false.
+   */
+  has(point: Point): boolean {
+    const { x, y } = point;
+    return this._map.has(`${x}:${y}`);
+  }
+
+  /**
+   * Checks if the map contains a pixel with the given position.
+   * @param point - The position to check.
+   * @returns True if the map contains a pixel with the given position; otherwise, false.
+   */
+  inBounds(point: Point): boolean {
+    const { x, y } = point;
+    return x >= this.minX && x <= this.maxX && y >= this.minY && y <= this.maxY;
+  }
+
+  /**
    * Returns an iterator that iterates through the placements in the map.
    * @returns An iterator for the placements in the map.
    */
@@ -95,5 +115,18 @@ export class PixelMap {
    */
   toJSON(): Placement[] {
     return this.toPlacements();
+  }
+
+  /**
+   * Creates a clone of the map.
+   * @returns A clone of the map.
+   */
+  clone(): PixelMap {
+    const clone = new PixelMap();
+    for (const [key, pixel] of this._map.entries()) {
+      const [x, y] = key.split(":").map(Number);
+      clone.set({ x, y }, pixel);
+    }
+    return clone;
   }
 }
