@@ -1,4 +1,4 @@
-import { PixelMap } from "./classes/PixelMap.ts";
+import { PixelMap } from "./core/PixelMap.ts";
 
 /**
  * Represents a point in a 2D space.

@@ -1,5 +1,5 @@
 import { Figure, Group, Pixel, Placement, Point, Shape } from "./types.ts";
-import { PixelMap } from "./classes/PixelMap.ts";
+import { PixelMap } from "./core/PixelMap.ts";
 
 /**
  * Creates a group of figures at a specified position.
