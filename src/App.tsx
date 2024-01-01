@@ -17,7 +17,7 @@ const triangle = shapes.polygon(
 
 const filledTriangle = fill(flatten(triangle), point(3, 3), colors.blue);
 
-const outlinedTriangle = outline(filledTriangle, colors.black, true);
+const outlinedTriangle = outline(filledTriangle, colors.black);
 
 const scene: Figure = combine(move(outlinedTriangle, 10, 10));
 
