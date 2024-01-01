@@ -1,5 +1,5 @@
-import { Figure, Group, Point, Shape } from "./types.ts";
-import { PixelMap } from "./classes/PixelMap.ts";
+import { Figure, Group, Point, Shape } from "../types.ts";
+import { PixelMap } from "./PixelMap.ts";
 
 export function group(
   figures: Figure[],

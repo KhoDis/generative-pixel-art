@@ -1,21 +1,28 @@
 import { Color, Point, Shape } from "../types.ts";
-import { shape } from "../primitives.ts";
-import getNeighbors from "./utils/getNeighbors.ts";
+import { shape } from "../core/primitives.ts";
+import {
+  getStraightNeighbors,
+  getDiagonalNeighbors,
+} from "./utils/getNeighbors.ts";
+
+type TraversalMode = "straightOnly" | "includeDiagonals";
 
 /**
  * Fills a shape with a color.
  * @param what The shape to fill.
  * @param start The starting point.
  * @param color The color to fill with.
- * @param diagonals Whether to fill diagonally.
+ * @param mode Determines how diagonals are handled. Can be one of:
+ * - "straightOnly": Go through vertical and horizontal neighbors only.
+ * - "includeDiagonals": Go through vertical, horizontal and diagonal neighbors.
  */
 export default function fill(
   what: Shape,
   start: Point,
   color: Color,
-  diagonals: boolean = false,
+  mode: TraversalMode = "straightOnly",
 ): Shape {
-  const newPixels = what.pixels.clone();
+  const pixels = what.pixels.clone();
   const queue: Point[] = [start];
   const visited: { [key: string]: boolean } = {};
 
@@ -26,18 +33,27 @@ export default function fill(
     if (visited[key]) continue;
     visited[key] = true;
 
-    const pixel = newPixels.get(point);
+    const pixel = pixels.get(point);
     if (!pixel) {
-      newPixels.set(point, color);
+      pixels.set(point, color);
 
-      const neighbors = getNeighbors(point, diagonals);
-      for (const neighbor of neighbors) {
-        if (newPixels.inBounds(neighbor)) {
+      // Add vertical and horizontal neighbors to queue
+      for (const neighbor of getStraightNeighbors(point)) {
+        if (pixels.inBounds(neighbor)) {
           queue.push(neighbor);
+        }
+      }
+
+      // Add diagonal neighbors to queue
+      if (mode === "includeDiagonals") {
+        for (const neighbor of getDiagonalNeighbors(point)) {
+          if (pixels.inBounds(neighbor)) {
+            queue.push(neighbor);
+          }
         }
       }
     }
   }
 
-  return shape(newPixels);
+  return shape(pixels);
 }
