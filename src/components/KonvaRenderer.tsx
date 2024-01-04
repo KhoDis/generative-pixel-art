@@ -40,7 +40,7 @@ const renderShape = (shape: Shape, key: number, scale: number): ReactNode => {
           width={scale}
           height={scale}
           fill={`rgba(${pixel.pixel.r}, ${pixel.pixel.g}, ${pixel.pixel.b}, ${
-            pixel.pixel.a ?? 1
+            (pixel.pixel.a ?? 255) / 255
           })`}
         />
       ))}

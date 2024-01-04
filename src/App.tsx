@@ -4,7 +4,7 @@ import KonvaRenderer from "./components/KonvaRenderer";
 import { Figure } from "./renderer/types";
 import { combine, move, point } from "./renderer/builders";
 import shapes from "./renderer/shapes";
-import colors from "./renderer/colors";
+import colors from "./renderer/palettes/html.ts";
 import fill from "./renderer/algorithms/fill.ts";
 import { flatten } from "./renderer/transformers/flatten.ts";
 import outline from "./renderer/algorithms/outline.ts";
