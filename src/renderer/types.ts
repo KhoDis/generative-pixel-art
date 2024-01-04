@@ -15,7 +15,7 @@ export type Point = {
  * @property r - The red component (0-255).
  * @property g - The green component (0-255).
  * @property b - The blue component (0-255).
- * @property [a] - The alpha component for opacity (0-1). Optional.
+ * @property a - The alpha component (0-255).
  */
 export type Color = {
   r: number;
@@ -66,3 +66,10 @@ export type Placement = {
  * Represents a pixel which is essentially a color.
  */
 export type Pixel = Color;
+
+/**
+ * Represents a list of palettes.
+ */
+export type Palette<T extends Record<string, string>> = {
+  [K in keyof T]: { r: number; g: number; b: number };
+};
