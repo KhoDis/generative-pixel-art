@@ -11,7 +11,7 @@ import { place, shape } from "../builders.ts";
  * @param figure - The figure to be flattened. Can be a group or a shape.
  * @returns The flattened shape.
  */
-export function flatten(figure: Figure): Shape {
+export default function flatten(figure: Figure): Shape {
   const { type } = figure;
 
   if (type === "shape") {

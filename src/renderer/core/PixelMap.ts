@@ -5,20 +5,23 @@ import { Pixel, Placement, Point } from "../types.ts";
  */
 export class PixelMap {
   private readonly _map: Map<string, Pixel>;
-  public minX: number;
-  public minY: number;
-  public maxX: number;
-  public maxY: number;
+  public bounds: {
+    minX: number;
+    minY: number;
+    maxX: number;
+    maxY: number;
+  } = {
+    minX: Infinity,
+    minY: Infinity,
+    maxX: -Infinity,
+    maxY: -Infinity,
+  };
 
   /**
    * Creates a new PixelMap.
    */
   constructor() {
     this._map = new Map();
-    this.minX = Infinity;
-    this.minY = Infinity;
-    this.maxX = -Infinity;
-    this.maxY = -Infinity;
   }
 
   /**
@@ -37,10 +40,10 @@ export class PixelMap {
     const { x, y } = point;
     this._map.set(`${x}:${y}`, pixel);
 
-    this.minX = Math.min(this.minX, x);
-    this.minY = Math.min(this.minY, y);
-    this.maxX = Math.max(this.maxX, x);
-    this.maxY = Math.max(this.maxY, y);
+    this.bounds.minX = Math.min(this.bounds.minX, x);
+    this.bounds.minY = Math.min(this.bounds.minY, y);
+    this.bounds.maxX = Math.max(this.bounds.maxX, x);
+    this.bounds.maxY = Math.max(this.bounds.maxY, y);
   }
 
   /**
@@ -82,7 +85,12 @@ export class PixelMap {
    */
   inBounds(point: Point): boolean {
     const { x, y } = point;
-    return x >= this.minX && x <= this.maxX && y >= this.minY && y <= this.maxY;
+    return (
+      x >= this.bounds.minX &&
+      x <= this.bounds.maxX &&
+      y >= this.bounds.minY &&
+      y <= this.bounds.maxY
+    );
   }
 
   /**
