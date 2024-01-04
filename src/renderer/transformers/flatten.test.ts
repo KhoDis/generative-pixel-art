@@ -1,6 +1,6 @@
 import colors from "../palettes/html.ts";
 import { combine, group, move, place, shape } from "../builders.ts";
-import { flatten } from "./flatten.ts";
+import flatten from "./flatten.ts";
 import { pixel } from "../shapes";
 
 const origin = colors.black;
