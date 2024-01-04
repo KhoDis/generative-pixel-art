@@ -15,11 +15,9 @@ describe("clean", () => {
     );
     const cleaned = clean(shape1);
 
-    expect(cleaned).toEqual(shape(
-      place(origin, 0, 0),
-      place(fill, 0, 1),
-      place(fill, 1, 1),
-    ));
+    expect(cleaned).toEqual(
+      shape(place(origin, 0, 0), place(fill, 0, 1), place(fill, 1, 1)),
+    );
   });
 
   it("should not remove non-transparent pixels", () => {
