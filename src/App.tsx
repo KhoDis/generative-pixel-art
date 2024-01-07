@@ -2,12 +2,14 @@ import "./App.css";
 
 import KonvaRenderer from "./components/KonvaRenderer";
 import { Figure } from "./renderer/types";
-import { combine, move, point } from "./renderer/builders";
-import shapes from "./renderer/shapes";
+import shapes from "./renderer/modifiers/shapes";
 import colors from "./renderer/palettes/html.ts";
-import fill from "./renderer/algorithms/fill.ts";
-import { flatten } from "./renderer/transformers/flatten.ts";
-import outline from "./renderer/algorithms/outline.ts";
+import fill from "./renderer/modifiers/painting/fill.ts";
+import flatten from "./renderer/modifiers/transformers/flatten.ts";
+import outline from "./renderer/modifiers/painting/outline.ts";
+import move from "./renderer/modifiers/builders/move.ts";
+import rotate from "./renderer/modifiers/transformers/rotate.ts";
+import { combine, point } from "./renderer/factories";
 
 const triangle = shapes.polygon(
   [point(0, 0), point(10, 0), point(0, 10)],
@@ -19,7 +21,9 @@ const filledTriangle = fill(flatten(triangle), point(3, 3), colors.blue);
 
 const outlinedTriangle = outline(filledTriangle, colors.black);
 
-const scene: Figure = combine(move(outlinedTriangle, 10, 10));
+const rotatedTriangle = rotate(outlinedTriangle, point(5, 5), "180");
+
+const scene: Figure = combine(move(rotatedTriangle, point(10, 10)));
 
 function App() {
   return (

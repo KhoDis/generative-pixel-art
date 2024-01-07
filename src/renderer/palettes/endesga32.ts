@@ -1,4 +1,4 @@
-import makePalette from "./utils/makePalette.ts";
+import makePalette from "../factories/makePalette.ts";
 
 export default makePalette({
   color1: "#be4a2f",

@@ -19,9 +19,13 @@ export class PixelMap {
 
   /**
    * Creates a new PixelMap.
+   * @param placements - The placements to initialize the map with.
    */
-  constructor() {
+  constructor(placements: Placement[] = []) {
     this._map = new Map();
+    for (const placement of placements) {
+      this.set(placement.position, placement.pixel);
+    }
   }
 
   /**
