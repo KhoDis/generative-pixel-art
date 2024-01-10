@@ -36,6 +36,20 @@ export class PixelMap {
   }
 
   /**
+   * Gets the width of the map.
+   */
+  get width(): number {
+    return this.bounds.maxX - this.bounds.minX + 1;
+  }
+
+  /**
+   * Gets the height of the map.
+   */
+  get height(): number {
+    return this.bounds.maxY - this.bounds.minY + 1;
+  }
+
+  /**
    * Sets a pixel at the given point.
    * @param point - The point where the pixel should be placed.
    * @param pixel - The pixel to be placed.
