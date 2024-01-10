@@ -1,17 +1,17 @@
 import trim from "./trim.ts";
 import { pixel } from "../shapes";
 import colors from "../../palettes/html.ts";
-import { draw, place } from "../../factories";
+import { draw, place, point } from "../../factories";
 
 const origin = colors.black;
 const fill = colors.red;
 
 describe("should correctly trim", () => {
   it("a single pixel", () => {
-    const shape1 = pixel(origin, 1, 1);
+    const shape1 = pixel(origin, point(1, 1));
     const trimmed = trim(shape1);
 
-    expect(trimmed).toEqual(pixel(origin, 0, 0));
+    expect(trimmed).toEqual(pixel(origin));
   });
   it("a square", () => {
     const shape1 = draw(
