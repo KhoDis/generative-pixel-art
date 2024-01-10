@@ -1,16 +1,18 @@
 import { Pixel, Placement, Point } from "../types.ts";
 
+export type Bounds = {
+  minX: number;
+  minY: number;
+  maxX: number;
+  maxY: number;
+};
+
 /**
  * A map of pixels. Uses a string key of the form "x:y" to store pixels.
  */
 export class PixelMap {
   private readonly _map: Map<string, Pixel>;
-  public bounds: {
-    minX: number;
-    minY: number;
-    maxX: number;
-    maxY: number;
-  } = {
+  public bounds: Bounds = {
     minX: Infinity,
     minY: Infinity,
     maxX: -Infinity,
