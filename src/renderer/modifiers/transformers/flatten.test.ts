@@ -17,11 +17,11 @@ describe("should correctly flatten", () => {
       expect(flattened).toEqual(pixel(origin));
     });
     it("a single pixel with offset", () => {
-      const shape1 = pixel(origin, 1, 1);
+      const shape1 = pixel(origin, p(1, 1));
       const grouped = move(shape1, p(1, 1));
       const flattened = flatten(grouped);
 
-      expect(flattened).toEqual(pixel(origin, 2, 2));
+      expect(flattened).toEqual(pixel(origin, p(2, 2)));
     });
     it("group of pixels", () => {
       const shape1 = draw(place(origin, 1, 1), place(fill, 2, 1));
@@ -31,20 +31,20 @@ describe("should correctly flatten", () => {
       expect(flattened).toEqual(draw(place(origin, 2, 2), place(fill, 3, 2)));
     });
     it("group with multiple shapes", () => {
-      const shape1 = pixel(origin, 1, 1);
-      const shape2 = pixel(fill, 2, 2);
+      const shape1 = pixel(origin, p(1, 1));
+      const shape2 = pixel(fill, p(2, 2));
       const grouped = combine(shape1, shape2);
       const flattened = flatten(grouped);
 
       expect(flattened).toEqual(draw(place(origin, 1, 1), place(fill, 2, 2)));
     });
     it("group with nested groups", () => {
-      const shape1 = pixel(origin, 1, 1);
+      const shape1 = pixel(origin, p(1, 1));
       const grouped = move(shape1, p(1, 1));
       const nested = move(grouped, p(1, 1));
       const flattened = flatten(nested);
 
-      expect(flattened).toEqual(pixel(origin, 3, 3));
+      expect(flattened).toEqual(pixel(origin, p(3, 3)));
     });
   });
 
@@ -73,29 +73,29 @@ describe("should correctly flatten", () => {
       expect(flattened).toEqual(shape1);
     });
     it("group with nested groups", () => {
-      const shape1 = pixel(origin, 2, 2);
+      const shape1 = pixel(origin, p(2, 2));
       const grouped = move(shape1, p(1, 1));
       const nested = combine(grouped, grouped);
       const flattened = flatten(nested);
 
-      expect(flattened).toEqual(pixel(origin, 3, 3));
+      expect(flattened).toEqual(pixel(origin, p(3, 3)));
     });
   });
 
   describe("hard", () => {
     it("group with multiple pixels on same position", () => {
-      const shape1 = pixel(origin, 1, 1);
-      const shape2 = pixel(fill, 2, 2);
-      const shape11 = pixel(origin, 1, 1);
-      const shape22 = pixel(fill, 2, 2);
+      const shape1 = pixel(origin, p(1, 1));
+      const shape2 = pixel(fill, p(2, 2));
+      const shape11 = pixel(origin, p(1, 1));
+      const shape22 = pixel(fill, p(2, 2));
       const grouped = combine(shape1, shape2, shape11, shape22);
       const flattened = flatten(grouped);
 
       expect(flattened).toEqual(draw(place(origin, 1, 1), place(fill, 2, 2)));
     });
     it("group with nested groups", () => {
-      const shape1 = pixel(origin, 1, 1);
-      const shape2 = pixel(fill, 2, 2);
+      const shape1 = pixel(origin, p(1, 1));
+      const shape2 = pixel(fill, p(2, 2));
 
       const nested1 = group([shape1, shape1], p(1, 1));
       const nested2 = group([shape2, shape2], p(2, 2));
@@ -106,8 +106,8 @@ describe("should correctly flatten", () => {
       expect(flattened).toEqual(draw(place(origin, 2, 2), place(fill, 4, 4)));
     });
     it("move flattened group back and forth", () => {
-      const shape1 = pixel(origin, 1, 1);
-      const shape2 = pixel(fill, 2, 2);
+      const shape1 = pixel(origin, p(1, 1));
+      const shape2 = pixel(fill, p(2, 2));
 
       const grouped = combine(shape1, shape2);
       const flattened = flatten(grouped);
