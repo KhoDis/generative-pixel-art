@@ -79,13 +79,45 @@ export class PixelMap {
   /**
    * Removes the pixel at the given point.
    *
-   * Note that the min and max coordinates are not updated, because this is an expensive operation.
+   * Note that removing is an expensive operation, since it has to update the bounds.
    * @param point - The point of the pixel to remove.
    * @returns True if the pixel is found and removed; otherwise, false.
    */
   remove(point: Point): boolean {
     const { x, y } = point;
-    return this._map.delete(`${x}:${y}`);
+    if (!this._map.delete(`${x}:${y}`)) {
+      return false;
+    }
+
+    if (x === this.bounds.minX) {
+      this.bounds.minX = Infinity;
+      for (const [key] of this._map) {
+        const [x] = key.split(":").map(Number);
+        this.bounds.minX = Math.min(this.bounds.minX, x);
+      }
+    }
+    if (x === this.bounds.maxX) {
+      this.bounds.maxX = -Infinity;
+      for (const [key] of this._map) {
+        const [x] = key.split(":").map(Number);
+        this.bounds.maxX = Math.max(this.bounds.maxX, x);
+      }
+    }
+    if (y === this.bounds.minY) {
+      this.bounds.minY = Infinity;
+      for (const [key] of this._map) {
+        const [, y] = key.split(":").map(Number);
+        this.bounds.minY = Math.min(this.bounds.minY, y);
+      }
+    }
+    if (y === this.bounds.maxY) {
+      this.bounds.maxY = -Infinity;
+      for (const [key] of this._map) {
+        const [, y] = key.split(":").map(Number);
+        this.bounds.maxY = Math.max(this.bounds.maxY, y);
+      }
+    }
+    return true;
   }
 
   /**
