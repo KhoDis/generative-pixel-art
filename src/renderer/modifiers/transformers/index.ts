@@ -1,15 +1,15 @@
 import flatten from "./flatten";
 import flip from "./flip";
 import rotate from "./rotate";
-import shift from "./shift";
+import translate from "./translate.ts";
 import trim from "./trim";
 
-export { flatten, flip, rotate, shift, trim };
+export { flatten, flip, rotate, translate, trim };
 
 export default {
   flatten,
   flip,
   rotate,
-  shift,
+  translate,
   trim,
 };
