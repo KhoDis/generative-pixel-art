@@ -2,6 +2,7 @@ import { PixelMap } from "./PixelMap.ts";
 
 describe("PixelMap", () => {
   let pixelMap: PixelMap;
+  const fill = { r: 0, g: 0, b: 0 };
 
   beforeEach(() => {
     pixelMap = new PixelMap();
@@ -72,6 +73,15 @@ describe("PixelMap", () => {
       expect(json).toEqual(
         '[{"position":{"x":1,"y":2},"pixel":{"r":0,"g":0,"b":0}}]',
       );
+    });
+  });
+
+  describe("width and height", () => {
+    it("should return the width and height of the pixel map", () => {
+      pixelMap.set({ x: 1, y: 2 }, fill);
+      pixelMap.set({ x: 3, y: 4 }, fill);
+      expect(pixelMap.width).toBe(3);
+      expect(pixelMap.height).toBe(3);
     });
   });
 });
