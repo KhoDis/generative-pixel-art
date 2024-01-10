@@ -67,6 +67,18 @@ export type Placement = {
  */
 export type Pixel = Color;
 
+export type Pivot =
+  | "top-left"
+  | "top"
+  | "top-right"
+  | "left"
+  | "center"
+  | "right"
+  | "bottom-left"
+  | "bottom"
+  | "bottom-right"
+  | Point;
+
 /**
  * Represents a list of palettes.
  */
