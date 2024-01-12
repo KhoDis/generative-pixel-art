@@ -7,8 +7,8 @@ import place from "../../factories/place.ts";
  * @returns The placed pixel as a shape.
  */
 export default function pixel(
-  pixel: Pixel,
+  color: Pixel,
   point: Point = { x: 0, y: 0 },
 ): Shape {
-  return draw(place(pixel, point.x, point.y));
+  return draw(place(color, point.x, point.y));
 }
