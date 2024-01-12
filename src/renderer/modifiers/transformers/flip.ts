@@ -7,6 +7,8 @@ export type FlipMode = "x" | "y" | "xy";
  * Flips a shape along a specified axis.
  *
  * Returns a new group with the flipped shape.
+ *
+ * Flip `xy` is equivalent to rotate `180`.
  * @param what - The shape to flip.
  * @param axis - The axis to flip the shape along.
  * @param [anchor={ x: 0, y: 0 }] - The center of the flip.
