@@ -1,4 +1,5 @@
 import { PixelMap } from "./core/PixelMap.ts";
+import { GroupInstruction, ShapeInstruction } from "./instructions";
 
 /**
  * Represents a point in a 2D space.
@@ -51,6 +52,13 @@ export type Shape = {
   type: "shape";
   pixels: PixelMap;
 };
+
+/**
+ * Represents an instruction POJO.
+ */
+export type FigureInstruction = ShapeInstruction | GroupInstruction;
+
+export type Instruction = FigureInstruction;
 
 /**
  * Represents a placement of a pixel at a certain position.
