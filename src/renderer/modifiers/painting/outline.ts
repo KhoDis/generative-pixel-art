@@ -3,7 +3,7 @@ import {
   getDiagonalNeighbors,
   getStraightNeighbors,
 } from "../../utils/getNeighbors.ts";
-import { draw } from "../../factories";
+import { draw } from "../primitives";
 
 export type OutlineMode = "none" | "all" | "corners";
 
