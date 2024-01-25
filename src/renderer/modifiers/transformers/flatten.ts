@@ -1,6 +1,6 @@
 import { Figure, Placement, Shape } from "../../types.ts";
 import { place } from "../../factories";
-import { shape } from "../builders";
+import shape from "../../factories/shape.ts";
 
 /**
  * Recursively flattens nested figures into a single shape.

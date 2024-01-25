@@ -1,7 +1,7 @@
 import { Shape, Point, Pivot, Placement } from "../../types.ts";
 import { place } from "../../factories";
-import { shape } from "../builders";
 import { Bounds } from "../../core/PixelMap.ts";
+import shape from "../../factories/shape.ts";
 
 function center(a: number, b: number): number {
   return Math.ceil((a + b) / 2);

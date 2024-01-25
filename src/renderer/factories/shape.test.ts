@@ -1,5 +1,5 @@
-import { Placement } from "../../types.ts";
-import { PixelMap } from "../../core/PixelMap.ts";
+import { Placement } from "../types.ts";
+import { PixelMap } from "../core/PixelMap.ts";
 import shape from "./shape.ts";
 
 describe("shape", () => {

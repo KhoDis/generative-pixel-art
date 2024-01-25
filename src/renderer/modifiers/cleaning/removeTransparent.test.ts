@@ -1,6 +1,7 @@
 import colors from "../../palettes/html.ts";
 import removeTransparent from "./removeTransparent.ts";
-import { draw, place } from "../../factories";
+import { place } from "../../factories";
+import { draw } from "../primitives";
 
 const origin = colors.black;
 const fill = colors.red;

@@ -1,5 +1,5 @@
 import { Pixel, Point, Shape } from "../../types.ts";
-import draw from "../../factories/draw.ts";
+import draw from "./draw.ts";
 import place from "../../factories/place.ts";
 
 /**

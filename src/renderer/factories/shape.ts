@@ -1,5 +1,5 @@
 import { Placement, Shape } from "../types.ts";
-import { shape } from "../modifiers/builders";
+import { PixelMap } from "../core/PixelMap.ts";
 
 /**
  * Creates a shape from a set of placements.
@@ -8,6 +8,6 @@ import { shape } from "../modifiers/builders";
  * @param placements - The placements to form the shape.
  * @returns The created shape.
  */
-export default function draw(...placements: Placement[]): Shape {
-  return shape(placements);
+export default function shape(placements: Placement[]): Shape {
+  return { type: "shape", pixels: new PixelMap(placements) };
 }
