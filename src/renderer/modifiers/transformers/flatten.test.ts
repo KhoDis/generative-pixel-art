@@ -1,8 +1,8 @@
 import colors from "../../palettes/html.ts";
 import flatten from "./flatten.ts";
-import { pixel } from "../primitives";
-import { move } from "../builders";
-import { combine, draw, place, point as p } from "../../factories";
+import { draw, pixel } from "../primitives";
+import { combine, move } from "../builders";
+import { place, point as p } from "../../factories";
 import group from "../../factories/group.ts";
 
 const origin = colors.black;
