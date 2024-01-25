@@ -1,6 +1,6 @@
 import { Color, Pivot, Point, Shape } from "../../types.ts";
-import { shape } from "../builders";
 import { place } from "../../factories";
+import shape from "../../factories/shape.ts";
 
 /**
  * Creates a rectangle between two points (both inclusive).
@@ -8,7 +8,7 @@ import { place } from "../../factories";
  * Points can be in any order.
  * @returns The rectangle as a shape.
  */
-export function fromPoints(start: Point, end: Point, color: Color): Shape {
+export function rectFromPoints(start: Point, end: Point, color: Color): Shape {
   const pixels = [];
 
   // consider that start can be greater than end
@@ -32,7 +32,7 @@ export function fromPoints(start: Point, end: Point, color: Color): Shape {
  * The pivot is the point around which the rectangle is centered.
  * @returns The rectangle as a shape.
  */
-export function fromDimensions(
+export function rectFromDimensions(
   width: number,
   height: number,
   pivot: Pivot,
@@ -82,18 +82,7 @@ export function fromDimensions(
   return shape(pixels);
 }
 
-/**
- * Creates a rectangle from a size.
- *
- * The pivot is the point around which the rectangle is centered.
- * @returns The rectangle as a shape.
- */
-export function fromSize(size: Point, pivot: Pivot, color: Color): Shape {
-  return fromDimensions(size.x, size.y, pivot, color);
-}
-
 export default {
-  fromPoints,
-  fromDimensions,
-  fromSize,
+  fromPoints: rectFromPoints,
+  fromDimensions: rectFromDimensions,
 };

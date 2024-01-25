@@ -1,5 +1,5 @@
 import { Placement, Point, Shape } from "../../types.ts";
-import { shape } from "../builders";
+import shape from "../../factories/shape.ts";
 
 export type FlipMode = "x" | "y" | "xy";
 

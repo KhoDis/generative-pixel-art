@@ -3,9 +3,9 @@ import {
   getStraightNeighbors,
   getDiagonalNeighbors,
 } from "../../utils/getNeighbors.ts";
-import { draw } from "../../factories";
+import { draw } from "../primitives";
 
-type TraversalMode = "straightOnly" | "includeDiagonals";
+export type TraversalMode = "straightOnly" | "includeDiagonals";
 
 /**
  * Fills a shape with a color.

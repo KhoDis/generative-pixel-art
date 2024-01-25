@@ -1,6 +1,6 @@
 import { Color, Shape } from "../../types.ts";
-import { shape } from "../builders";
 import { place } from "../../factories";
+import shape from "../../factories/shape.ts";
 
 /**
  * Creates a circle.

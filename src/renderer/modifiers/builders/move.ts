@@ -1,6 +1,5 @@
 import { Figure, Group, Point } from "../../types.ts";
-
-import group from "./group.ts";
+import group from "../../factories/group.ts";
 
 /**
  * Moves a figure to a specified position.

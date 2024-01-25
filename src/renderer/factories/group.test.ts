@@ -1,18 +1,19 @@
 import { Figure } from "../types.ts";
 import { PixelMap } from "../core/PixelMap.ts";
-import combine from "./combine.ts";
+import group from "./group.ts";
+import { point } from "./index.ts";
 
-describe("combine", () => {
-  it("should combine multiple figures into a group", () => {
+describe("group", () => {
+  it("should group figures at a specified position", () => {
     const figures: Figure[] = [
       { type: "shape", pixels: new PixelMap() },
       { type: "group", figures: [], anchor: { x: 0, y: 0 } },
     ];
-    const result = combine(...figures);
+    const result = group(figures, point(1, 2));
     expect(result).toEqual({
       type: "group",
       figures,
-      anchor: { x: 0, y: 0 },
+      anchor: { x: 1, y: 2 },
     });
   });
 });

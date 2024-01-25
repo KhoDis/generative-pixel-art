@@ -1,4 +1,4 @@
-import { Figure, Group, Point } from "../../types.ts";
+import { Figure, Group, Point } from "../types.ts";
 
 /**
  * Creates a group of figures at a specified position.

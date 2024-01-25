@@ -1,6 +1,6 @@
 import { Placement, Shape } from "../../types.ts";
 import { place } from "../../factories";
-import shape from "../builders/shape.ts";
+import shape from "../../factories/shape.ts";
 
 /**
  * Trims a shape by removing empty space.

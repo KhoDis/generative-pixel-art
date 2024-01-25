@@ -1,7 +1,7 @@
 import trim from "./trim.ts";
-import { pixel } from "../shapes";
+import { draw, pixel } from "../primitives";
 import colors from "../../palettes/html.ts";
-import { draw, place, point } from "../../factories";
+import { place, point } from "../../factories";
 
 const origin = colors.black;
 const fill = colors.red;

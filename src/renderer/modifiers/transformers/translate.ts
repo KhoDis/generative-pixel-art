@@ -1,6 +1,6 @@
 import { Placement, Point, Shape } from "../../types.ts";
 import { place } from "../../factories";
-import { shape } from "../builders";
+import shape from "../../factories/shape.ts";
 
 /**
  * Translates a shape to a specified position.
@@ -10,7 +10,10 @@ import { shape } from "../builders";
  * @param [offset={ x: 0, y: 0 }] - The position to move the shape to.
  * @returns The shifted shape.
  */
-export default function translate(what: Shape, offset: Point): Shape {
+export default function translate(
+  what: Shape,
+  offset: Point = { x: 0, y: 0 },
+): Shape {
   const pixels: Placement[] = [];
 
   for (const { position, pixel } of what.pixels) {

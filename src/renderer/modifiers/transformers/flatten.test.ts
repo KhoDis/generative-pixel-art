@@ -1,8 +1,9 @@
 import colors from "../../palettes/html.ts";
 import flatten from "./flatten.ts";
-import { pixel } from "../shapes";
-import { group, move } from "../builders";
+import { pixel } from "../primitives";
+import { move } from "../builders";
 import { combine, draw, place, point as p } from "../../factories";
+import group from "../../factories/group.ts";
 
 const origin = colors.black;
 const fill = colors.red;
@@ -30,7 +31,7 @@ describe("should correctly flatten", () => {
 
       expect(flattened).toEqual(draw(place(origin, 2, 2), place(fill, 3, 2)));
     });
-    it("group with multiple shapes", () => {
+    it("group with multiple primitives", () => {
       const shape1 = pixel(origin, p(1, 1));
       const shape2 = pixel(fill, p(2, 2));
       const grouped = combine(shape1, shape2);

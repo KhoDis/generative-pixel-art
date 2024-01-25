@@ -1,6 +1,6 @@
 import { Placement, Point, Shape } from "../../types.ts";
 import { place } from "../../factories";
-import shape from "../builders/shape.ts";
+import shape from "../../factories/shape.ts";
 
 export type RotationMode = "90cw" | "90ccw" | "180" | "none";
 

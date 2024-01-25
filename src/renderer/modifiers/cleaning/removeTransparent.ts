@@ -1,5 +1,5 @@
 import { Placement, Shape } from "../../types.ts";
-import { shape } from "../builders";
+import shape from "../../factories/shape.ts";
 
 /**
  * Removes all fully transparent pixels from a shape.

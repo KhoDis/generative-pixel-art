@@ -1,8 +1,8 @@
 import place from "./place.ts";
 import point from "./point.ts";
-import combine from "./combine.ts";
-import draw from "./draw.ts";
+import shape from "./shape.ts";
+import group from "./group.ts";
 
-export { place, point, combine, draw };
+export { place, point, shape, group };
 
-export default { place, point, combine, draw };
+export default { place, point, shape, group };
