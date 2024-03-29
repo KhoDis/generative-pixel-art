@@ -1,7 +1,7 @@
 import { Color, Placement, Point, Render } from "../../types.ts";
 import place from "../place.ts";
 import { Primitive } from "./index.ts";
-import Draw from "./draw.ts";
+import render from "../render.ts";
 
 export type LineParams = {
   start: Point;
@@ -42,7 +42,7 @@ export default class Line implements Primitive {
       pixels.push(place(color, x, y));
     }
 
-    return new Draw(...pixels).render();
+    return render(pixels);
   }
 
   toInstruction(): LineInstruction {

@@ -1,6 +1,6 @@
 import { Builder } from "./index.ts";
 import { Instruction, Placement, Render, Shape } from "../../types.ts";
-import { Draw } from "../primitives";
+import render from "../render.ts";
 
 export type CombineParams = Record<string, never>;
 
@@ -36,6 +36,6 @@ export default class Combine implements Builder {
     for (const shape of this.shapes) {
       pixels.push(...shape.render().pixels);
     }
-    return new Draw(...pixels).render();
+    return render(pixels);
   }
 }

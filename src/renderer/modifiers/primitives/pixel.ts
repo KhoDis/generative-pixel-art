@@ -1,7 +1,7 @@
 import { Color, Point, Render } from "../../types.ts";
 import place from "../place.ts";
 import { Primitive } from "./index.ts";
-import Draw from "./draw.ts";
+import render from "../render.ts";
 
 export type PixelParams = {
   color: Color;
@@ -26,7 +26,7 @@ export default class Pixel implements Primitive {
 
   render(): Render {
     const { color, point } = this.params;
-    return new Draw(place(color, point.x, point.y)).render();
+    return render([place(color, point.x, point.y)]);
   }
 
   toInstruction(): PixelInstruction {

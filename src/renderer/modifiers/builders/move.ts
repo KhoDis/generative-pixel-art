@@ -1,6 +1,6 @@
 import { Instruction, Point, Render, Shape } from "../../types.ts";
-import { Draw } from "../primitives";
 import { Builder } from "./index.ts";
+import render from "../render.ts";
 
 export type MoveParams = {
   offset: Point;
@@ -30,7 +30,7 @@ export default class Move implements Builder {
       position: { x: position.x + x, y: position.y + y },
       pixel,
     }));
-    return new Draw(...pixels).render();
+    return render(pixels);
   }
 
   toInstruction(): MoveInstruction {
