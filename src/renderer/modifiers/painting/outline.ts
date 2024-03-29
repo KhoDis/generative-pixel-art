@@ -4,7 +4,7 @@ import {
   getStraightNeighbors,
 } from "../../utils/getNeighbors.ts";
 import { Painting } from "./index.ts";
-import { Draw } from "../primitives";
+import render from "../render.ts";
 
 export type OutlineMode = "none" | "all" | "corners";
 
@@ -80,7 +80,7 @@ export default class Outline extends Painting {
       }
     }
 
-    return new Draw(...pixels, ...outlinePixels).render();
+    return render([...pixels, ...outlinePixels]);
   }
 
   toInstruction(): OutlineInstruction {

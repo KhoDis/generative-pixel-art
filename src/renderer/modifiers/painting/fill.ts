@@ -11,7 +11,7 @@ import {
   getStraightNeighbors,
 } from "../../utils/getNeighbors.ts";
 import { Painting } from "./index.ts";
-import { Draw } from "../primitives";
+import render from "../render.ts";
 
 export type TraversalMode = "straightOnly" | "includeDiagonals";
 
@@ -80,7 +80,7 @@ export default class Fill extends Painting {
       }
     }
 
-    return new Draw(...filledPixels, ...oldPixels).render();
+    return render([...filledPixels, ...oldPixels]);
   }
 
   toInstruction(): FillInstruction {
