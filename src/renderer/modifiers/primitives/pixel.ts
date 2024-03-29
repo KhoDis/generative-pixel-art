@@ -1,14 +1,42 @@
-import { Pixel, Point, Shape } from "../../types.ts";
-import draw from "./draw.ts";
+import { Color, Point, Render } from "../../types.ts";
 import place from "../../factories/place.ts";
+import { Primitive } from "./index.ts";
+import Draw from "./draw.ts";
 
-/**
- * Creates a pixel shape.
- * @returns The placed pixel as a shape.
- */
-export default function pixel(
-  color: Pixel,
-  point: Point = { x: 0, y: 0 },
-): Shape {
-  return draw(place(color, point.x, point.y));
+export type PixelParams = {
+  color: Color;
+  point: Point;
+};
+
+export type PixelInstruction = {
+  type: {
+    category: "primitive";
+    modifier: "pixel";
+  };
+  params: PixelParams;
+  children: [];
+};
+
+export default class Pixel implements Primitive {
+  params: PixelParams;
+
+  constructor(color: Color, point: Point = { x: 0, y: 0 }) {
+    this.params = { color, point };
+  }
+
+  render(): Render {
+    const { color, point } = this.params;
+    return new Draw(place(color, point.x, point.y)).render();
+  }
+
+  toInstruction(): PixelInstruction {
+    return {
+      type: {
+        category: "primitive",
+        modifier: "pixel",
+      },
+      params: this.params,
+      children: [],
+    };
+  }
 }

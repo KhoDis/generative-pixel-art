@@ -1,13 +1,39 @@
-import { Placement, Shape } from "../../types.ts";
+import { Placement, Render } from "../../types.ts";
 import shape from "../../factories/shape.ts";
+import { Primitive } from "./index.ts";
 
-/**
- * Creates a shape from a set of placements.
- *
- * If multiple placements are on the same position, the last one will be used.
- * @param placements - The placements to form the shape.
- * @returns The created shape.
- */
-export default function draw(...placements: Placement[]): Shape {
-  return shape(placements);
+export type DrawParams = {
+  placements: Placement[];
+};
+
+export type DrawInstruction = {
+  type: {
+    category: "primitive";
+    modifier: "draw";
+  };
+  params: DrawParams;
+  children: [];
+};
+
+export default class Draw implements Primitive {
+  params: DrawParams;
+
+  constructor(...placements: Placement[]) {
+    this.params = { placements };
+  }
+
+  render(): Render {
+    return shape(this.params.placements);
+  }
+
+  toInstruction(): DrawInstruction {
+    return {
+      type: {
+        category: "primitive",
+        modifier: "draw",
+      },
+      params: this.params,
+      children: [],
+    };
+  }
 }

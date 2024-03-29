@@ -1,26 +1,58 @@
-import { Color, Point, Shape } from "../../types.ts";
-import { place } from "../../factories";
-import shape from "../../factories/shape.ts";
+import { Color, Placement, Point, Render } from "../../types.ts";
+import place from "../../factories/place.ts";
+import { Primitive } from "./index.ts";
+import Draw from "./draw.ts";
 
-/**
- * Creates a line.
- * @returns The line as a shape.
- */
-export default function line(start: Point, end: Point, color: Color): Shape {
-  const pixels = [];
+export type LineParams = {
+  start: Point;
+  end: Point;
+  color: Color;
+};
 
-  const dx = end.x - start.x;
-  const dy = end.y - start.y;
-  const steps = Math.max(Math.abs(dx), Math.abs(dy));
+export type LineInstruction = {
+  type: {
+    category: "primitive";
+    modifier: "line";
+  };
+  params: LineParams;
+  children: [];
+};
 
-  const xStep = dx / steps;
-  const yStep = dy / steps;
+export default class Line implements Primitive {
+  params: LineParams;
 
-  for (let i = 0; i <= steps; i++) {
-    const x = Math.round(start.x + xStep * i);
-    const y = Math.round(start.y + yStep * i);
-    pixels.push(place(color, x, y));
+  constructor(start: Point, end: Point, color: Color) {
+    this.params = { start, end, color };
   }
 
-  return shape(pixels);
+  render(): Render {
+    const { start, end, color } = this.params;
+    const pixels: Placement[] = [];
+
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    const steps = Math.max(Math.abs(dx), Math.abs(dy));
+
+    const xStep = dx / steps;
+    const yStep = dy / steps;
+
+    for (let i = 0; i <= steps; i++) {
+      const x = Math.round(start.x + xStep * i);
+      const y = Math.round(start.y + yStep * i);
+      pixels.push(place(color, x, y));
+    }
+
+    return new Draw(...pixels).render();
+  }
+
+  toInstruction(): LineInstruction {
+    return {
+      type: {
+        category: "primitive",
+        modifier: "line",
+      },
+      params: this.params,
+      children: [],
+    };
+  }
 }

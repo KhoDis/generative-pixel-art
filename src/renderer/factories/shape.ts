@@ -1,4 +1,4 @@
-import { Placement, Shape } from "../types.ts";
+import { Placement, Render } from "../types.ts";
 import { PixelMap } from "../core/PixelMap.ts";
 
 /**
@@ -8,6 +8,6 @@ import { PixelMap } from "../core/PixelMap.ts";
  * @param placements - The placements to form the shape.
  * @returns The created shape.
  */
-export default function shape(placements: Placement[]): Shape {
-  return { type: "shape", pixels: new PixelMap(placements) };
+export default function shape(placements: Placement[]): Render {
+  return { pixels: new PixelMap(placements) };
 }
