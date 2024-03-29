@@ -1,6 +1,6 @@
 import { Instruction, Placement, Point, Render, Shape } from "../../types.ts";
 import { Transformer } from "./index.ts";
-import { place, shape } from "../../factories";
+import { place, render } from "../index.ts";
 
 export type TranslateParams = {
   offset: Point;
@@ -36,7 +36,7 @@ export default class Translate extends Transformer {
       pixels.push(place(pixel, newX, newY));
     }
 
-    return shape(pixels);
+    return render(pixels);
   }
 
   toInstruction(): TranslateInstruction {

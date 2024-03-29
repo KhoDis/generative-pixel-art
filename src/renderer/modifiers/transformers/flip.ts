@@ -1,6 +1,6 @@
 import { Placement, Point, Render, Shape } from "../../types.ts";
 import { Transformer } from "./index.ts";
-import { shape } from "../../factories";
+import { render } from "../index.ts";
 
 export type FlipMode = "x" | "y" | "xy";
 
@@ -57,7 +57,7 @@ export default class Flip extends Transformer {
       }
     }
 
-    return shape(pixels);
+    return render(pixels);
   }
 
   toInstruction(): FlipInstruction {

@@ -8,7 +8,7 @@ import {
 } from "../../types.ts";
 import { Transformer } from "./index.ts";
 import { Bounds } from "../../core/PixelMap.ts";
-import { place, shape } from "../../factories";
+import { place, render } from "../index.ts";
 
 function center(a: number, b: number): number {
   return Math.ceil((a + b) / 2);
@@ -74,7 +74,7 @@ export default class Reset extends Transformer {
       pixels.push(place(pixel, newX, newY));
     }
 
-    return shape(pixels);
+    return render(pixels);
   }
 
   toInstruction(): ResetInstruction {

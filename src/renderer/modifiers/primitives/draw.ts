@@ -1,5 +1,5 @@
 import { Placement, Render } from "../../types.ts";
-import shape from "../../factories/shape.ts";
+import render from "../render.ts";
 import { Primitive } from "./index.ts";
 
 export type DrawParams = {
@@ -23,7 +23,7 @@ export default class Draw implements Primitive {
   }
 
   render(): Render {
-    return shape(this.params.placements);
+    return render(this.params.placements);
   }
 
   toInstruction(): DrawInstruction {
