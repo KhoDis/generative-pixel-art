@@ -1,7 +1,14 @@
-import { Shape, Point, Pivot, Placement } from "../../types.ts";
-import { place } from "../../factories";
+import {
+  Instruction,
+  Pivot,
+  Placement,
+  Point,
+  Render,
+  Shape,
+} from "../../types.ts";
+import { Transformer } from "./index.ts";
 import { Bounds } from "../../core/PixelMap.ts";
-import shape from "../../factories/shape.ts";
+import { place, shape } from "../../factories";
 
 function center(a: number, b: number): number {
   return Math.ceil((a + b) / 2);
@@ -34,25 +41,50 @@ function getPivotPoint(pivot: Pivot, bounds: Bounds): Point {
       return pivot;
   }
 }
+export type ResetParams = {
+  pivot: Pivot;
+};
 
-/**
- * Resets the shape so that its pivot point is at the origin.
- *
- * The pivot is the point around which the shape is centered.
- *
- * `pivot(shape, point(1, 1))` is equivalent to `translate(shape, -1, -1)`.
- */
-export default function reset(what: Shape, pivot: Pivot): Shape {
-  const pixels: Placement[] = [];
-  const bounds = what.pixels.bounds;
+export type ResetInstruction = {
+  type: {
+    category: "transformer";
+    modifier: "reset";
+  };
+  params: ResetParams;
+  children: [Instruction];
+};
 
-  const pivotPoint = getPivotPoint(pivot, bounds);
+export default class Reset extends Transformer {
+  params: ResetParams;
 
-  for (const { position, pixel } of what.pixels) {
-    const newX = position.x - pivotPoint.x;
-    const newY = position.y - pivotPoint.y;
-    pixels.push(place(pixel, newX, newY));
+  constructor({ shape, pivot }: ResetParams & { shape: Shape }) {
+    super(shape);
+    this.params = { pivot };
   }
 
-  return shape(pixels);
+  render(): Render {
+    const pixels: Placement[] = [];
+    const bounds = this.shape.render().pixels.bounds;
+
+    const pivotPoint = getPivotPoint(this.params.pivot, bounds);
+
+    for (const { position, pixel } of this.shape.render().pixels) {
+      const newX = position.x - pivotPoint.x;
+      const newY = position.y - pivotPoint.y;
+      pixels.push(place(pixel, newX, newY));
+    }
+
+    return shape(pixels);
+  }
+
+  toInstruction(): ResetInstruction {
+    return {
+      type: {
+        category: "transformer",
+        modifier: "reset",
+      },
+      params: this.params,
+      children: [this.shape.toInstruction()],
+    };
+  }
 }

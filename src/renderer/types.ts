@@ -1,5 +1,9 @@
 import { PixelMap } from "./core/PixelMap.ts";
-import { GroupInstruction, ShapeInstruction } from "./instructions";
+import { PrimitiveInstruction } from "./modifiers/primitives";
+import { PaintingInstruction } from "./modifiers/painting";
+import { CleaningInstruction } from "./modifiers/cleaning";
+import { BuilderInstruction } from "./modifiers/builders";
+import { TransformerInstruction } from "./modifiers/transformers";
 
 /**
  * Represents a point in a 2D space.
@@ -25,40 +29,28 @@ export type Color = {
   a?: number;
 };
 
-/**
- * Represents a figure which can be either a Group or a Shape.
- */
-export type Figure = Group | Shape;
-
-/**
- * Represents a group of figures.
- * @property type - The type of the figure ("group").
- * @property groups - The figures in the group.
- * @property anchor - The anchor point of the group.
- */
-export type Group = {
-  type: "group";
-  figures: Figure[];
-  anchor: Point;
-};
-
-/**
- * Represents a shape.
- * @property type - The type of the figure ("shape").
- * @property pixels - The pixels that make up the shape.
- * @see PixelMap
- */
-export type Shape = {
-  type: "shape";
+export type Render = {
   pixels: PixelMap;
 };
 
-/**
- * Represents an instruction POJO.
- */
-export type FigureInstruction = ShapeInstruction | GroupInstruction;
+export type Instruction =
+  | PrimitiveInstruction
+  | PaintingInstruction
+  | CleaningInstruction
+  | BuilderInstruction
+  | TransformerInstruction;
 
-export type Instruction = FigureInstruction;
+export type InstructionState = {
+  id: InstructionId;
+  instruction: Instruction;
+};
+
+export type InstructionId = string;
+
+export interface Shape {
+  toInstruction(): Instruction;
+  render(): Render;
+}
 
 /**
  * Represents a placement of a pixel at a certain position.
@@ -67,13 +59,8 @@ export type Instruction = FigureInstruction;
  */
 export type Placement = {
   position: Point;
-  pixel: Pixel;
+  pixel: Color;
 };
-
-/**
- * Represents a pixel which is essentially a color.
- */
-export type Pixel = Color;
 
 export type Pivot =
   | "top-left"

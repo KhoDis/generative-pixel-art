@@ -1,51 +1,75 @@
-import { Placement, Point, Shape } from "../../types.ts";
-import { place } from "../../factories";
-import shape from "../../factories/shape.ts";
+import { Instruction, Placement, Point, Render, Shape } from "../../types.ts";
+import { Transformer } from "./index.ts";
+import { place, shape } from "../../factories";
 
 export type RotationMode = "90cw" | "90ccw" | "180" | "none";
 
-/**
- * Rotates a shape around an anchor point (center of rotation).
- * @param what - The shape to rotate.
- * @param anchor - The center of rotation.
- * @param [mode = "none"] - The rotation mode. Can be one of:
- * - "90cw" - Rotates 90 degrees clockwise.
- * - "90ccw" - Rotates 90 degrees counter-clockwise.
- * - "180" - Rotates 180 degrees.
- * - "none" - Does not rotate.
- * @returns The rotated shape.
- */
-export default function rotate(
-  what: Shape,
-  anchor: Point,
-  mode: RotationMode = "none",
-): Shape {
-  const placements: Placement[] = [];
+export type RotateParams = {
+  anchor: Point;
+  mode: RotationMode;
+};
 
-  // Yes, this is a lot of code duplication, but it's the fastest way to do it.
-  if (mode === "90cw") {
-    for (const { position, pixel } of what.pixels) {
-      const newX = anchor.y + position.y - anchor.x;
-      const newY = anchor.x + anchor.y - position.x;
-      placements.push(place(pixel, newX, newY));
-    }
-  } else if (mode === "90ccw") {
-    for (const { position, pixel } of what.pixels) {
-      const newX = anchor.x + anchor.y - position.y;
-      const newY = anchor.y + position.x - anchor.x;
-      placements.push(place(pixel, newX, newY));
-    }
-  } else if (mode === "180") {
-    for (const { position, pixel } of what.pixels) {
-      const newX = 2 * anchor.x - position.x;
-      const newY = 2 * anchor.y - position.y;
-      placements.push(place(pixel, newX, newY));
-    }
-  } else if (mode === "none") {
-    for (const { position, pixel } of what.pixels) {
-      placements.push(place(pixel, position.x, position.y));
-    }
+export type RotateInstruction = {
+  type: {
+    category: "transformer";
+    modifier: "rotate";
+  };
+  params: RotateParams;
+  children: [Instruction];
+};
+
+export default class Rotate extends Transformer {
+  params: RotateParams;
+
+  constructor({
+    shape,
+    anchor,
+    mode = "none",
+  }: RotateParams & { shape: Shape }) {
+    super(shape);
+    this.params = { anchor, mode };
   }
 
-  return shape(placements);
+  render(): Render {
+    const placements: Placement[] = [];
+    const { anchor, mode } = this.params;
+
+    // Yes, this is a lot of code duplication, but it's the fastest way to do it.
+    if (mode === "90cw") {
+      for (const { position, pixel } of this.shape.render().pixels) {
+        const newX = anchor.y + position.y - anchor.x;
+        const newY = anchor.x + anchor.y - position.x;
+        placements.push(place(pixel, newX, newY));
+      }
+    } else if (mode === "90ccw") {
+      for (const { position, pixel } of this.shape.render().pixels) {
+        const newX = anchor.x + anchor.y - position.y;
+        const newY = anchor.y + position.x - anchor.x;
+        placements.push(place(pixel, newX, newY));
+      }
+    } else if (mode === "180") {
+      for (const { position, pixel } of this.shape.render().pixels) {
+        const newX = 2 * anchor.x - position.x;
+        const newY = 2 * anchor.y - position.y;
+        placements.push(place(pixel, newX, newY));
+      }
+    } else if (mode === "none") {
+      for (const { position, pixel } of this.shape.render().pixels) {
+        placements.push(place(pixel, position.x, position.y));
+      }
+    }
+
+    return shape(placements);
+  }
+
+  toInstruction(): RotateInstruction {
+    return {
+      type: {
+        category: "transformer",
+        modifier: "rotate",
+      },
+      params: this.params,
+      children: [this.shape.toInstruction()],
+    };
+  }
 }

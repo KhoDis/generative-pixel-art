@@ -1,26 +1,28 @@
-import circle from "./circle.ts";
-import draw from "./draw.ts";
-import line from "./line.ts";
-import pixel from "./pixel.ts";
-import polygon from "./polygon.ts";
-import rect from "./rect.ts";
-import { ShapeClass } from "../index.ts";
+import Circle, { CircleInstruction } from "./circle.ts";
+import Draw, { DrawInstruction } from "./draw.ts";
+import Line, { LineInstruction } from "./line.ts";
+import Pixel, { PixelInstruction } from "./pixel.ts";
+import Polygon, { PolygonInstruction } from "./polygon.ts";
+import Rect, { RectInstruction } from "./rect.ts";
+import { Shape } from "../../types.ts";
 
-export { circle, draw, line, pixel, polygon, rect };
+export { Circle, Draw, Line, Pixel, Polygon, Rect };
 
 export default {
-  circle,
-  draw,
-  line,
-  pixel,
-  polygon,
-  rect,
+  Circle,
+  Draw,
+  Line,
+  Pixel,
+  Polygon,
+  Rect,
 };
 
-export abstract class PrimitiveClass<T> extends ShapeClass<T> {
-  readonly category = "primitive";
+export type PrimitiveInstruction =
+  | CircleInstruction
+  | DrawInstruction
+  | LineInstruction
+  | PixelInstruction
+  | PolygonInstruction
+  | RectInstruction;
 
-  protected constructor() {
-    super();
-  }
-}
+export interface Primitive extends Shape {}

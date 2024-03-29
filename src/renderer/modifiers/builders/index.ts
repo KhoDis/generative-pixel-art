@@ -1,6 +1,11 @@
-import combine from "./combine.ts";
-import move from "./move.ts";
+import Combine, { CombineInstruction } from "./combine.ts";
+import Move, { MoveInstruction } from "./move.ts";
+import { Shape } from "../../types.ts";
 
-export { combine, move };
+export { Combine, Move };
 
-export default { combine, move };
+export default { Combine, Move };
+
+export type BuilderInstruction = CombineInstruction | MoveInstruction;
+
+export interface Builder extends Shape {}

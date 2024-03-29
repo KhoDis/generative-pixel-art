@@ -1,4 +1,4 @@
-import { Pixel, Placement } from "../types.ts";
+import { Color, Placement } from "../types.ts";
 
 /**
  * Places a pixel at a specified position.
@@ -8,7 +8,7 @@ import { Pixel, Placement } from "../types.ts";
  * @returns The placement of the pixel.
  */
 export default function place(
-  pixel: Pixel,
+  pixel: Color,
   x: number = 0,
   y: number = 0,
 ): Placement {

@@ -1,17 +1,43 @@
-import { Placement, Shape } from "../../types.ts";
+import { Instruction, Placement, Render, Shape } from "../../types.ts";
 import shape from "../../factories/shape.ts";
+import { Cleaning } from "./index.ts";
 
-/**
- * Removes all fully transparent pixels from a shape.
- * @param what - The shape to clean.
- * @returns The cleaned shape.
- */
-export default function removeTransparent(what: Shape): Shape {
-  const updated: Placement[] = [];
-  for (const { position, pixel } of what.pixels) {
-    if (pixel.a === 0) continue;
-    updated.push({ position, pixel });
+export type RemoveTransparentParams = Record<string, never>;
+
+export type RemoveTransparentInstruction = {
+  type: {
+    category: "cleaning";
+    returns: "shape";
+    modifier: "removeTransparent";
+  };
+  params: RemoveTransparentParams;
+  children: [Instruction];
+};
+
+export default class RemoveTransparent extends Cleaning {
+  constructor({ shape }: RemoveTransparentParams & { shape: Shape }) {
+    super(shape);
   }
 
-  return shape(updated);
+  render(): Render {
+    const updated: Placement[] = [];
+    for (const { position, pixel } of this.shape.render().pixels) {
+      if (pixel.a === 0) continue;
+      updated.push({ position, pixel });
+    }
+
+    return shape(updated);
+  }
+
+  toInstruction(): RemoveTransparentInstruction {
+    return {
+      type: {
+        category: "cleaning",
+        returns: "shape",
+        modifier: "removeTransparent",
+      },
+      params: {},
+      children: [this.shape.toInstruction()],
+    };
+  }
 }

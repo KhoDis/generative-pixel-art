@@ -1,6 +1,20 @@
-import fill from "./fill.ts";
-import outline from "./outline.ts";
+import Fill, { FillInstruction } from "./fill.ts";
+import Outline, { OutlineInstruction } from "./outline.ts";
+import { Render, Shape } from "../../types.ts";
 
-export { fill, outline };
+export { Fill, Outline };
 
-export default { fill, outline };
+export default { Fill, Outline };
+
+export type PaintingInstruction = FillInstruction | OutlineInstruction;
+
+export abstract class Painting implements Shape {
+  shape: Shape;
+
+  protected constructor(shape: Shape) {
+    this.shape = shape;
+  }
+
+  abstract render(): Render;
+  abstract toInstruction(): PaintingInstruction;
+}

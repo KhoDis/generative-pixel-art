@@ -1,4 +1,4 @@
-import { Pixel, Placement, Point } from "../types.ts";
+import { Color, Placement, Point } from "../types.ts";
 
 export type Bounds = {
   minX: number;
@@ -11,7 +11,7 @@ export type Bounds = {
  * A map of pixels. Uses a string key of the form "x:y" to store pixels.
  */
 export class PixelMap {
-  private readonly _map: Map<string, Pixel>;
+  private readonly _map: Map<string, Color>;
   public bounds: Bounds = {
     minX: Infinity,
     minY: Infinity,
@@ -56,7 +56,7 @@ export class PixelMap {
    * @param point - The point where the pixel should be placed.
    * @param pixel - The pixel to be placed.
    */
-  set(point: Point, pixel: Pixel) {
+  set(point: Point, pixel: Color) {
     const { x, y } = point;
     this._map.set(`${x}:${y}`, pixel);
 
@@ -71,7 +71,7 @@ export class PixelMap {
    * @param point - The point of the pixel to get.
    * @returns The pixel at the given point, or undefined if no pixel is found.
    */
-  get(point: Point): Pixel | undefined {
+  get(point: Point): Color | undefined {
     const { x, y } = point;
     return this._map.get(`${x}:${y}`);
   }
@@ -188,5 +188,13 @@ export class PixelMap {
       clone.set({ x, y }, pixel);
     }
     return clone;
+  }
+
+  map<T>(fn: (placement: Placement) => T): T[] {
+    const result: T[] = [];
+    for (const placement of this) {
+      result.push(fn(placement));
+    }
+    return result;
   }
 }

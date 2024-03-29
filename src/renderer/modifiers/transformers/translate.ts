@@ -1,26 +1,52 @@
-import { Placement, Point, Shape } from "../../types.ts";
-import { place } from "../../factories";
-import shape from "../../factories/shape.ts";
+import { Instruction, Placement, Point, Render, Shape } from "../../types.ts";
+import { Transformer } from "./index.ts";
+import { place, shape } from "../../factories";
 
-/**
- * Translates a shape to a specified position.
- *
- * Updates the position of each pixel in the shape.
- * @param what - The shape to move.
- * @param [offset={ x: 0, y: 0 }] - The position to move the shape to.
- * @returns The shifted shape.
- */
-export default function translate(
-  what: Shape,
-  offset: Point = { x: 0, y: 0 },
-): Shape {
-  const pixels: Placement[] = [];
+export type TranslateParams = {
+  offset: Point;
+};
 
-  for (const { position, pixel } of what.pixels) {
-    const newX = position.x + offset.x;
-    const newY = position.y + offset.y;
-    pixels.push(place(pixel, newX, newY));
+export type TranslateInstruction = {
+  type: {
+    category: "transformer";
+    modifier: "translate";
+  };
+  params: TranslateParams;
+  children: [Instruction];
+};
+
+export default class Translate extends Transformer {
+  params: TranslateParams;
+
+  constructor({
+    shape,
+    offset = { x: 0, y: 0 },
+  }: TranslateParams & { shape: Shape }) {
+    super(shape);
+    this.params = { offset };
   }
 
-  return shape(pixels);
+  render(): Render {
+    const pixels: Placement[] = [];
+    const { offset } = this.params;
+
+    for (const { position, pixel } of this.shape.render().pixels) {
+      const newX = position.x + offset.x;
+      const newY = position.y + offset.y;
+      pixels.push(place(pixel, newX, newY));
+    }
+
+    return shape(pixels);
+  }
+
+  toInstruction(): TranslateInstruction {
+    return {
+      type: {
+        category: "transformer",
+        modifier: "translate",
+      },
+      params: this.params,
+      children: [this.shape.toInstruction()],
+    };
+  }
 }
