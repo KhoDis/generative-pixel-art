@@ -1,6 +1,6 @@
 import { Color, Render } from "../../types.ts";
-import { place } from "../../factories";
-import shape from "../../factories/shape.ts";
+import { place } from "../index.ts";
+import render from "../render.ts";
 import { Primitive } from "./index.ts";
 
 export type CircleParams = {
@@ -36,7 +36,7 @@ export default class Circle implements Primitive {
       }
     }
 
-    return shape(pixels);
+    return render(pixels);
   }
 
   toInstruction(): CircleInstruction {

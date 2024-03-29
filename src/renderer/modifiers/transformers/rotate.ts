@@ -1,6 +1,6 @@
 import { Instruction, Placement, Point, Render, Shape } from "../../types.ts";
 import { Transformer } from "./index.ts";
-import { place, shape } from "../../factories";
+import { place, render } from "../index.ts";
 
 export type RotationMode = "90cw" | "90ccw" | "180" | "none";
 
@@ -59,7 +59,7 @@ export default class Rotate extends Transformer {
       }
     }
 
-    return shape(placements);
+    return render(placements);
   }
 
   toInstruction(): RotateInstruction {

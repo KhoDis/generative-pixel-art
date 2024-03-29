@@ -1,6 +1,6 @@
 import { Instruction, Placement, Render, Shape } from "../../types.ts";
 import { Cleaning } from "./index.ts";
-import { place, shape } from "../../factories";
+import { place, render } from "../index.ts";
 
 export type TrimParams = Record<string, never>;
 
@@ -41,7 +41,7 @@ export default class Trim extends Cleaning {
       trimmed.push(place(pixel, x - minX, y - minY));
     }
 
-    return shape(trimmed);
+    return render(trimmed);
   }
 
   toInstruction(): TrimInstruction {

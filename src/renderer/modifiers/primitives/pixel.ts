@@ -1,5 +1,5 @@
 import { Color, Point, Render } from "../../types.ts";
-import place from "../../factories/place.ts";
+import place from "../place.ts";
 import { Primitive } from "./index.ts";
 import Draw from "./draw.ts";
 

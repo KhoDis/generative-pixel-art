@@ -1,6 +1,6 @@
 import { Color, Pivot, Point, Render } from "../../types.ts";
-import { place } from "../../factories";
-import shape from "../../factories/shape.ts";
+import { place } from "../index.ts";
+import render from "../render.ts";
 import { Primitive } from "./index.ts";
 
 export type RectParams = {
@@ -69,7 +69,7 @@ export default class Rect implements Primitive {
       }
     }
 
-    return shape(pixels);
+    return render(pixels);
   }
 
   toInstruction(): RectInstruction {

@@ -1,5 +1,5 @@
 import { Instruction, Placement, Render, Shape } from "../../types.ts";
-import shape from "../../factories/shape.ts";
+import render from "../render.ts";
 import { Cleaning } from "./index.ts";
 
 export type RemoveTransparentParams = Record<string, never>;
@@ -26,7 +26,7 @@ export default class RemoveTransparent extends Cleaning {
       updated.push({ position, pixel });
     }
 
-    return shape(updated);
+    return render(updated);
   }
 
   toInstruction(): RemoveTransparentInstruction {

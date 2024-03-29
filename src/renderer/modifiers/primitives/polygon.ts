@@ -1,5 +1,5 @@
 import { Color, Placement, Point, Render } from "../../types.ts";
-import shape from "../../factories/shape.ts";
+import render from "../render.ts";
 import { Primitive } from "./index.ts";
 import Line from "./line.ts";
 
@@ -45,7 +45,7 @@ export default class Polygon implements Primitive {
       );
     }
 
-    return shape(placements.flat());
+    return render(placements.flat());
   }
 
   toInstruction(): PolygonInstruction {
