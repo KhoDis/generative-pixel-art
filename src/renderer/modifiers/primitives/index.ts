@@ -4,11 +4,11 @@ import Line, { LineInstruction } from "./line.ts";
 import Pixel, { PixelInstruction } from "./pixel.ts";
 import Polygon, { PolygonInstruction } from "./polygon.ts";
 import Rect, { RectInstruction } from "./rect.ts";
-import { Shape } from "../../types.ts";
+import Empty, { EmptyInstruction } from "./empty.ts";
 import { InstructionId, Render, Shape } from "../../types.ts";
 import { v4 as uuidv4 } from "uuid";
 
-export { Circle, Draw, Line, Pixel, Polygon, Rect };
+export { Circle, Draw, Line, Pixel, Polygon, Rect, Empty };
 
 export default {
   Circle,
@@ -17,6 +17,7 @@ export default {
   Pixel,
   Polygon,
   Rect,
+  Empty,
 };
 
 export type PrimitiveInstruction =
@@ -25,7 +26,8 @@ export type PrimitiveInstruction =
   | LineInstruction
   | PixelInstruction
   | PolygonInstruction
-  | RectInstruction;
+  | RectInstruction
+  | EmptyInstruction;
 
 export abstract class Primitive implements Shape {
   id: InstructionId;
