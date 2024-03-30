@@ -5,8 +5,8 @@ import {
   Render,
   Shape,
 } from "../../types.ts";
-import { Cleaning } from "./index.ts";
 import { place, render } from "../index.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type TrimParams = NoParams;
 
@@ -20,10 +20,11 @@ export type TrimInstruction = {
   children: [InstructionId];
 };
 
-export default class Trim extends Cleaning {
-  constructor(shape: Shape, id: InstructionId) {
-    super(shape, id);
-  }
+export default class Trim implements Shape {
+  constructor(
+    public shape: Shape,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const { pixels } = this.shape.render();

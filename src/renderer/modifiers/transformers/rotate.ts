@@ -1,6 +1,6 @@
 import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
-import { Transformer } from "./index.ts";
 import { place, render } from "../index.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type RotationMode = "90cw" | "90ccw" | "180" | "none";
 
@@ -19,17 +19,12 @@ export type RotateInstruction = {
   children: [InstructionId];
 };
 
-export default class Rotate extends Transformer {
-  params: RotateParams;
-
+export default class Rotate implements Shape {
   constructor(
-    shape: Shape,
-    { anchor, mode = "none" }: RotateParams,
-    id?: InstructionId,
-  ) {
-    super(shape, id);
-    this.params = { anchor, mode };
-  }
+    public params: RotateParams,
+    public shape: Shape,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const placements: Placement[] = [];

@@ -1,6 +1,6 @@
 import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
-import { Transformer } from "./index.ts";
 import { place, render } from "../index.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type TranslateParams = {
   offset: Point;
@@ -16,17 +16,12 @@ export type TranslateInstruction = {
   children: [InstructionId];
 };
 
-export default class Translate extends Transformer {
-  params: TranslateParams;
-
+export default class Translate implements Shape {
   constructor(
-    shape: Shape,
-    { offset = { x: 0, y: 0 } }: TranslateParams,
-    id?: InstructionId,
-  ) {
-    super(shape, id);
-    this.params = { offset };
-  }
+    public params: TranslateParams,
+    public shape: Shape,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const pixels: Placement[] = [];

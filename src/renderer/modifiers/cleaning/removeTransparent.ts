@@ -6,7 +6,7 @@ import {
   Shape,
 } from "../../types.ts";
 import render from "../render.ts";
-import { Cleaning } from "./index.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type RemoveTransparentParams = NoParams;
 
@@ -21,10 +21,11 @@ export type RemoveTransparentInstruction = {
   children: [InstructionId];
 };
 
-export default class RemoveTransparent extends Cleaning {
-  constructor(shape: Shape, id?: InstructionId) {
-    super(shape, id);
-  }
+export default class RemoveTransparent implements Shape {
+  constructor(
+    public shape: Shape,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const updated: Placement[] = [];

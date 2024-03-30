@@ -1,4 +1,3 @@
-import { Builder } from "./index.ts";
 import {
   InstructionId,
   NoParams,
@@ -21,14 +20,11 @@ export type CombineInstruction = {
   children: InstructionId[];
 };
 
-export default class Combine implements Builder {
-  id: InstructionId = uuidv4();
-  shapes: Shape[];
-
-  constructor(shapes: Shape[], id: InstructionId = uuidv4()) {
-    this.id = id;
-    this.shapes = shapes;
-  }
+export default class Combine implements Shape {
+  constructor(
+    public shapes: Shape[],
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   toInstruction(): CombineInstruction {
     return {

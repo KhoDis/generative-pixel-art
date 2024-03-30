@@ -1,6 +1,6 @@
 import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
-import { Transformer } from "./index.ts";
 import { render } from "../index.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type FlipMode = "x" | "y" | "xy";
 
@@ -19,13 +19,12 @@ export type FlipInstruction = {
   children: [InstructionId];
 };
 
-export default class Flip extends Transformer {
-  params: FlipParams;
-
-  constructor(shape: Shape, params: FlipParams, id?: InstructionId) {
-    super(shape, id);
-    this.params = params;
-  }
+export default class Flip implements Shape {
+  constructor(
+    public params: FlipParams,
+    public shape: Shape,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const pixels: Placement[] = [];

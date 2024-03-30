@@ -1,6 +1,6 @@
-import { Primitive } from "./index.ts";
-import { InstructionId, NoParams, Render } from "../../types.ts";
+import { InstructionId, NoParams, Render, Shape } from "../../types.ts";
 import render from "../render.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type EmptyParams = NoParams;
 
@@ -14,13 +14,11 @@ export type EmptyInstruction = {
   children: [];
 };
 
-export default class Empty extends Primitive {
-  params: EmptyParams;
-
-  constructor(id?: InstructionId) {
-    super(id);
-    this.params = {};
-  }
+export default class Empty implements Shape {
+  constructor(
+    public params: EmptyParams,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     return render([]);

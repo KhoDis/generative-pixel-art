@@ -1,7 +1,14 @@
-import { Color, InstructionId, Placement, Point, Render } from "../../types.ts";
+import {
+  Color,
+  InstructionId,
+  Placement,
+  Point,
+  Render,
+  Shape,
+} from "../../types.ts";
 import place from "../place.ts";
-import { Primitive } from "./index.ts";
 import render from "../render.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type LineParams = {
   start: Point;
@@ -19,13 +26,11 @@ export type LineInstruction = {
   children: [];
 };
 
-export default class Line extends Primitive {
-  params: LineParams;
-
-  constructor(params: LineParams, id?: InstructionId) {
-    super(id);
-    this.params = params;
-  }
+export default class Line implements Shape {
+  constructor(
+    public params: LineParams,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const { start, end, color } = this.params;

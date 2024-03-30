@@ -1,7 +1,7 @@
-import { Color, InstructionId, Render } from "../../types.ts";
+import { Color, InstructionId, Render, Shape } from "../../types.ts";
 import { place } from "../index.ts";
 import render from "../render.ts";
-import { Primitive } from "./index.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type CircleParams = {
   radius: number;
@@ -18,13 +18,11 @@ export type CircleInstruction = {
   children: [];
 };
 
-export default class Circle extends Primitive {
-  params: CircleParams;
-
-  constructor(params: CircleParams, id?: InstructionId) {
-    super(id);
-    this.params = params;
-  }
+export default class Circle implements Shape {
+  constructor(
+    public params: CircleParams,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const pixels = [];

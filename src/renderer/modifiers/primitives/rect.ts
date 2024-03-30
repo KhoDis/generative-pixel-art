@@ -1,7 +1,14 @@
-import { Color, InstructionId, Pivot, Point, Render } from "../../types.ts";
+import {
+  Color,
+  InstructionId,
+  Pivot,
+  Point,
+  Render,
+  Shape,
+} from "../../types.ts";
 import { place } from "../index.ts";
 import render from "../render.ts";
-import { Primitive } from "./index.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type RectParams = {
   width: number;
@@ -20,16 +27,11 @@ export type RectInstruction = {
   children: [];
 };
 
-export default class Rect extends Primitive {
-  params: RectParams;
-
+export default class Rect implements Shape {
   constructor(
-    { width, height, pivot = "top-left", color }: RectParams,
-    id?: InstructionId,
-  ) {
-    super(id);
-    this.params = { width, height, pivot, color };
-  }
+    public params: RectParams,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const pixels = [];

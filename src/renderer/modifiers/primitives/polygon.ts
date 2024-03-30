@@ -1,7 +1,14 @@
-import { Color, InstructionId, Placement, Point, Render } from "../../types.ts";
+import {
+  Color,
+  InstructionId,
+  Placement,
+  Point,
+  Render,
+  Shape,
+} from "../../types.ts";
 import render from "../render.ts";
-import { Primitive } from "./index.ts";
 import Line from "./line.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type PolygonParams = {
   points: Point[];
@@ -19,16 +26,11 @@ export type PolygonInstruction = {
   children: [];
 };
 
-export default class Polygon extends Primitive {
-  params: PolygonParams;
-
+export default class Polygon implements Shape {
   constructor(
-    { points, color, enclose = false }: PolygonParams,
-    id?: InstructionId,
-  ) {
-    super(id);
-    this.params = { points, color, enclose };
-  }
+    public params: PolygonParams,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const { points, color, enclose } = this.params;

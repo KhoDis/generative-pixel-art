@@ -1,7 +1,7 @@
-import { Color, InstructionId, Point, Render } from "../../types.ts";
+import { Color, InstructionId, Point, Render, Shape } from "../../types.ts";
 import place from "../place.ts";
-import { Primitive } from "./index.ts";
 import render from "../render.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type PixelParams = {
   color: Color;
@@ -18,13 +18,11 @@ export type PixelInstruction = {
   children: [];
 };
 
-export default class Pixel extends Primitive {
-  params: PixelParams;
-
-  constructor(params: PixelParams, id?: InstructionId) {
-    super(id);
-    this.params = params;
-  }
+export default class Pixel implements Shape {
+  constructor(
+    public params: PixelParams,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const { color, point } = this.params;

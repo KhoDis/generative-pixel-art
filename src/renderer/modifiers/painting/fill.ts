@@ -10,8 +10,8 @@ import {
   getDiagonalNeighbors,
   getStraightNeighbors,
 } from "../../utils/getNeighbors.ts";
-import { Painting } from "./index.ts";
 import render from "../render.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type TraversalMode = "straightOnly" | "includeDiagonals";
 
@@ -31,13 +31,12 @@ export type FillInstruction = {
   children: [InstructionId];
 };
 
-export default class Fill extends Painting {
-  params: FillParams;
-
-  constructor(shape: Shape, params: FillParams, id?: InstructionId) {
-    super(shape, id);
-    this.params = params;
-  }
+export default class Fill implements Shape {
+  constructor(
+    public shape: Shape,
+    public params: FillParams,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const { start, color, mode } = this.params;

@@ -6,9 +6,9 @@ import {
   Render,
   Shape,
 } from "../../types.ts";
-import { Transformer } from "./index.ts";
 import { Bounds } from "../../core/PixelMap.ts";
 import { place, render } from "../index.ts";
+import { v4 as uuidv4 } from "uuid";
 
 function center(a: number, b: number): number {
   return Math.ceil((a + b) / 2);
@@ -55,13 +55,12 @@ export type ResetInstruction = {
   children: [InstructionId];
 };
 
-export default class Reset extends Transformer {
-  params: ResetParams;
-
-  constructor(shape: Shape, params: ResetParams, id?: string) {
-    super(shape, id);
-    this.params = params;
-  }
+export default class Reset implements Shape {
+  constructor(
+    public params: ResetParams,
+    public shape: Shape,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const pixels: Placement[] = [];

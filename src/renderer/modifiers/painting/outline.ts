@@ -3,8 +3,8 @@ import {
   getDiagonalNeighbors,
   getStraightNeighbors,
 } from "../../utils/getNeighbors.ts";
-import { Painting } from "./index.ts";
 import render from "../render.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export type OutlineMode = "none" | "all" | "corners";
 
@@ -23,13 +23,12 @@ export type OutlineInstruction = {
   children: [InstructionId];
 };
 
-export default class Outline extends Painting {
-  params: OutlineParams;
-
-  constructor(shape: Shape, params: OutlineParams, id?: InstructionId) {
-    super(shape, id);
-    this.params = params;
-  }
+export default class Outline implements Shape {
+  constructor(
+    public shape: Shape,
+    public params: OutlineParams,
+    public id: InstructionId = uuidv4(),
+  ) {}
 
   render(): Render {
     const { color, mode } = this.params;
