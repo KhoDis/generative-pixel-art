@@ -5,6 +5,8 @@ import Pixel, { PixelInstruction } from "./pixel.ts";
 import Polygon, { PolygonInstruction } from "./polygon.ts";
 import Rect, { RectInstruction } from "./rect.ts";
 import { Shape } from "../../types.ts";
+import { InstructionId, Render, Shape } from "../../types.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export { Circle, Draw, Line, Pixel, Polygon, Rect };
 
@@ -25,4 +27,13 @@ export type PrimitiveInstruction =
   | PolygonInstruction
   | RectInstruction;
 
-export interface Primitive extends Shape {}
+export abstract class Primitive implements Shape {
+  id: InstructionId;
+
+  protected constructor(id: InstructionId = uuidv4()) {
+    this.id = id;
+  }
+
+  abstract render(): Render;
+  abstract toInstruction(): PrimitiveInstruction;
+}

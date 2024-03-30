@@ -1,4 +1,4 @@
-import { Color, Point, Render } from "../../types.ts";
+import { Color, InstructionId, Point, Render } from "../../types.ts";
 import place from "../place.ts";
 import { Primitive } from "./index.ts";
 import render from "../render.ts";
@@ -9,6 +9,7 @@ export type PixelParams = {
 };
 
 export type PixelInstruction = {
+  id: InstructionId;
   type: {
     category: "primitive";
     modifier: "pixel";
@@ -17,11 +18,12 @@ export type PixelInstruction = {
   children: [];
 };
 
-export default class Pixel implements Primitive {
+export default class Pixel extends Primitive {
   params: PixelParams;
 
-  constructor(color: Color, point: Point = { x: 0, y: 0 }) {
-    this.params = { color, point };
+  constructor(params: PixelParams, id?: InstructionId) {
+    super(id);
+    this.params = params;
   }
 
   render(): Render {
@@ -31,6 +33,7 @@ export default class Pixel implements Primitive {
 
   toInstruction(): PixelInstruction {
     return {
+      id: this.id,
       type: {
         category: "primitive",
         modifier: "pixel",

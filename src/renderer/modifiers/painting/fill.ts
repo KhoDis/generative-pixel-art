@@ -1,6 +1,6 @@
 import {
   Color,
-  Instruction,
+  InstructionId,
   Placement,
   Point,
   Render,
@@ -22,25 +22,21 @@ export type FillParams = {
 };
 
 export type FillInstruction = {
+  id: InstructionId;
   type: {
     category: "painting";
     modifier: "fill";
   };
   params: FillParams;
-  children: [Instruction];
+  children: [InstructionId];
 };
 
 export default class Fill extends Painting {
   params: FillParams;
 
-  constructor({
-    shape,
-    start,
-    color,
-    mode = "straightOnly",
-  }: FillParams & { shape: Shape }) {
-    super(shape);
-    this.params = { start, color, mode };
+  constructor(shape: Shape, params: FillParams, id?: InstructionId) {
+    super(shape, id);
+    this.params = params;
   }
 
   render(): Render {
@@ -85,12 +81,13 @@ export default class Fill extends Painting {
 
   toInstruction(): FillInstruction {
     return {
+      id: this.id,
       type: {
         category: "painting",
         modifier: "fill",
       },
       params: this.params,
-      children: [this.shape.toInstruction()],
+      children: [this.shape.toInstruction().id],
     };
   }
 }

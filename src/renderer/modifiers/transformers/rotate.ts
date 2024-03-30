@@ -1,4 +1,4 @@
-import { Instruction, Placement, Point, Render, Shape } from "../../types.ts";
+import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
 import { Transformer } from "./index.ts";
 import { place, render } from "../index.ts";
 
@@ -10,23 +10,24 @@ export type RotateParams = {
 };
 
 export type RotateInstruction = {
+  id: InstructionId;
   type: {
     category: "transformer";
     modifier: "rotate";
   };
   params: RotateParams;
-  children: [Instruction];
+  children: [InstructionId];
 };
 
 export default class Rotate extends Transformer {
   params: RotateParams;
 
-  constructor({
-    shape,
-    anchor,
-    mode = "none",
-  }: RotateParams & { shape: Shape }) {
-    super(shape);
+  constructor(
+    shape: Shape,
+    { anchor, mode = "none" }: RotateParams,
+    id?: InstructionId,
+  ) {
+    super(shape, id);
     this.params = { anchor, mode };
   }
 
@@ -64,12 +65,13 @@ export default class Rotate extends Transformer {
 
   toInstruction(): RotateInstruction {
     return {
+      id: this.id,
       type: {
         category: "transformer",
         modifier: "rotate",
       },
       params: this.params,
-      children: [this.shape.toInstruction()],
+      children: [this.shape.toInstruction().id],
     };
   }
 }

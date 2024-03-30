@@ -1,4 +1,4 @@
-import { Instruction, Placement, Point, Render, Shape } from "../../types.ts";
+import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
 import { Transformer } from "./index.ts";
 import { place, render } from "../index.ts";
 
@@ -7,22 +7,24 @@ export type TranslateParams = {
 };
 
 export type TranslateInstruction = {
+  id: InstructionId;
   type: {
     category: "transformer";
     modifier: "translate";
   };
   params: TranslateParams;
-  children: [Instruction];
+  children: [InstructionId];
 };
 
 export default class Translate extends Transformer {
   params: TranslateParams;
 
-  constructor({
-    shape,
-    offset = { x: 0, y: 0 },
-  }: TranslateParams & { shape: Shape }) {
-    super(shape);
+  constructor(
+    shape: Shape,
+    { offset = { x: 0, y: 0 } }: TranslateParams,
+    id?: InstructionId,
+  ) {
+    super(shape, id);
     this.params = { offset };
   }
 
@@ -41,12 +43,13 @@ export default class Translate extends Transformer {
 
   toInstruction(): TranslateInstruction {
     return {
+      id: this.id,
       type: {
         category: "transformer",
         modifier: "translate",
       },
       params: this.params,
-      children: [this.shape.toInstruction()],
+      children: [this.shape.toInstruction().id],
     };
   }
 }

@@ -1,4 +1,4 @@
-import { Color, Placement, Point, Render } from "../../types.ts";
+import { Color, InstructionId, Placement, Point, Render } from "../../types.ts";
 import place from "../place.ts";
 import { Primitive } from "./index.ts";
 import render from "../render.ts";
@@ -10,6 +10,7 @@ export type LineParams = {
 };
 
 export type LineInstruction = {
+  id: InstructionId;
   type: {
     category: "primitive";
     modifier: "line";
@@ -18,11 +19,12 @@ export type LineInstruction = {
   children: [];
 };
 
-export default class Line implements Primitive {
+export default class Line extends Primitive {
   params: LineParams;
 
-  constructor(start: Point, end: Point, color: Color) {
-    this.params = { start, end, color };
+  constructor(params: LineParams, id?: InstructionId) {
+    super(id);
+    this.params = params;
   }
 
   render(): Render {
@@ -47,6 +49,7 @@ export default class Line implements Primitive {
 
   toInstruction(): LineInstruction {
     return {
+      id: this.id,
       type: {
         category: "primitive",
         modifier: "line",

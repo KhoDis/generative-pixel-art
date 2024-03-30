@@ -1,4 +1,4 @@
-import { Color, Placement, Point, Render } from "../../types.ts";
+import { Color, InstructionId, Placement, Point, Render } from "../../types.ts";
 import render from "../render.ts";
 import { Primitive } from "./index.ts";
 import Line from "./line.ts";
@@ -10,6 +10,7 @@ export type PolygonParams = {
 };
 
 export type PolygonInstruction = {
+  id: InstructionId;
   type: {
     category: "primitive";
     modifier: "polygon";
@@ -18,10 +19,14 @@ export type PolygonInstruction = {
   children: [];
 };
 
-export default class Polygon implements Primitive {
+export default class Polygon extends Primitive {
   params: PolygonParams;
 
-  constructor(points: Point[], color: Color, enclose: boolean = false) {
+  constructor(
+    { points, color, enclose = false }: PolygonParams,
+    id?: InstructionId,
+  ) {
+    super(id);
     this.params = { points, color, enclose };
   }
 
@@ -31,7 +36,7 @@ export default class Polygon implements Primitive {
 
     for (let i = 0; i < points.length - 1; i++) {
       placements.push(
-        new Line(points[i], points[i + 1], color)
+        new Line({ start: points[i], end: points[i + 1], color })
           .render()
           .pixels.toPlacements(),
       );
@@ -39,7 +44,7 @@ export default class Polygon implements Primitive {
 
     if (enclose) {
       placements.push(
-        new Line(points[points.length - 1], points[0], color)
+        new Line({ start: points[points.length - 1], end: points[0], color })
           .render()
           .pixels.toPlacements(),
       );
@@ -50,6 +55,7 @@ export default class Polygon implements Primitive {
 
   toInstruction(): PolygonInstruction {
     return {
+      id: this.id,
       type: {
         category: "primitive",
         modifier: "polygon",

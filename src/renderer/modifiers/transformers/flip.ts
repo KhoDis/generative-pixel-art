@@ -1,4 +1,4 @@
-import { Placement, Point, Render, Shape } from "../../types.ts";
+import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
 import { Transformer } from "./index.ts";
 import { render } from "../index.ts";
 
@@ -10,20 +10,21 @@ export type FlipParams = {
 };
 
 export type FlipInstruction = {
+  id: InstructionId;
   type: {
     category: "transformer";
     modifier: "flip";
   };
   params: FlipParams;
-  children: [];
+  children: [InstructionId];
 };
 
 export default class Flip extends Transformer {
   params: FlipParams;
 
-  constructor({ shape, axis, anchor }: FlipParams & { shape: Shape }) {
-    super(shape);
-    this.params = { axis, anchor };
+  constructor(shape: Shape, params: FlipParams, id?: InstructionId) {
+    super(shape, id);
+    this.params = params;
   }
 
   render(): Render {
@@ -62,12 +63,13 @@ export default class Flip extends Transformer {
 
   toInstruction(): FlipInstruction {
     return {
+      id: this.id,
       type: {
         category: "transformer",
         modifier: "flip",
       },
       params: this.params,
-      children: [],
+      children: [this.shape.toInstruction().id],
     };
   }
 }

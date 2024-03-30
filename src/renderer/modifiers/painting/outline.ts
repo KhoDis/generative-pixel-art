@@ -1,4 +1,4 @@
-import { Color, Instruction, Placement, Render, Shape } from "../../types.ts";
+import { Color, InstructionId, Placement, Render, Shape } from "../../types.ts";
 import {
   getDiagonalNeighbors,
   getStraightNeighbors,
@@ -14,24 +14,21 @@ export type OutlineParams = {
 };
 
 export type OutlineInstruction = {
+  id: InstructionId;
   type: {
     category: "painting";
     modifier: "outline";
   };
   params: OutlineParams;
-  children: [Instruction];
+  children: [InstructionId];
 };
 
 export default class Outline extends Painting {
   params: OutlineParams;
 
-  constructor({
-    shape,
-    color,
-    mode = "corners",
-  }: OutlineParams & { shape: Shape }) {
-    super(shape);
-    this.params = { color, mode };
+  constructor(shape: Shape, params: OutlineParams, id?: InstructionId) {
+    super(shape, id);
+    this.params = params;
   }
 
   render(): Render {
@@ -85,12 +82,13 @@ export default class Outline extends Painting {
 
   toInstruction(): OutlineInstruction {
     return {
+      id: this.id,
       type: {
         category: "painting",
         modifier: "outline",
       },
       params: this.params,
-      children: [this.shape.toInstruction()],
+      children: [this.shape.toInstruction().id],
     };
   }
 }

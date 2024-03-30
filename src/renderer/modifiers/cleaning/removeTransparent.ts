@@ -1,22 +1,29 @@
-import { Instruction, Placement, Render, Shape } from "../../types.ts";
+import {
+  InstructionId,
+  NoParams,
+  Placement,
+  Render,
+  Shape,
+} from "../../types.ts";
 import render from "../render.ts";
 import { Cleaning } from "./index.ts";
 
-export type RemoveTransparentParams = Record<string, never>;
+export type RemoveTransparentParams = NoParams;
 
 export type RemoveTransparentInstruction = {
+  id: InstructionId;
   type: {
     category: "cleaning";
     returns: "shape";
     modifier: "removeTransparent";
   };
   params: RemoveTransparentParams;
-  children: [Instruction];
+  children: [InstructionId];
 };
 
 export default class RemoveTransparent extends Cleaning {
-  constructor({ shape }: RemoveTransparentParams & { shape: Shape }) {
-    super(shape);
+  constructor(shape: Shape, id?: InstructionId) {
+    super(shape, id);
   }
 
   render(): Render {
@@ -31,13 +38,14 @@ export default class RemoveTransparent extends Cleaning {
 
   toInstruction(): RemoveTransparentInstruction {
     return {
+      id: this.id,
       type: {
         category: "cleaning",
         returns: "shape",
         modifier: "removeTransparent",
       },
       params: {},
-      children: [this.shape.toInstruction()],
+      children: [this.shape.toInstruction().id],
     };
   }
 }

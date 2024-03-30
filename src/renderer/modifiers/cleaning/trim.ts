@@ -1,21 +1,28 @@
-import { Instruction, Placement, Render, Shape } from "../../types.ts";
+import {
+  InstructionId,
+  NoParams,
+  Placement,
+  Render,
+  Shape,
+} from "../../types.ts";
 import { Cleaning } from "./index.ts";
 import { place, render } from "../index.ts";
 
-export type TrimParams = Record<string, never>;
+export type TrimParams = NoParams;
 
 export type TrimInstruction = {
+  id: InstructionId;
   type: {
     category: "cleaning";
     modifier: "trim";
   };
   params: TrimParams;
-  children: [Instruction];
+  children: [InstructionId];
 };
 
 export default class Trim extends Cleaning {
-  constructor({ shape }: TrimParams & { shape: Shape }) {
-    super(shape);
+  constructor(shape: Shape, id: InstructionId) {
+    super(shape, id);
   }
 
   render(): Render {
@@ -46,12 +53,13 @@ export default class Trim extends Cleaning {
 
   toInstruction(): TrimInstruction {
     return {
+      id: this.id,
       type: {
         category: "cleaning",
         modifier: "trim",
       },
       params: {},
-      children: [this.shape.toInstruction()],
+      children: [this.shape.toInstruction().id],
     };
   }
 }

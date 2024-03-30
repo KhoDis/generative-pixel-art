@@ -1,4 +1,4 @@
-import { Placement, Render } from "../../types.ts";
+import { InstructionId, Placement, Render } from "../../types.ts";
 import render from "../render.ts";
 import { Primitive } from "./index.ts";
 
@@ -7,6 +7,7 @@ export type DrawParams = {
 };
 
 export type DrawInstruction = {
+  id: InstructionId;
   type: {
     category: "primitive";
     modifier: "draw";
@@ -15,11 +16,12 @@ export type DrawInstruction = {
   children: [];
 };
 
-export default class Draw implements Primitive {
+export default class Draw extends Primitive {
   params: DrawParams;
 
-  constructor(...placements: Placement[]) {
-    this.params = { placements };
+  constructor(params: DrawParams, id?: InstructionId) {
+    super(id);
+    this.params = params;
   }
 
   render(): Render {
@@ -28,6 +30,7 @@ export default class Draw implements Primitive {
 
   toInstruction(): DrawInstruction {
     return {
+      id: this.id,
       type: {
         category: "primitive",
         modifier: "draw",

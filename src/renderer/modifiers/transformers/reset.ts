@@ -1,5 +1,5 @@
 import {
-  Instruction,
+  InstructionId,
   Pivot,
   Placement,
   Point,
@@ -46,20 +46,21 @@ export type ResetParams = {
 };
 
 export type ResetInstruction = {
+  id: InstructionId;
   type: {
     category: "transformer";
     modifier: "reset";
   };
   params: ResetParams;
-  children: [Instruction];
+  children: [InstructionId];
 };
 
 export default class Reset extends Transformer {
   params: ResetParams;
 
-  constructor({ shape, pivot }: ResetParams & { shape: Shape }) {
-    super(shape);
-    this.params = { pivot };
+  constructor(shape: Shape, params: ResetParams, id?: string) {
+    super(shape, id);
+    this.params = params;
   }
 
   render(): Render {
@@ -79,12 +80,13 @@ export default class Reset extends Transformer {
 
   toInstruction(): ResetInstruction {
     return {
+      id: this.id,
       type: {
         category: "transformer",
         modifier: "reset",
       },
       params: this.params,
-      children: [this.shape.toInstruction()],
+      children: [this.shape.toInstruction().id],
     };
   }
 }

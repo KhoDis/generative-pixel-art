@@ -1,4 +1,4 @@
-import { Color, Pivot, Point, Render } from "../../types.ts";
+import { Color, InstructionId, Pivot, Point, Render } from "../../types.ts";
 import { place } from "../index.ts";
 import render from "../render.ts";
 import { Primitive } from "./index.ts";
@@ -11,6 +11,7 @@ export type RectParams = {
 };
 
 export type RectInstruction = {
+  id: InstructionId;
   type: {
     category: "primitive";
     modifier: "rect";
@@ -19,10 +20,14 @@ export type RectInstruction = {
   children: [];
 };
 
-export default class Rect implements Primitive {
+export default class Rect extends Primitive {
   params: RectParams;
 
-  constructor(width: number, height: number, pivot: Pivot, color: Color) {
+  constructor(
+    { width, height, pivot = "top-left", color }: RectParams,
+    id?: InstructionId,
+  ) {
+    super(id);
     this.params = { width, height, pivot, color };
   }
 
@@ -74,6 +79,7 @@ export default class Rect implements Primitive {
 
   toInstruction(): RectInstruction {
     return {
+      id: this.id,
       type: {
         category: "primitive",
         modifier: "rect",

@@ -1,33 +1,44 @@
 import { Builder } from "./index.ts";
-import { Instruction, Placement, Render, Shape } from "../../types.ts";
+import {
+  InstructionId,
+  NoParams,
+  Placement,
+  Render,
+  Shape,
+} from "../../types.ts";
 import render from "../render.ts";
+import { v4 as uuidv4 } from "uuid";
 
-export type CombineParams = Record<string, never>;
+export type CombineParams = NoParams;
 
 export type CombineInstruction = {
+  id: InstructionId;
   type: {
     category: "builder";
     modifier: "combine";
   };
   params: CombineParams;
-  children: Instruction[];
+  children: InstructionId[];
 };
 
 export default class Combine implements Builder {
+  id: InstructionId = uuidv4();
   shapes: Shape[];
 
-  constructor(...shapes: Shape[]) {
+  constructor(shapes: Shape[], id: InstructionId = uuidv4()) {
+    this.id = id;
     this.shapes = shapes;
   }
 
   toInstruction(): CombineInstruction {
     return {
+      id: this.id,
       type: {
         category: "builder",
         modifier: "combine",
       },
       params: {},
-      children: this.shapes.map((shape) => shape.toInstruction()),
+      children: this.shapes.map((shape) => shape.toInstruction().id),
     };
   }
 

@@ -1,4 +1,4 @@
-import { Color, Render } from "../../types.ts";
+import { Color, InstructionId, Render } from "../../types.ts";
 import { place } from "../index.ts";
 import render from "../render.ts";
 import { Primitive } from "./index.ts";
@@ -9,6 +9,7 @@ export type CircleParams = {
 };
 
 export type CircleInstruction = {
+  id: InstructionId;
   type: {
     category: "primitive";
     modifier: "circle";
@@ -17,11 +18,12 @@ export type CircleInstruction = {
   children: [];
 };
 
-export default class Circle implements Primitive {
+export default class Circle extends Primitive {
   params: CircleParams;
 
-  constructor(radius: number, color: Color) {
-    this.params = { radius, color };
+  constructor(params: CircleParams, id?: InstructionId) {
+    super(id);
+    this.params = params;
   }
 
   render(): Render {
@@ -41,6 +43,7 @@ export default class Circle implements Primitive {
 
   toInstruction(): CircleInstruction {
     return {
+      id: this.id,
       type: {
         category: "primitive",
         modifier: "circle",

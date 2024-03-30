@@ -48,9 +48,12 @@ export type InstructionState = {
 export type InstructionId = string;
 
 export interface Shape {
+  id: InstructionId;
   toInstruction(): Instruction;
   render(): Render;
 }
+
+export type NoParams = Record<string, never>;
 
 /**
  * Represents a placement of a pixel at a certain position.
