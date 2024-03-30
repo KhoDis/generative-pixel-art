@@ -1,8 +1,8 @@
-import { Figures } from "../components/Figures.tsx";
-import { Canvas } from "../components/Canvas.tsx";
-import { Options } from "../components/Options.tsx";
-import { Modifiers } from "../components/Modifiers.tsx";
-import { Header } from "../components/Header.tsx";
+import { Figures } from "../components/modifiers/Figures.tsx";
+import { Canvas } from "../components/canvas/Canvas.tsx";
+import { Options } from "../components/options/Options.tsx";
+import { Modifiers } from "../components/modifiers/Modifiers.tsx";
+import { Header } from "../components/header/Header.tsx";
 
 function Editor() {
   // const [selectedModifier, setSelectedModifier] = useState(null);
@@ -14,7 +14,6 @@ function Editor() {
         <div className="w-1/4 p-4 border-r border-base-300 h-full">
           <Figures />
         </div>
-        {/* put canvas in the middle */}
         <div className="w-1/2 p-4 flex items-center justify-center">
           <Canvas />
         </div>

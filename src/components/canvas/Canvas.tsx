@@ -1,8 +1,8 @@
-import { Circle, Pixel } from "../renderer/modifiers/primitives";
-import colors from "../renderer/palettes/html.ts";
-import { point } from "../renderer/modifiers";
-import { Shape } from "../renderer/types.ts";
-import { Combine } from "../renderer/modifiers/builders";
+import { Circle, Pixel } from "../../renderer/modifiers/primitives";
+import colors from "../../renderer/palettes/html.ts";
+import { point } from "../../renderer/modifiers";
+import { Shape } from "../../renderer/types.ts";
+import { Combine } from "../../renderer/modifiers/builders";
 import KonvaRenderer from "./KonvaRenderer.tsx";
 
 export function Canvas() {

@@ -1,4 +1,4 @@
-import { useAppSelector } from "../redux/hooks.ts";
+import { useAppSelector } from "../../redux/hooks.ts";
 import { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { Figure } from "./Figure.tsx";

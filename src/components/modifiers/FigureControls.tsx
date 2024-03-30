@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "../redux/hooks.ts";
-import { addInstruction, removeInstruction } from "../redux/slice.ts";
-import { Circle, Pixel } from "../renderer/modifiers/primitives";
-import colors from "../renderer/palettes/html.ts";
-import { Combine } from "../renderer/modifiers/builders";
-import { point } from "../renderer/modifiers";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks.ts";
+import { addInstruction, removeInstruction } from "../../redux/slice.ts";
+import { Circle, Pixel } from "../../renderer/modifiers/primitives";
+import colors from "../../renderer/palettes/html.ts";
+import { Combine } from "../../renderer/modifiers/builders";
+import { point } from "../../renderer/modifiers";
 import {
   ArrowDownIcon,
   ArrowUpIcon,

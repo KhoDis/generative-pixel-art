@@ -1,7 +1,7 @@
 import { Group as KonvaGroup, Layer, Rect, Stage } from "react-konva";
 import { ReactNode } from "react";
 
-import { Render } from "../renderer/types.ts";
+import { Render } from "../../renderer/types.ts";
 
 export type KonvaRendererProps = {
   render: Render;

@@ -1,4 +1,4 @@
-import { Instruction } from "../renderer/types.ts";
+import { Instruction } from "../../renderer/types.ts";
 import { ReactNode } from "react";
 import {
   RectangleGroupIcon,
