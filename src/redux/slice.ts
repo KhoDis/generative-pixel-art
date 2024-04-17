@@ -1,44 +1,82 @@
-import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
 import {
-  Instruction,
-  InstructionId,
-  InstructionState,
-} from "../renderer/types.ts";
+  createEntityAdapter,
+  createSlice,
+  EntityState,
+} from "@reduxjs/toolkit";
+import { Instruction, InstructionId } from "../renderer/types.ts";
+import { RootState } from "./store.ts";
+import { Empty } from "../renderer/modifiers/primitives";
 
-export const figureInstructionAdapter = createEntityAdapter<InstructionState>();
+export const instructionAdapter = createEntityAdapter<Instruction>();
+
+export type InstructionSliceState = {
+  instructions: EntityState<Instruction, InstructionId>;
+  selectedInstructionId: InstructionId | null;
+  rootInstructionId: InstructionId;
+};
+
+function getInitialInstructionState(): InstructionSliceState {
+  const rootModifier = new Empty();
+  const rootInstructionId = rootModifier.id;
+  const instructions = instructionAdapter.addOne(
+    instructionAdapter.getInitialState(),
+    rootModifier.toInstruction(),
+  );
+
+  return {
+    instructions,
+    selectedInstructionId: null,
+    rootInstructionId,
+  };
+}
 
 const figureInstructionSlice = createSlice({
   name: "figureInstruction",
-  initialState: figureInstructionAdapter.getInitialState(),
+  initialState: getInitialInstructionState(),
   reducers: {
-    addInstruction: {
-      reducer: (state, action: { payload: InstructionState }) => {
-        figureInstructionAdapter.addOne(state, action.payload);
-      },
-      prepare: (instruction: Instruction) => {
-        const id = uuidv4();
-        return {
-          payload: {
-            id,
-            instruction,
-          },
-        };
-      },
+    addInstruction: (state, action: { payload: Instruction }) => {
+      instructionAdapter.addOne(state.instructions, action.payload);
     },
     removeInstruction: (state, action: { payload: InstructionId }) => {
-      figureInstructionAdapter.removeOne(state, action.payload);
+      instructionAdapter.removeOne(state.instructions, action.payload);
     },
-    updateInstruction: (state, action: { payload: InstructionState }) => {
-      const { id, instruction } = action.payload;
-      state.entities[id].instruction = instruction;
+    updateInstruction: (state, action: { payload: Instruction }) => {
+      instructionAdapter.updateOne(state.instructions, {
+        id: action.payload.id,
+        changes: action.payload,
+      });
+    },
+    selectInstruction: (state, action: { payload: InstructionId }) => {
+      state.selectedInstructionId = action.payload;
+    },
+    deselectInstruction: (state) => {
+      state.selectedInstructionId = null;
     },
   },
 });
 
-export const { addInstruction, removeInstruction, updateInstruction } =
-  figureInstructionSlice.actions;
+export const {
+  addInstruction,
+  removeInstruction,
+  updateInstruction,
+  selectInstruction,
+  deselectInstruction,
+} = figureInstructionSlice.actions;
 
 export default figureInstructionSlice.reducer;
 
 export { figureInstructionSlice };
+
+// selectors
+export const {
+  selectById: selectInstructionById,
+  selectIds: selectInstructionIds,
+  selectEntities: selectInstructionEntities,
+  selectAll: selectAllInstructions,
+  selectTotal: selectTotalInstructions,
+} = instructionAdapter.getSelectors(
+  (state: RootState) => state.figureInstruction.instructions,
+);
+
+export const selectRootInstructionId = (state: RootState) =>
+  state.figureInstruction.rootInstructionId;

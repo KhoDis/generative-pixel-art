@@ -40,11 +40,6 @@ export type Instruction =
   | BuilderInstruction
   | TransformerInstruction;
 
-export type InstructionState = {
-  id: InstructionId;
-  instruction: Instruction;
-};
-
 export type InstructionId = string;
 
 export interface Shape {

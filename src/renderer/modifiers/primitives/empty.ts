@@ -15,10 +15,7 @@ export type EmptyInstruction = {
 };
 
 export default class Empty implements Shape {
-  constructor(
-    public params: EmptyParams,
-    public id: InstructionId = uuidv4(),
-  ) {}
+  constructor(public id: InstructionId = uuidv4()) {}
 
   render(): Render {
     return render([]);
@@ -31,7 +28,7 @@ export default class Empty implements Shape {
         category: "primitive",
         modifier: "empty",
       },
-      params: this.params,
+      params: {},
       children: [],
     };
   }
