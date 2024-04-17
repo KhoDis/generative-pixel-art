@@ -56,12 +56,19 @@ const figureInstructionSlice = createSlice({
       state,
       action: { payload: { instruction: Instruction } },
     ) => {
+      // TODO: Show user feedback if no instruction is selected
       if (state.selectedInstructionId === null) {
         throw new Error("No instruction selected");
       }
 
       const newInstruction = action.payload.instruction;
-      console.log("replaceSelectedInstruction", newInstruction);
+
+      // If the selected instruction is the root instruction, update the root
+      if (state.selectedInstructionId === state.rootInstructionId) {
+        state.rootInstructionId = newInstruction.id;
+      }
+
+      // Update the selected instruction
       state.instructions = instructionAdapter.updateOne(state.instructions, {
         id: state.selectedInstructionId,
         changes: newInstruction,
