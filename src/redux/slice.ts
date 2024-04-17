@@ -52,6 +52,21 @@ const figureInstructionSlice = createSlice({
     deselectInstruction: (state) => {
       state.selectedInstructionId = null;
     },
+    replaceSelectedInstruction: (
+      state,
+      action: { payload: { instruction: Instruction } },
+    ) => {
+      if (state.selectedInstructionId === null) {
+        throw new Error("No instruction selected");
+      }
+
+      const newInstruction = action.payload.instruction;
+      console.log("replaceSelectedInstruction", newInstruction);
+      state.instructions = instructionAdapter.updateOne(state.instructions, {
+        id: state.selectedInstructionId,
+        changes: newInstruction,
+      });
+    }
   },
 });
 
@@ -61,6 +76,7 @@ export const {
   updateInstruction,
   selectInstruction,
   deselectInstruction,
+  replaceSelectedInstruction,
 } = figureInstructionSlice.actions;
 
 export default figureInstructionSlice.reducer;
