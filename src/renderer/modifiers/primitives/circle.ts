@@ -20,7 +20,10 @@ export type CircleInstruction = {
 
 export default class Circle implements Shape {
   constructor(
-    public params: CircleParams,
+    public params: CircleParams = {
+      radius: 5,
+      color: { r: 0, g: 0, b: 0, a: 1 },
+    },
     public id: InstructionId = uuidv4(),
   ) {}
 
