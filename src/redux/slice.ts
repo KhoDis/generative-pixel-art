@@ -66,7 +66,7 @@ const figureInstructionSlice = createSlice({
         id: state.selectedInstructionId,
         changes: newInstruction,
       });
-    }
+    },
   },
 });
 
