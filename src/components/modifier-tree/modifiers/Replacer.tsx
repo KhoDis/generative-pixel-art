@@ -10,7 +10,7 @@ interface ModifierProps {
 
 export default function Replacer({ instruction }: ModifierProps) {
   const instructionTypeToComponent: Record<
-    Instruction["type"]["modifier"],
+    Instruction["modifier"],
     ReactNode | null
   > = {
     empty: null,
@@ -31,10 +31,10 @@ export default function Replacer({ instruction }: ModifierProps) {
     translate: null,
   };
 
-  const Component = instructionTypeToComponent[instruction.type.modifier];
+  const Component = instructionTypeToComponent[instruction.modifier];
   if (Component) {
     return Component;
   } else {
-    throw new Error(`Unknown instruction type: ${instruction.type.modifier}`);
+    throw new Error(`Unknown instruction type: ${instruction.modifier}`);
   }
 }

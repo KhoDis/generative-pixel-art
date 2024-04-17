@@ -18,10 +18,8 @@ export type PolygonParams = {
 
 export type PolygonInstruction = {
   id: InstructionId;
-  type: {
-    category: "primitive";
-    modifier: "polygon";
-  };
+  category: "primitive";
+  modifier: "polygon";
   params: PolygonParams;
   children: [];
 };
@@ -58,10 +56,8 @@ export default class Polygon implements Shape {
   toInstruction(): PolygonInstruction {
     return {
       id: this.id,
-      type: {
-        category: "primitive",
-        modifier: "polygon",
-      },
+      category: "primitive",
+      modifier: "polygon",
       params: this.params,
       children: [],
     };

@@ -12,11 +12,8 @@ export type RemoveTransparentParams = NoParams;
 
 export type RemoveTransparentInstruction = {
   id: InstructionId;
-  type: {
-    category: "cleaning";
-    returns: "shape";
-    modifier: "removeTransparent";
-  };
+  category: "cleaning";
+  modifier: "removeTransparent";
   params: RemoveTransparentParams;
   children: [InstructionId];
 };
@@ -40,11 +37,8 @@ export default class RemoveTransparent implements Shape {
   toInstruction(): RemoveTransparentInstruction {
     return {
       id: this.id,
-      type: {
-        category: "cleaning",
-        returns: "shape",
-        modifier: "removeTransparent",
-      },
+      category: "cleaning",
+      modifier: "removeTransparent",
       params: {},
       children: [this.shape.toInstruction().id],
     };

@@ -47,10 +47,8 @@ export type ResetParams = {
 
 export type ResetInstruction = {
   id: InstructionId;
-  type: {
-    category: "transformer";
-    modifier: "reset";
-  };
+  category: "transformer";
+  modifier: "reset";
   params: ResetParams;
   children: [InstructionId];
 };
@@ -80,10 +78,8 @@ export default class Reset implements Shape {
   toInstruction(): ResetInstruction {
     return {
       id: this.id,
-      type: {
-        category: "transformer",
-        modifier: "reset",
-      },
+      category: "transformer",
+      modifier: "reset",
       params: this.params,
       children: [this.shape.toInstruction().id],
     };

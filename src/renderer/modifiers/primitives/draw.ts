@@ -8,10 +8,8 @@ export type DrawParams = {
 
 export type DrawInstruction = {
   id: InstructionId;
-  type: {
-    category: "primitive";
-    modifier: "draw";
-  };
+  category: "primitive";
+  modifier: "draw";
   params: DrawParams;
   children: [];
 };
@@ -29,10 +27,8 @@ export default class Draw implements Shape {
   toInstruction(): DrawInstruction {
     return {
       id: this.id,
-      type: {
-        category: "primitive",
-        modifier: "draw",
-      },
+      category: "primitive",
+      modifier: "draw",
       params: this.params,
       children: [],
     };

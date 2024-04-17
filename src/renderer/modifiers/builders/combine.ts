@@ -12,10 +12,8 @@ export type CombineParams = NoParams;
 
 export type CombineInstruction = {
   id: InstructionId;
-  type: {
-    category: "builder";
-    modifier: "combine";
-  };
+  category: "builder";
+  modifier: "combine";
   params: CombineParams;
   children: InstructionId[];
 };
@@ -29,10 +27,8 @@ export default class Combine implements Shape {
   toInstruction(): CombineInstruction {
     return {
       id: this.id,
-      type: {
-        category: "builder",
-        modifier: "combine",
-      },
+      category: "builder",
+      modifier: "combine",
       params: {},
       children: this.shapes.map((shape) => shape.toInstruction().id),
     };

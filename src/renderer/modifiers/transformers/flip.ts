@@ -11,10 +11,8 @@ export type FlipParams = {
 
 export type FlipInstruction = {
   id: InstructionId;
-  type: {
-    category: "transformer";
-    modifier: "flip";
-  };
+  category: "transformer";
+  modifier: "flip";
   params: FlipParams;
   children: [InstructionId];
 };
@@ -63,10 +61,8 @@ export default class Flip implements Shape {
   toInstruction(): FlipInstruction {
     return {
       id: this.id,
-      type: {
-        category: "transformer",
-        modifier: "flip",
-      },
+      category: "transformer",
+      modifier: "flip",
       params: this.params,
       children: [this.shape.toInstruction().id],
     };

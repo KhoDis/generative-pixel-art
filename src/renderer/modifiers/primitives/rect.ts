@@ -19,10 +19,8 @@ export type RectParams = {
 
 export type RectInstruction = {
   id: InstructionId;
-  type: {
-    category: "primitive";
-    modifier: "rect";
-  };
+  category: "primitive";
+  modifier: "rect";
   params: RectParams;
   children: [];
 };
@@ -82,10 +80,8 @@ export default class Rect implements Shape {
   toInstruction(): RectInstruction {
     return {
       id: this.id,
-      type: {
-        category: "primitive",
-        modifier: "rect",
-      },
+      category: "primitive",
+      modifier: "rect",
       params: this.params,
       children: [],
     };

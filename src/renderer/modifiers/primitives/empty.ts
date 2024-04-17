@@ -6,10 +6,8 @@ export type EmptyParams = NoParams;
 
 export type EmptyInstruction = {
   id: InstructionId;
-  type: {
-    category: "primitive";
-    modifier: "empty";
-  };
+  category: "primitive";
+  modifier: "empty";
   params: EmptyParams;
   children: [];
 };
@@ -24,10 +22,8 @@ export default class Empty implements Shape {
   toInstruction(): EmptyInstruction {
     return {
       id: this.id,
-      type: {
-        category: "primitive",
-        modifier: "empty",
-      },
+      category: "primitive",
+      modifier: "empty",
       params: {},
       children: [],
     };

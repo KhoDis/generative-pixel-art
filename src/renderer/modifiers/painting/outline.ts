@@ -15,10 +15,8 @@ export type OutlineParams = {
 
 export type OutlineInstruction = {
   id: InstructionId;
-  type: {
-    category: "painting";
-    modifier: "outline";
-  };
+  category: "painting";
+  modifier: "outline";
   params: OutlineParams;
   children: [InstructionId];
 };
@@ -82,10 +80,8 @@ export default class Outline implements Shape {
   toInstruction(): OutlineInstruction {
     return {
       id: this.id,
-      type: {
-        category: "painting",
-        modifier: "outline",
-      },
+      category: "painting",
+      modifier: "outline",
       params: this.params,
       children: [this.shape.toInstruction().id],
     };

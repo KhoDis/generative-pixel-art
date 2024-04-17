@@ -11,10 +11,8 @@ export type RotateParams = {
 
 export type RotateInstruction = {
   id: InstructionId;
-  type: {
-    category: "transformer";
-    modifier: "rotate";
-  };
+  category: "transformer";
+  modifier: "rotate";
   params: RotateParams;
   children: [InstructionId];
 };
@@ -61,10 +59,8 @@ export default class Rotate implements Shape {
   toInstruction(): RotateInstruction {
     return {
       id: this.id,
-      type: {
-        category: "transformer",
-        modifier: "rotate",
-      },
+      category: "transformer",
+      modifier: "rotate",
       params: this.params,
       children: [this.shape.toInstruction().id],
     };

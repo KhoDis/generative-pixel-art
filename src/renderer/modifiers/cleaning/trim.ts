@@ -12,10 +12,8 @@ export type TrimParams = NoParams;
 
 export type TrimInstruction = {
   id: InstructionId;
-  type: {
-    category: "cleaning";
-    modifier: "trim";
-  };
+  category: "cleaning";
+  modifier: "trim";
   params: TrimParams;
   children: [InstructionId];
 };
@@ -55,10 +53,8 @@ export default class Trim implements Shape {
   toInstruction(): TrimInstruction {
     return {
       id: this.id,
-      type: {
-        category: "cleaning",
-        modifier: "trim",
-      },
+      category: "cleaning",
+      modifier: "trim",
       params: {},
       children: [this.shape.toInstruction().id],
     };

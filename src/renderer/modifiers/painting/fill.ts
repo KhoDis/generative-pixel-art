@@ -23,10 +23,8 @@ export type FillParams = {
 
 export type FillInstruction = {
   id: InstructionId;
-  type: {
-    category: "painting";
-    modifier: "fill";
-  };
+  category: "painting";
+  modifier: "fill";
   params: FillParams;
   children: [InstructionId];
 };
@@ -81,10 +79,8 @@ export default class Fill implements Shape {
   toInstruction(): FillInstruction {
     return {
       id: this.id,
-      type: {
-        category: "painting",
-        modifier: "fill",
-      },
+      category: "painting",
+      modifier: "fill",
       params: this.params,
       children: [this.shape.toInstruction().id],
     };

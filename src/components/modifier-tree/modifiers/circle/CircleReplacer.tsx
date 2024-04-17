@@ -10,8 +10,11 @@ export function CircleReplacer({ shape }: { shape: Shape }) {
   const instruction = shape.toInstruction();
 
   return (
-    <Tooltip message={`Replace with ${instruction.type.modifier}`}>
-      <Button shape="square" onClick={() => dispatch(replaceSelectedInstruction({ instruction }))}>
+    <Tooltip message={`Replace with ${instruction.modifier}`}>
+      <Button
+        shape="square"
+        onClick={() => dispatch(replaceSelectedInstruction({ instruction }))}
+      >
         <PlusCircleIcon className="w-6 h-6" />
       </Button>
     </Tooltip>

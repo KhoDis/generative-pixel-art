@@ -8,10 +8,8 @@ export type TranslateParams = {
 
 export type TranslateInstruction = {
   id: InstructionId;
-  type: {
-    category: "transformer";
-    modifier: "translate";
-  };
+  category: "transformer";
+  modifier: "translate";
   params: TranslateParams;
   children: [InstructionId];
 };
@@ -39,10 +37,8 @@ export default class Translate implements Shape {
   toInstruction(): TranslateInstruction {
     return {
       id: this.id,
-      type: {
-        category: "transformer",
-        modifier: "translate",
-      },
+      category: "transformer",
+      modifier: "translate",
       params: this.params,
       children: [this.shape.toInstruction().id],
     };

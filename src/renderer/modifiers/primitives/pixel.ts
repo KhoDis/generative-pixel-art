@@ -10,10 +10,8 @@ export type PixelParams = {
 
 export type PixelInstruction = {
   id: InstructionId;
-  type: {
-    category: "primitive";
-    modifier: "pixel";
-  };
+  category: "primitive";
+  modifier: "pixel";
   params: PixelParams;
   children: [];
 };
@@ -32,10 +30,8 @@ export default class Pixel implements Shape {
   toInstruction(): PixelInstruction {
     return {
       id: this.id,
-      type: {
-        category: "primitive",
-        modifier: "pixel",
-      },
+      category: "primitive",
+      modifier: "pixel",
       params: this.params,
       children: [],
     };

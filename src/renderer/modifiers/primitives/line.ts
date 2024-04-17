@@ -18,10 +18,8 @@ export type LineParams = {
 
 export type LineInstruction = {
   id: InstructionId;
-  type: {
-    category: "primitive";
-    modifier: "line";
-  };
+  category: "primitive";
+  modifier: "line";
   params: LineParams;
   children: [];
 };
@@ -55,10 +53,8 @@ export default class Line implements Shape {
   toInstruction(): LineInstruction {
     return {
       id: this.id,
-      type: {
-        category: "primitive",
-        modifier: "line",
-      },
+      category: "primitive",
+      modifier: "line",
       params: this.params,
       children: [],
     };

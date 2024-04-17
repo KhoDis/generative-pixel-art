@@ -10,10 +10,8 @@ export type CircleParams = {
 
 export type CircleInstruction = {
   id: InstructionId;
-  type: {
-    category: "primitive";
-    modifier: "circle";
-  };
+  category: "primitive";
+  modifier: "circle";
   params: CircleParams;
   children: [];
 };
@@ -45,10 +43,8 @@ export default class Circle implements Shape {
   toInstruction(): CircleInstruction {
     return {
       id: this.id,
-      type: {
-        category: "primitive",
-        modifier: "circle",
-      },
+      category: "primitive",
+      modifier: "circle",
       params: this.params,
       children: [],
     };
