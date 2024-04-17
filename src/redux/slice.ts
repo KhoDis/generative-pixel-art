@@ -80,3 +80,6 @@ export const {
 
 export const selectRootInstructionId = (state: RootState) =>
   state.figureInstruction.rootInstructionId;
+
+export const selectSelectedInstructionId = (state: RootState) =>
+  state.figureInstruction.selectedInstructionId;

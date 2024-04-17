@@ -6,7 +6,7 @@ import { InstructionId } from "../../renderer/types.ts";
 // } from "@heroicons/react/24/outline";
 import { useAppSelector } from "../../redux/hooks.ts";
 import { selectInstructionById } from "../../redux/slice.ts";
-import Modifier from "./modifiers/Modifier.tsx";
+import MenuItem from "./modifiers/MenuItem.tsx";
 
 export function Figure({ root }: { root: InstructionId }) {
   const instruction = useAppSelector((state) =>
@@ -15,7 +15,7 @@ export function Figure({ root }: { root: InstructionId }) {
 
   return (
     <ul className="menu">
-      <Modifier instruction={instruction} />
+      <MenuItem instruction={instruction} />
     </ul>
   );
 
