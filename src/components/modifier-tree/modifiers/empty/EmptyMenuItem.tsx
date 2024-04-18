@@ -1,12 +1,16 @@
 import { DocumentIcon } from "@heroicons/react/24/solid";
-import Empty from "../../../../renderer/modifiers/primitives/empty.ts";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks.ts";
 import {
   selectInstruction,
   selectSelectedInstructionId,
 } from "../../../../redux/slice.ts";
+import { InstructionId } from "../../../../renderer/types.ts";
 
-export default function EmptyMenuItem({ shape }: { shape: Empty }) {
+export default function EmptyMenuItem({
+  instructionId,
+}: {
+  instructionId: InstructionId;
+}) {
   const dispatch = useAppDispatch();
   const selectedModifier = useAppSelector((state) =>
     selectSelectedInstructionId(state),
@@ -15,8 +19,8 @@ export default function EmptyMenuItem({ shape }: { shape: Empty }) {
   return (
     <li>
       <a
-        className={shape.id === selectedModifier ? "active" : ""}
-        onClick={() => dispatch(selectInstruction(shape.id))}
+        className={instructionId === selectedModifier ? "active" : ""}
+        onClick={() => dispatch(selectInstruction(instructionId))}
       >
         <DocumentIcon className="w-5 h-5" />
         Empty

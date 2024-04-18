@@ -4,9 +4,13 @@ import {
   selectSelectedInstructionId,
 } from "../../../../redux/slice.ts";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import { Circle } from "../../../../renderer/modifiers/primitives";
+import { InstructionId } from "../../../../renderer/types.ts";
 
-export default function CircleMenuItem({ shape }: { shape: Circle }) {
+export default function CircleMenuItem({
+  instructionId,
+}: {
+  instructionId: InstructionId;
+}) {
   const dispatch = useAppDispatch();
   const selectedModifier = useAppSelector((state) =>
     selectSelectedInstructionId(state),
@@ -15,8 +19,8 @@ export default function CircleMenuItem({ shape }: { shape: Circle }) {
   return (
     <li>
       <a
-        className={shape.id === selectedModifier ? "active" : ""}
-        onClick={() => dispatch(selectInstruction(shape.id))}
+        className={instructionId === selectedModifier ? "active" : ""}
+        onClick={() => dispatch(selectInstruction(instructionId))}
       >
         <PlusCircleIcon className="w-5 h-5" />
         Circle

@@ -1,13 +1,15 @@
 import { Button, Tooltip } from "react-daisyui";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import { Shape } from "../../../../renderer/types.ts";
 import { useAppDispatch } from "../../../../redux/hooks.ts";
 import { replaceSelectedInstruction } from "../../../../redux/slice.ts";
+import { CircleInstruction } from "../../../../renderer/modifiers/primitives/circle.ts";
 
-export function CircleReplacer({ shape }: { shape: Shape }) {
+export function CircleReplacer({
+  instruction,
+}: {
+  instruction: CircleInstruction;
+}) {
   const dispatch = useAppDispatch();
-
-  const instruction = shape.toInstruction();
 
   return (
     <Tooltip message={`Replace with ${instruction.modifier}`}>

@@ -1,39 +1,17 @@
-import { Circle, Pixel } from "../../renderer/modifiers/primitives";
-import colors from "../../renderer/palettes/html.ts";
-import { point } from "../../renderer/modifiers";
-import { Shape } from "../../renderer/types.ts";
-import { Combine } from "../../renderer/modifiers/builders";
+import { Render } from "../../renderer/types.ts";
 import KonvaRenderer from "./KonvaRenderer.tsx";
+import { useAppSelector } from "../../redux/hooks.ts";
+import { selectRendered } from "../../redux/slice.ts";
 
 export function Canvas() {
-  // const rect = new Circle(5, colors.red);
-  // // const moved = translate(
-  // //   reset(
-  // //     rect, // child
-  // //     point(1, 1),
-  // //   ),
-  // //   point(10, 10), // params
-  // // );
-  // const px = new Pixel(
-  //   colors.blue, // params
-  //   point(9, 9),
-  // );
-  // const scene: Shape = new Combine(
-  //   // moved,
-  //   rect,
-  //   px,
-  //   // translate(px, point(1, 0)), // children
-  // );
+  const render: Render = useAppSelector((state) => selectRendered(state));
 
   return (
-    // <KonvaRenderer
-    //   canvasWidth={50}
-    //   canvasHeight={30}
-    //   render={scene.render()}
-    //   scale={15}
-    // />
-    <>
-      <div>Canvas</div>
-    </>
+    <KonvaRenderer
+      canvasHeight={50}
+      canvasWidth={30}
+      scale={15}
+      render={render}
+    />
   );
 }

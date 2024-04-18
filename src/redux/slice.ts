@@ -3,9 +3,12 @@ import {
   createSlice,
   EntityState,
 } from "@reduxjs/toolkit";
-import { Instruction, InstructionId } from "../renderer/types.ts";
+import { Instruction, InstructionId, Render } from "../renderer/types.ts";
 import { RootState } from "./store.ts";
 import { Empty } from "../renderer/modifiers/primitives";
+import renderCircle from "../components/modifier-tree/modifiers/circle/renderCircle.ts";
+import renderCombine from "../components/modifier-tree/modifiers/combine/renderCombine.ts";
+import renderEmpty from "../components/modifier-tree/modifiers/empty/renderEmpty.ts";
 
 export const instructionAdapter = createEntityAdapter<Instruction>();
 
@@ -106,3 +109,27 @@ export const selectRootInstructionId = (state: RootState) =>
 
 export const selectSelectedInstructionId = (state: RootState) =>
   state.figureInstruction.selectedInstructionId;
+
+export const selectRendered = (state: RootState) => {
+  // Make recursive function to build shape
+  const render = (instruction: Instruction): Render => {
+    switch (instruction.modifier) {
+      case "circle":
+        return renderCircle(instruction.params);
+      case "combine":
+        return renderCombine(
+          instruction.children.map((id) => {
+            return render(selectInstructionById(state, id));
+          }),
+        );
+      case "empty":
+        return renderEmpty();
+      default:
+        throw new Error(
+          `Unknown instruction modifier: ${instruction.modifier}`,
+        );
+    }
+  };
+
+  return render(selectInstructionById(state, selectRootInstructionId(state)));
+};

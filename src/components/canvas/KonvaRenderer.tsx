@@ -11,9 +11,15 @@ export type KonvaRendererProps = {
   addGrid?: boolean;
 };
 
-const draw = (render: Render, key: number, scale: number): ReactNode => {
+function RenderedInstruction({
+  render,
+  scale,
+}: {
+  render: Render;
+  scale: number;
+}) {
   return (
-    <KonvaGroup key={key} x={0} y={0}>
+    <KonvaGroup x={0} y={0}>
       {render.pixels.toPlacements().map((pixel, index) => (
         <Rect
           key={index}
@@ -22,13 +28,13 @@ const draw = (render: Render, key: number, scale: number): ReactNode => {
           width={scale}
           height={scale}
           fill={`rgba(${pixel.pixel.r}, ${pixel.pixel.g}, ${pixel.pixel.b}, ${
-            (pixel.pixel.a ?? 255) / 255
+            pixel.pixel.a ?? 1
           })`}
         />
       ))}
     </KonvaGroup>
   );
-};
+}
 
 function Grid({
   width,
@@ -90,7 +96,7 @@ function KonvaRenderer({
         )}
 
         {/* Scene */}
-        {draw(render, 0, scale)}
+        <RenderedInstruction render={render} scale={scale} />
       </Layer>
     </Stage>
   );
