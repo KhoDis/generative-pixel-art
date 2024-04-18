@@ -1,5 +1,5 @@
 import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
-import { place, render } from "../index.ts";
+import { place, createRender } from "../index.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type TranslateParams = {
@@ -31,7 +31,7 @@ export default class Translate implements Shape {
       pixels.push(place(pixel, newX, newY));
     }
 
-    return render(pixels);
+    return createRender(pixels);
   }
 
   toInstruction(): TranslateInstruction {

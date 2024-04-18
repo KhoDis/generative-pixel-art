@@ -10,7 +10,7 @@ import {
   getDiagonalNeighbors,
   getStraightNeighbors,
 } from "../../utils/getNeighbors.ts";
-import render from "../render.ts";
+import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type TraversalMode = "straightOnly" | "includeDiagonals";
@@ -73,7 +73,7 @@ export default class Fill implements Shape {
       }
     }
 
-    return render([...filledPixels, ...oldPixels]);
+    return createRender([...filledPixels, ...oldPixels]);
   }
 
   toInstruction(): FillInstruction {

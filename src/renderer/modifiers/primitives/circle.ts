@@ -1,6 +1,6 @@
 import { Color, InstructionId, Render, Shape } from "../../types.ts";
 import { place } from "../index.ts";
-import render from "../render.ts";
+import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type CircleParams = {
@@ -37,7 +37,7 @@ export default class Circle implements Shape {
       }
     }
 
-    return render(pixels);
+    return createRender(pixels);
   }
 
   toInstruction(): CircleInstruction {

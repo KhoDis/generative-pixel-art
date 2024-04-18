@@ -3,7 +3,7 @@ import {
   getDiagonalNeighbors,
   getStraightNeighbors,
 } from "../../utils/getNeighbors.ts";
-import render from "../render.ts";
+import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type OutlineMode = "none" | "all" | "corners";
@@ -74,7 +74,7 @@ export default class Outline implements Shape {
       }
     }
 
-    return render([...pixels, ...outlinePixels]);
+    return createRender([...pixels, ...outlinePixels]);
   }
 
   toInstruction(): OutlineInstruction {

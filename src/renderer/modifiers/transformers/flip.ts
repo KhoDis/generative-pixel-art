@@ -1,5 +1,5 @@
 import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
-import { render } from "../index.ts";
+import { createRender } from "../index.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type FlipMode = "x" | "y" | "xy";
@@ -55,7 +55,7 @@ export default class Flip implements Shape {
       }
     }
 
-    return render(pixels);
+    return createRender(pixels);
   }
 
   toInstruction(): FlipInstruction {

@@ -5,7 +5,7 @@ import {
   Render,
   Shape,
 } from "../../types.ts";
-import render from "../render.ts";
+import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type RemoveTransparentParams = NoParams;
@@ -31,7 +31,7 @@ export default class RemoveTransparent implements Shape {
       updated.push({ position, pixel });
     }
 
-    return render(updated);
+    return createRender(updated);
   }
 
   toInstruction(): RemoveTransparentInstruction {

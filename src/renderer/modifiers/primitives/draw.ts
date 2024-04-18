@@ -1,5 +1,5 @@
 import { InstructionId, Placement, Render, Shape } from "../../types.ts";
-import render from "../render.ts";
+import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type DrawParams = {
@@ -21,7 +21,7 @@ export default class Draw implements Shape {
   ) {}
 
   render(): Render {
-    return render(this.params.placements);
+    return createRender(this.params.placements);
   }
 
   toInstruction(): DrawInstruction {

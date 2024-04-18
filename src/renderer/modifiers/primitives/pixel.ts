@@ -1,6 +1,6 @@
 import { Color, InstructionId, Point, Render, Shape } from "../../types.ts";
 import place from "../place.ts";
-import render from "../render.ts";
+import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type PixelParams = {
@@ -24,7 +24,7 @@ export default class Pixel implements Shape {
 
   render(): Render {
     const { color, point } = this.params;
-    return render([place(color, point.x, point.y)]);
+    return createRender([place(color, point.x, point.y)]);
   }
 
   toInstruction(): PixelInstruction {

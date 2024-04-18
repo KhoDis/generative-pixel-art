@@ -7,7 +7,7 @@ import {
   Shape,
 } from "../../types.ts";
 import { Bounds } from "../../core/PixelMap.ts";
-import { place, render } from "../index.ts";
+import { place, createRender } from "../index.ts";
 import { v4 as uuidv4 } from "uuid";
 
 function center(a: number, b: number): number {
@@ -72,7 +72,7 @@ export default class Reset implements Shape {
       pixels.push(place(pixel, newX, newY));
     }
 
-    return render(pixels);
+    return createRender(pixels);
   }
 
   toInstruction(): ResetInstruction {

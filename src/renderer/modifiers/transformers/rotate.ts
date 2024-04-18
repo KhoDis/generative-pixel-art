@@ -1,5 +1,5 @@
 import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
-import { place, render } from "../index.ts";
+import { place, createRender } from "../index.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type RotationMode = "90cw" | "90ccw" | "180" | "none";
@@ -53,7 +53,7 @@ export default class Rotate implements Shape {
       }
     }
 
-    return render(placements);
+    return createRender(placements);
   }
 
   toInstruction(): RotateInstruction {

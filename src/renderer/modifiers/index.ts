@@ -1,7 +1,7 @@
 import place from "./place.ts";
 import point from "./point.ts";
-import render from "./render.ts";
+import createRender from "./createRender.ts";
 
-export { place, point, render };
+export { place, point, createRender };
 
-export default { place, point, render };
+export default { place, point, createRender };

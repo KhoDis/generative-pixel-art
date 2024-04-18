@@ -7,7 +7,7 @@ import {
   Shape,
 } from "../../types.ts";
 import place from "../place.ts";
-import render from "../render.ts";
+import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type LineParams = {
@@ -47,7 +47,7 @@ export default class Line implements Shape {
       pixels.push(place(color, x, y));
     }
 
-    return render(pixels);
+    return createRender(pixels);
   }
 
   toInstruction(): LineInstruction {

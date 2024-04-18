@@ -5,7 +5,7 @@ import {
   Render,
   Shape,
 } from "../../types.ts";
-import { place, render } from "../index.ts";
+import { place, createRender } from "../index.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type TrimParams = NoParams;
@@ -47,7 +47,7 @@ export default class Trim implements Shape {
       trimmed.push(place(pixel, x - minX, y - minY));
     }
 
-    return render(trimmed);
+    return createRender(trimmed);
   }
 
   toInstruction(): TrimInstruction {

@@ -6,7 +6,7 @@ import {
   Render,
   Shape,
 } from "../../types.ts";
-import render from "../render.ts";
+import createRender from "../createRender.ts";
 import Line from "./line.ts";
 import { v4 as uuidv4 } from "uuid";
 
@@ -50,7 +50,7 @@ export default class Polygon implements Shape {
       );
     }
 
-    return render(placements.flat());
+    return createRender(placements.flat());
   }
 
   toInstruction(): PolygonInstruction {

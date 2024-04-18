@@ -5,7 +5,7 @@ import {
   Render,
   Shape,
 } from "../../types.ts";
-import render from "../render.ts";
+import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type CombineParams = NoParams;
@@ -39,6 +39,6 @@ export default class Combine implements Shape {
     for (const shape of this.shapes) {
       pixels.push(...shape.render().pixels);
     }
-    return render(pixels);
+    return createRender(pixels);
   }
 }

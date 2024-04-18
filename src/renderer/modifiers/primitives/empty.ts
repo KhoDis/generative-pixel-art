@@ -1,5 +1,5 @@
 import { InstructionId, NoParams, Render, Shape } from "../../types.ts";
-import render from "../render.ts";
+import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export type EmptyParams = NoParams;
@@ -16,7 +16,7 @@ export default class Empty implements Shape {
   constructor(public id: InstructionId = uuidv4()) {}
 
   render(): Render {
-    return render([]);
+    return createRender([]);
   }
 
   toInstruction(): EmptyInstruction {
