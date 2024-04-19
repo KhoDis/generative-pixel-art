@@ -166,9 +166,7 @@ export const selectRendered = (state: RootState) => {
       case "empty":
         return renderEmpty();
       default:
-        throw new Error(
-          `Unknown instruction modifier: ${instruction}`,
-        );
+        throw new Error(`Unknown instruction modifier: ${instruction}`);
     }
   };
 
