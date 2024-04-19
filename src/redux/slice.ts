@@ -73,10 +73,28 @@ const figureInstructionSlice = createSlice({
 
       // Remove all children of the selected instruction
       const selectedInstruction = state.instructions.entities[state.selectedInstructionId];
-      console.log("selectedInstruction", selectedInstruction)
+      newInstruction.parentId = selectedInstruction.parentId;
+
+      console.log("replaceSelectedInstruction.selectedInstruction", selectedInstruction.id, selectedInstruction.parentId);
       for (const childId of selectedInstruction.children) {
         console.log("childId", childId)
         instructionAdapter.removeOne(state.instructions, childId);
+      }
+
+      // Update the parent to change one of the children to the new id
+      if (selectedInstruction.parentId) {
+        const parent = state.instructions.entities[selectedInstruction.parentId];
+        const newChildren = parent.children.map((id) =>
+          id === state.selectedInstructionId ? newInstruction.id : id
+        );
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const changes: Instruction = { ...parent, children: newChildren };
+        console.log("new children", newChildren)
+        state.instructions = instructionAdapter.updateOne(state.instructions, {
+          id: parent.id,
+          changes,
+        });
       }
 
       // Update the selected instruction
@@ -84,6 +102,9 @@ const figureInstructionSlice = createSlice({
         id: state.selectedInstructionId,
         changes: newInstruction,
       });
+
+      // Set selected instruction to the new instruction
+      state.selectedInstructionId = newInstruction.id;
     },
   },
 });

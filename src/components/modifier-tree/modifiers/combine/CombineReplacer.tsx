@@ -18,13 +18,14 @@ export function CombineReplacer() {
         onClick={() => {
           const emptyInstruction1 = createEmpty();
           const emptyInstruction2 = createEmpty();
-          dispatch(addInstruction(emptyInstruction1));
-          dispatch(addInstruction(emptyInstruction2));
-
           const instruction = createCombine(undefined, [
             emptyInstruction1.id,
             emptyInstruction2.id,
           ]);
+          emptyInstruction1.parentId = instruction.id;
+          emptyInstruction2.parentId = instruction.id;
+          dispatch(addInstruction(emptyInstruction1));
+          dispatch(addInstruction(emptyInstruction2));
           dispatch(replaceSelectedInstruction({ instruction }));
         }}
       >
