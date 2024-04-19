@@ -23,6 +23,7 @@ export type FillParams = {
 
 export type FillInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "painting";
   modifier: "fill";
   params: FillParams;

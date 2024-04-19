@@ -12,6 +12,7 @@ export type RemoveTransparentParams = NoParams;
 
 export type RemoveTransparentInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "cleaning";
   modifier: "removeTransparent";
   params: RemoveTransparentParams;

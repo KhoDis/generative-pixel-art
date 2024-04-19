@@ -8,6 +8,7 @@ export type DrawParams = {
 
 export type DrawInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "primitive";
   modifier: "draw";
   params: DrawParams;

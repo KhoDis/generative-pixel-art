@@ -8,6 +8,7 @@ export type TranslateParams = {
 
 export type TranslateInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "transformer";
   modifier: "translate";
   params: TranslateParams;

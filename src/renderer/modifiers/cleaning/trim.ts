@@ -12,6 +12,7 @@ export type TrimParams = NoParams;
 
 export type TrimInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "cleaning";
   modifier: "trim";
   params: TrimParams;

@@ -12,6 +12,7 @@ export type CombineParams = NoParams;
 
 export type CombineInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "builder";
   modifier: "combine";
   params: CombineParams;

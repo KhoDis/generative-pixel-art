@@ -6,6 +6,7 @@ export type EmptyParams = NoParams;
 
 export type EmptyInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "primitive";
   modifier: "empty";
   params: EmptyParams;

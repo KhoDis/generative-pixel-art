@@ -18,6 +18,7 @@ export type LineParams = {
 
 export type LineInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "primitive";
   modifier: "line";
   params: LineParams;

@@ -47,6 +47,7 @@ export type ResetParams = {
 
 export type ResetInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "transformer";
   modifier: "reset";
   params: ResetParams;

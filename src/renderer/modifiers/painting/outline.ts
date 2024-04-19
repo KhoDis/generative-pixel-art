@@ -15,6 +15,7 @@ export type OutlineParams = {
 
 export type OutlineInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "painting";
   modifier: "outline";
   params: OutlineParams;

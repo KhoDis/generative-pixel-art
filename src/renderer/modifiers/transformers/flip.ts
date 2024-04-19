@@ -11,6 +11,7 @@ export type FlipParams = {
 
 export type FlipInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "transformer";
   modifier: "flip";
   params: FlipParams;

@@ -18,6 +18,7 @@ export type PolygonParams = {
 
 export type PolygonInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "primitive";
   modifier: "polygon";
   params: PolygonParams;

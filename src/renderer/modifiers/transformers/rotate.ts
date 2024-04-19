@@ -11,6 +11,7 @@ export type RotateParams = {
 
 export type RotateInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "transformer";
   modifier: "rotate";
   params: RotateParams;

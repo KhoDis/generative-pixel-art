@@ -10,6 +10,7 @@ export type CircleParams = {
 
 export type CircleInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "primitive";
   modifier: "circle";
   params: CircleParams;

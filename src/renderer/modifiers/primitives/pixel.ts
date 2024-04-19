@@ -10,6 +10,7 @@ export type PixelParams = {
 
 export type PixelInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "primitive";
   modifier: "pixel";
   params: PixelParams;

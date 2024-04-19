@@ -19,6 +19,7 @@ export type RectParams = {
 
 export type RectInstruction = {
   id: InstructionId;
+  parentId?: InstructionId;
   category: "primitive";
   modifier: "rect";
   params: RectParams;
