@@ -1,9 +1,6 @@
 import { InstructionId } from "../../../../renderer/types.ts";
 import { v4 as uuidv4 } from "uuid";
-import {
-  CircleInstruction,
-  CircleParams,
-} from "../../../../renderer/modifiers/primitives/circle.ts";
+import { CircleInstruction, CircleParams } from "./types.ts";
 
 export default function createCircle(
   id: InstructionId = uuidv4(),
@@ -14,6 +11,7 @@ export default function createCircle(
     category: "primitive",
     modifier: "circle",
     params,
+    arity: "nullary",
     children: [],
   };
 }

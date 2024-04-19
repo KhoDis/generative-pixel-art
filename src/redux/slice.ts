@@ -5,10 +5,10 @@ import {
 } from "@reduxjs/toolkit";
 import { Instruction, InstructionId, Render } from "../renderer/types.ts";
 import { RootState } from "./store.ts";
-import { Empty } from "../renderer/modifiers/primitives";
 import renderCircle from "../components/modifier-tree/modifiers/circle/renderCircle.ts";
 import renderCombine from "../components/modifier-tree/modifiers/combine/renderCombine.ts";
 import renderEmpty from "../components/modifier-tree/modifiers/empty/renderEmpty.ts";
+import createEmpty from "../components/modifier-tree/modifiers/empty/createEmpty.ts";
 
 export const instructionAdapter = createEntityAdapter<Instruction>();
 
@@ -19,11 +19,11 @@ export type InstructionSliceState = {
 };
 
 function getInitialInstructionState(): InstructionSliceState {
-  const rootModifier = new Empty();
+  const rootModifier = createEmpty();
   const rootInstructionId = rootModifier.id;
   const instructions = instructionAdapter.addOne(
     instructionAdapter.getInitialState(),
-    rootModifier.toInstruction(),
+    rootModifier,
   );
 
   return {
@@ -155,7 +155,7 @@ export const selectRendered = (state: RootState) => {
         return renderEmpty();
       default:
         throw new Error(
-          `Unknown instruction modifier: ${instruction.modifier}`,
+          `Unknown instruction modifier: ${instruction}`,
         );
     }
   };

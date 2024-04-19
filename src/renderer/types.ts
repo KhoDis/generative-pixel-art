@@ -1,9 +1,7 @@
 import { PixelMap } from "./core/PixelMap.ts";
-import { PrimitiveInstruction } from "./modifiers/primitives";
-import { PaintingInstruction } from "./modifiers/painting";
-import { CleaningInstruction } from "./modifiers/cleaning";
-import { BuilderInstruction } from "./modifiers/builders";
-import { TransformerInstruction } from "./modifiers/transformers";
+import { CircleInstruction } from "../components/modifier-tree/modifiers/circle/types.ts";
+import { EmptyInstruction } from "../components/modifier-tree/modifiers/empty/types.ts";
+import { CombineInstruction } from "../components/modifier-tree/modifiers/combine/types.ts";
 
 /**
  * Represents a point in a 2D space.
@@ -33,12 +31,67 @@ export type Render = {
   pixels: PixelMap;
 };
 
+export type Nullary = {
+  children: [];
+  arity: "nullary";
+};
+
+export type Unary = {
+  children: [InstructionId];
+  arity: "unary";
+};
+
+export type Binary = {
+  children: [InstructionId, InstructionId];
+  arity: "binary";
+};
+
+export type Variadic = {
+  children: InstructionId[];
+  arity: "variadic";
+};
+
+export type Primitive = {
+  category: "primitive";
+};
+
+export type Painting = {
+  category: "painting";
+};
+
+export type Cleaning = {
+  category: "cleaning";
+};
+
+export type Builder = {
+  category: "builder";
+};
+
+export type Transformer = {
+  category: "transformer";
+};
+
+export type NoParams = Record<string, never>;
+
+export type MakeInstruction<
+  TModifier extends string,
+  TParams extends Record<string, unknown>,
+  TCategory extends Primitive | Painting | Cleaning | Builder | Transformer,
+  TArity extends Nullary | Unary | Binary | Variadic,
+> = {
+  id: InstructionId;
+  parentId?: InstructionId;
+  modifier: TModifier;
+  params: {
+    [Property in keyof TParams]: TParams[Property];
+  };
+} & TArity &
+  TCategory;
+
 export type Instruction =
-  | PrimitiveInstruction
-  | PaintingInstruction
-  | CleaningInstruction
-  | BuilderInstruction
-  | TransformerInstruction;
+  | CircleInstruction
+  | EmptyInstruction
+  | CombineInstruction;
 
 export type InstructionId = string;
 
@@ -47,8 +100,6 @@ export interface Shape {
   toInstruction(): Instruction;
   render(): Render;
 }
-
-export type NoParams = Record<string, never>;
 
 /**
  * Represents a placement of a pixel at a certain position.
