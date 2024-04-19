@@ -17,14 +17,12 @@ export default function CircleMenuItem({
   );
 
   return (
-    <li>
-      <a
-        className={instructionId === selectedModifier ? "active" : ""}
-        onClick={() => dispatch(selectInstruction(instructionId))}
-      >
-        <PlusCircleIcon className="w-5 h-5" />
-        Circle
-      </a>
-    </li>
+    <a
+      className={instructionId === selectedModifier ? "active" : ""}
+      onClick={() => dispatch(selectInstruction(instructionId))}
+    >
+      <PlusCircleIcon className="w-5 h-5" />
+      Circle
+    </a>
   );
 }

@@ -38,13 +38,13 @@ const figureInstructionSlice = createSlice({
   initialState: getInitialInstructionState(),
   reducers: {
     addInstruction: (state, action: { payload: Instruction }) => {
-      instructionAdapter.addOne(state.instructions, action.payload);
+      state.instructions = instructionAdapter.addOne(state.instructions, action.payload);
     },
     removeInstruction: (state, action: { payload: InstructionId }) => {
-      instructionAdapter.removeOne(state.instructions, action.payload);
+      state.instructions = instructionAdapter.removeOne(state.instructions, action.payload);
     },
     updateInstruction: (state, action: { payload: Instruction }) => {
-      instructionAdapter.updateOne(state.instructions, {
+      state.instructions = instructionAdapter.updateOne(state.instructions, {
         id: action.payload.id,
         changes: action.payload,
       });
@@ -69,6 +69,14 @@ const figureInstructionSlice = createSlice({
       // If the selected instruction is the root instruction, update the root
       if (state.selectedInstructionId === state.rootInstructionId) {
         state.rootInstructionId = newInstruction.id;
+      }
+
+      // Remove all children of the selected instruction
+      const selectedInstruction = state.instructions.entities[state.selectedInstructionId];
+      console.log("selectedInstruction", selectedInstruction)
+      for (const childId of selectedInstruction.children) {
+        console.log("childId", childId)
+        instructionAdapter.removeOne(state.instructions, childId);
       }
 
       // Update the selected instruction

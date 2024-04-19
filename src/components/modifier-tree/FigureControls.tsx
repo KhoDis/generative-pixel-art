@@ -32,9 +32,7 @@ export function FigureControls({ selected }: { selected: number }) {
         >
           <PlusIcon className="w-4 h-4" />
         </button>
-        <button
-          className="btn btn-square btn-sm join-item btn-primary"
-        >
+        <button className="btn btn-square btn-sm join-item btn-primary">
           <LightBulbIcon className="w-4 h-4" />
         </button>
       </div>

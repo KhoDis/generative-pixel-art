@@ -17,14 +17,12 @@ export default function EmptyMenuItem({
   );
 
   return (
-    <li>
-      <a
-        className={instructionId === selectedModifier ? "active" : ""}
-        onClick={() => dispatch(selectInstruction(instructionId))}
-      >
-        <DocumentIcon className="w-5 h-5" />
-        Empty
-      </a>
-    </li>
+    <a
+      className={instructionId === selectedModifier ? "active" : ""}
+      onClick={() => dispatch(selectInstruction(instructionId))}
+    >
+      <DocumentIcon className="w-5 h-5" />
+      Empty
+    </a>
   );
 }
