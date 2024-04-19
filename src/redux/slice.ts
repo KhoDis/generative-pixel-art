@@ -38,10 +38,16 @@ const figureInstructionSlice = createSlice({
   initialState: getInitialInstructionState(),
   reducers: {
     addInstruction: (state, action: { payload: Instruction }) => {
-      state.instructions = instructionAdapter.addOne(state.instructions, action.payload);
+      state.instructions = instructionAdapter.addOne(
+        state.instructions,
+        action.payload,
+      );
     },
     removeInstruction: (state, action: { payload: InstructionId }) => {
-      state.instructions = instructionAdapter.removeOne(state.instructions, action.payload);
+      state.instructions = instructionAdapter.removeOne(
+        state.instructions,
+        action.payload,
+      );
     },
     updateInstruction: (state, action: { payload: Instruction }) => {
       state.instructions = instructionAdapter.updateOne(state.instructions, {
@@ -72,25 +78,31 @@ const figureInstructionSlice = createSlice({
       }
 
       // Remove all children of the selected instruction
-      const selectedInstruction = state.instructions.entities[state.selectedInstructionId];
+      const selectedInstruction =
+        state.instructions.entities[state.selectedInstructionId];
       newInstruction.parentId = selectedInstruction.parentId;
 
-      console.log("replaceSelectedInstruction.selectedInstruction", selectedInstruction.id, selectedInstruction.parentId);
+      console.log(
+        "replaceSelectedInstruction.selectedInstruction",
+        selectedInstruction.id,
+        selectedInstruction.parentId,
+      );
       for (const childId of selectedInstruction.children) {
-        console.log("childId", childId)
+        console.log("childId", childId);
         instructionAdapter.removeOne(state.instructions, childId);
       }
 
       // Update the parent to change one of the children to the new id
       if (selectedInstruction.parentId) {
-        const parent = state.instructions.entities[selectedInstruction.parentId];
+        const parent =
+          state.instructions.entities[selectedInstruction.parentId];
         const newChildren = parent.children.map((id) =>
-          id === state.selectedInstructionId ? newInstruction.id : id
+          id === state.selectedInstructionId ? newInstruction.id : id,
         );
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const changes: Instruction = { ...parent, children: newChildren };
-        console.log("new children", newChildren)
+        console.log("new children", newChildren);
         state.instructions = instructionAdapter.updateOne(state.instructions, {
           id: parent.id,
           changes,

@@ -11,7 +11,9 @@ export function EmptyReplacer() {
     <Tooltip message={`Replace with empty`}>
       <Button
         shape="square"
-        onClick={() => dispatch(replaceSelectedInstruction({ instruction: createEmpty() }))}
+        onClick={() =>
+          dispatch(replaceSelectedInstruction({ instruction: createEmpty() }))
+        }
       >
         <DocumentIcon className="w-6 h-6" />
       </Button>

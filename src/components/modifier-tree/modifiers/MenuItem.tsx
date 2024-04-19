@@ -2,7 +2,10 @@ import { InstructionId } from "../../../renderer/types.ts";
 import EmptyMenuItem from "./empty/EmptyMenuItem.tsx";
 import CircleMenuItem from "./circle/CircleMenuItem.tsx";
 import CombineMenuItem from "./combine/CombineMenuItem.tsx";
-import { selectAllInstructions, selectInstructionById } from "../../../redux/slice.ts";
+import {
+  selectAllInstructions,
+  selectInstructionById,
+} from "../../../redux/slice.ts";
 import { useAppSelector } from "../../../redux/hooks.ts";
 
 interface ModifierProps {
@@ -13,7 +16,12 @@ export default function MenuItem({ instructionId }: ModifierProps) {
   const instruction = useAppSelector((state) =>
     selectInstructionById(state, instructionId),
   );
-  console.log("MenuItem", instructionId, instruction, useAppSelector((state) => selectAllInstructions(state)));
+  console.log(
+    "MenuItem",
+    instructionId,
+    instruction,
+    useAppSelector((state) => selectAllInstructions(state)),
+  );
 
   switch (instruction.modifier) {
     case "empty":
