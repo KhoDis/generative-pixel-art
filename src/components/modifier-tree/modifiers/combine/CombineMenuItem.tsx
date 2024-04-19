@@ -6,7 +6,7 @@ import {
 } from "../../../../redux/slice.ts";
 import { Square2StackIcon } from "@heroicons/react/24/outline";
 import { InstructionId } from "../../../../renderer/types.ts";
-import MenuItem from "../MenuItem.tsx";
+import MenuItem from "../../MenuItem.tsx";
 
 export default function CombineMenuItem({
   instructionId,

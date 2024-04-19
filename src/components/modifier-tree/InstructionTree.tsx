@@ -1,5 +1,5 @@
 import { InstructionId } from "../../renderer/types.ts";
-import MenuItem from "./modifiers/MenuItem.tsx";
+import MenuItem from "./MenuItem.tsx";
 
 export function InstructionTree({ root }: { root: InstructionId }) {
   return (

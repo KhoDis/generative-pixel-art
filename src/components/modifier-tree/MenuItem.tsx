@@ -1,12 +1,12 @@
-import { InstructionId } from "../../../renderer/types.ts";
-import EmptyMenuItem from "./empty/EmptyMenuItem.tsx";
-import CircleMenuItem from "./circle/CircleMenuItem.tsx";
-import CombineMenuItem from "./combine/CombineMenuItem.tsx";
+import { InstructionId } from "../../renderer/types.ts";
+import EmptyMenuItem from "./modifiers/empty/EmptyMenuItem.tsx";
+import CircleMenuItem from "./modifiers/circle/CircleMenuItem.tsx";
+import CombineMenuItem from "./modifiers/combine/CombineMenuItem.tsx";
 import {
   selectAllInstructions,
   selectInstructionById,
-} from "../../../redux/slice.ts";
-import { useAppSelector } from "../../../redux/hooks.ts";
+} from "../../redux/slice.ts";
+import { useAppSelector } from "../../redux/hooks.ts";
 
 interface ModifierProps {
   instructionId: InstructionId;
