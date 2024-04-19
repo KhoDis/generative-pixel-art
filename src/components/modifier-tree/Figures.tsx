@@ -1,7 +1,7 @@
 import { useAppSelector } from "../../redux/hooks.ts";
 // import { useState } from "react";
 // import { XMarkIcon } from "@heroicons/react/16/solid";
-import { Figure } from "./Figure.tsx";
+import { InstructionTree } from "./InstructionTree.tsx";
 
 export function Figures() {
   // const dispatch = useAppDispatch();
@@ -47,7 +47,7 @@ export function Figures() {
         {/*  ))}*/}
         {/*</div>*/}
         <div>
-          <Figure root={root} />
+          <InstructionTree root={root} />
         </div>
         {/*<FigureControls selected={selected} />*/}
       </div>
