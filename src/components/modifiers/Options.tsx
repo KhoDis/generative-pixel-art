@@ -18,11 +18,11 @@ function OptionsImpl({ instructionId }: { instructionId: InstructionId }) {
 
   switch (selectedInstruction.modifier) {
     case "circle":
-      return <CircleOptions />;
+      return <CircleOptions selectedInstruction={selectedInstruction} />;
+    case "translate":
+      return <TranslateOptions selectedInstruction={selectedInstruction} />;
     case "empty" || "combine":
       return <NoOptions />;
-    case "translate":
-      return <TranslateOptions />;
     default:
       return null;
   }
