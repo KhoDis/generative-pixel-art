@@ -5,7 +5,7 @@ import { TranslateInstruction, TranslateParams } from "./types.ts";
 export default function createTranslate(
   id: InstructionId = uuidv4(),
   params: TranslateParams = { offset: { x: 0, y: 0 } },
-  child: InstructionId,
+  child: InstructionId = uuidv4(),
 ): TranslateInstruction {
   return {
     id: id,

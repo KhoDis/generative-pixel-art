@@ -1,28 +1,13 @@
-import { Button, Tooltip } from "react-daisyui";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
-import { useAppDispatch } from "../../../redux/hooks.ts";
-import { replaceSelectedInstruction } from "../../../redux/slice.ts";
 import createTranslate from "./createTranslate.ts";
-import createEmpty from "../empty/createEmpty.ts";
+import BaseReplacer from "../BaseReplacer.tsx";
 
 export function TranslateReplacer() {
-  const dispatch = useAppDispatch();
-
   return (
-    <Tooltip message={`Replace with translate`}>
-      <Button
-        shape="square"
-        onClick={() => {
-          const instruction = createTranslate(
-            undefined,
-            { offset: { x: 0, y: 0 } },
-            createEmpty().id,
-          );
-          dispatch(replaceSelectedInstruction({ instruction }));
-        }}
-      >
-        <AdjustmentsHorizontalIcon className="w-6 h-6" />
-      </Button>
-    </Tooltip>
+    <BaseReplacer
+      name="translate"
+      icon={<AdjustmentsHorizontalIcon className="w-6 h-6" />}
+      getInstruction={() => createTranslate()}
+    />
   );
 }
