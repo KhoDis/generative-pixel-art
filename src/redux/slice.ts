@@ -61,6 +61,21 @@ const figureInstructionSlice = createSlice({
     deselectInstruction: (state) => {
       state.selectedInstructionId = null;
     },
+    updateParams<T extends Instruction>(
+      state: InstructionSliceState,
+      action: { payload: { id: InstructionId; params: T["params"] } },
+    ) {
+      const instruction = state.instructions.entities[action.payload.id] as T;
+      if (!instruction) {
+        throw new Error(`Instruction with id ${action.payload.id} not found`);
+      }
+
+      const changes = { ...instruction, params: action.payload.params };
+      state.instructions = instructionAdapter.updateOne(state.instructions, {
+        id: action.payload.id,
+        changes,
+      });
+    },
     replaceSelectedInstruction: (
       state,
       action: { payload: { instruction: Instruction } },
@@ -127,6 +142,7 @@ export const {
   updateInstruction,
   selectInstruction,
   deselectInstruction,
+  updateParams,
   replaceSelectedInstruction,
 } = figureInstructionSlice.actions;
 
@@ -150,6 +166,11 @@ export const selectRootInstructionId = (state: RootState) =>
 
 export const selectSelectedInstructionId = (state: RootState) =>
   state.figureInstruction.selectedInstructionId;
+
+export const selectSelectedInstruction = (state: RootState) => {
+  const id = selectSelectedInstructionId(state);
+  return id ? selectInstructionById(state, id) : null;
+};
 
 export const selectRendered = (state: RootState) => {
   // Make recursive function to build shape
