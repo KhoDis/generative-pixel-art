@@ -134,6 +134,16 @@ const figureInstructionSlice = createSlice({
         changes: newInstruction,
       });
 
+      // Add children to state
+      for (const childId of newInstruction.children) {
+        const emptyChild = createEmpty(childId);
+        emptyChild.parentId = newInstruction.id;
+        state.instructions = instructionAdapter.addOne(
+          state.instructions,
+          emptyChild,
+        );
+      }
+
       // Set selected instruction to the new instruction
       state.selectedInstructionId = newInstruction.id;
     },

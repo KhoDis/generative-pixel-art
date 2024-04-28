@@ -2,7 +2,6 @@ import { Button, Tooltip } from "react-daisyui";
 import { Square2StackIcon } from "@heroicons/react/24/outline";
 import { useAppDispatch } from "../../../redux/hooks.ts";
 import {
-  addInstruction,
   replaceSelectedInstruction,
 } from "../../../redux/slice.ts";
 import createCombine from "./createCombine.ts";
@@ -16,16 +15,10 @@ export function CombineReplacer() {
       <Button
         shape="square"
         onClick={() => {
-          const emptyInstruction1 = createEmpty();
-          const emptyInstruction2 = createEmpty();
           const instruction = createCombine(undefined, [
-            emptyInstruction1.id,
-            emptyInstruction2.id,
+            createEmpty().id,
+            createEmpty().id,
           ]);
-          emptyInstruction1.parentId = instruction.id;
-          emptyInstruction2.parentId = instruction.id;
-          dispatch(addInstruction(emptyInstruction1));
-          dispatch(addInstruction(emptyInstruction2));
           dispatch(replaceSelectedInstruction({ instruction }));
         }}
       >
