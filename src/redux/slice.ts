@@ -63,14 +63,17 @@ const figureInstructionSlice = createSlice({
     },
     updateParams<T extends Instruction>(
       state: InstructionSliceState,
-      action: { payload: { id: InstructionId; params: T["params"] } },
+      action: { payload: { id: InstructionId; params: Partial<T["params"]> } },
     ) {
       const instruction = state.instructions.entities[action.payload.id] as T;
       if (!instruction) {
         throw new Error(`Instruction with id ${action.payload.id} not found`);
       }
 
-      const changes = { ...instruction, params: action.payload.params };
+      const changes = {
+        ...instruction,
+        params: { ...instruction.params, ...action.payload.params },
+      };
       state.instructions = instructionAdapter.updateOne(state.instructions, {
         id: action.payload.id,
         changes,
