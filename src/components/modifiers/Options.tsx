@@ -4,13 +4,13 @@ import {
   selectSelectedInstructionId,
 } from "../../redux/slice.ts";
 import { InstructionId } from "../../renderer/types.ts";
-import CircleOptions from "../modifiers/circle/CircleOptions.tsx";
+import CircleOptions from "./circle/CircleOptions.tsx";
 
 export function NoOptions() {
   return <div className="text-2xl">This instruction has no options</div>;
 }
 
-export function OptionsImpl({
+function OptionsImpl({
   instructionId,
 }: {
   instructionId: InstructionId;
@@ -29,7 +29,7 @@ export function OptionsImpl({
   }
 }
 
-export function Options() {
+export default function Options() {
   const selectedInstructionId = useAppSelector((state) =>
     selectSelectedInstructionId(state),
   );

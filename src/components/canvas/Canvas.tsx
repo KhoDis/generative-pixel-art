@@ -3,7 +3,7 @@ import KonvaRenderer from "./KonvaRenderer.tsx";
 import { useAppSelector } from "../../redux/hooks.ts";
 import { selectRendered } from "../../redux/slice.ts";
 
-export function Canvas() {
+export default function Canvas() {
   const render: Render = useAppSelector((state) => selectRendered(state));
 
   return (

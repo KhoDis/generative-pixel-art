@@ -1,9 +1,9 @@
 import { useAppSelector } from "../../redux/hooks.ts";
 // import { useState } from "react";
 // import { XMarkIcon } from "@heroicons/react/16/solid";
-import { InstructionTree } from "./InstructionTree.tsx";
+import InstructionTree from "./InstructionTree.tsx";
 
-export function Figures() {
+export default function Figures() {
   // const dispatch = useAppDispatch();
   const root = useAppSelector(
     (state) => state.figureInstruction.rootInstructionId,

@@ -1,8 +1,8 @@
-import { Figures } from "../components/modifiers/Figures.tsx";
-import { Canvas } from "../components/canvas/Canvas.tsx";
-import { Options } from "../components/options/Options.tsx";
-import { Modifiers } from "../components/modifiers/Modifiers.tsx";
-import { Header } from "../components/header/Header.tsx";
+import Figures from "../components/modifiers/Figures.tsx";
+import Canvas from "../components/canvas/Canvas.tsx";
+import Options from "../components/modifiers/Options.tsx";
+import Modifiers from "../components/modifiers/Modifiers.tsx";
+import Header from "../components/header/Header.tsx";
 
 function Editor() {
   // const [selectedModifier, setSelectedModifier] = useState(null);

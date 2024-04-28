@@ -1,6 +1,6 @@
 import { Title } from "./Title.tsx";
 
-export function Header() {
+export default function Header() {
   return (
     <div className="navbar p-4 border-b border-base-300">
       <div className="navbar-start">
