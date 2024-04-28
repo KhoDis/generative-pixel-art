@@ -9,6 +9,7 @@ import renderCircle from "../components/modifiers/circle/renderCircle.ts";
 import renderCombine from "../components/modifiers/combine/renderCombine.ts";
 import renderEmpty from "../components/modifiers/empty/renderEmpty.ts";
 import createEmpty from "../components/modifiers/empty/createEmpty.ts";
+import renderTranslate from "../components/modifiers/translate/renderTranslate.ts";
 
 export const instructionAdapter = createEntityAdapter<Instruction>();
 
@@ -189,6 +190,11 @@ export const selectRendered = (state: RootState) => {
         );
       case "empty":
         return renderEmpty();
+      case "translate":
+        return renderTranslate(
+          instruction.params,
+          render(selectInstructionById(state, instruction.children[0])),
+        );
       default:
         throw new Error(`Unknown instruction modifier: ${instruction}`);
     }

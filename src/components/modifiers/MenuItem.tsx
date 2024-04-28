@@ -2,6 +2,7 @@ import { InstructionId } from "../../renderer/types.ts";
 import EmptyMenuItem from "./empty/EmptyMenuItem.tsx";
 import CircleMenuItem from "./circle/CircleMenuItem.tsx";
 import CombineMenuItem from "./combine/CombineMenuItem.tsx";
+import TranslateMenuItem from "./translate/TranslateMenuItem.tsx";
 import {
   selectAllInstructions,
   selectInstructionById,
@@ -30,6 +31,8 @@ export default function MenuItem({ instructionId }: ModifierProps) {
       return <CircleMenuItem instructionId={instruction.id} />;
     case "combine":
       return <CombineMenuItem instructionId={instruction.id} />;
+    case "translate":
+      return <TranslateMenuItem instructionId={instruction.id} />;
     default:
       return null;
   }

@@ -1,6 +1,7 @@
 import { CircleReplacer } from "./circle/CircleReplacer.tsx";
 import { EmptyReplacer } from "./empty/EmptyReplacer.tsx";
 import { CombineReplacer } from "./combine/CombineReplacer.tsx";
+import { TranslateReplacer } from "./translate/TranslateReplacer.tsx";
 
 export default function Modifiers() {
   return (
@@ -9,6 +10,7 @@ export default function Modifiers() {
         <CircleReplacer />
         <EmptyReplacer />
         <CombineReplacer />
+        <TranslateReplacer />
       </div>
     </div>
   );

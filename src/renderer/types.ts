@@ -3,6 +3,7 @@ import { CircleInstruction } from "../components/modifiers/circle/types.ts";
 import { EmptyInstruction } from "../components/modifiers/empty/types.ts";
 import { CombineInstruction } from "../components/modifiers/combine/types.ts";
 import { Color } from "./colors.ts";
+import { TranslateInstruction } from "../components/modifiers/translate/types.ts";
 
 /**
  * Represents a point in a 2D space.
@@ -78,7 +79,8 @@ export type MakeInstruction<
 export type Instruction =
   | CircleInstruction
   | EmptyInstruction
-  | CombineInstruction;
+  | CombineInstruction
+  | TranslateInstruction;
 
 export type InstructionId = string;
 

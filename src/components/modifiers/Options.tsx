@@ -5,16 +5,13 @@ import {
 } from "../../redux/slice.ts";
 import { InstructionId } from "../../renderer/types.ts";
 import CircleOptions from "./circle/CircleOptions.tsx";
+import TranslateOptions from "./translate/TranslateOptions.tsx";
 
 export function NoOptions() {
   return <div className="text-2xl">This instruction has no options</div>;
 }
 
-function OptionsImpl({
-  instructionId,
-}: {
-  instructionId: InstructionId;
-}) {
+function OptionsImpl({ instructionId }: { instructionId: InstructionId }) {
   const selectedInstruction = useAppSelector((state) =>
     selectInstructionById(state, instructionId),
   );
@@ -24,6 +21,8 @@ function OptionsImpl({
       return <CircleOptions />;
     case "empty" || "combine":
       return <NoOptions />;
+    case "translate":
+      return <TranslateOptions />;
     default:
       return null;
   }
