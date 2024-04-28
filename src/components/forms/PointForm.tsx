@@ -1,7 +1,7 @@
 import { Point } from "../../renderer/types.ts";
 import IntInput from "../inputs/IntInput.tsx";
 
-export function OffsetForm({
+export function PointForm({
   name = "Offset",
   point,
   onChange,
@@ -10,6 +10,7 @@ export function OffsetForm({
   point: Point;
   onChange: (point: Point) => void;
 }) {
+  console.log("PointForm", { name, point, onChange });
   return (
     <>
       <div className="flex items-center justify-start col-span-1">{name}</div>

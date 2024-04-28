@@ -4,7 +4,11 @@ import { CircleInstruction, CircleParams } from "./types.ts";
 
 export default function createCircle(
   id: InstructionId = uuidv4(),
-  params: CircleParams = { radius: 5, color: { r: 255, g: 0, b: 0, a: 1 } },
+  params: CircleParams = {
+    diameter: 5,
+    color: { r: 255, g: 0, b: 0, a: 1 },
+    pivot: { x: 0, y: 0 },
+  },
 ): CircleInstruction {
   return {
     id,

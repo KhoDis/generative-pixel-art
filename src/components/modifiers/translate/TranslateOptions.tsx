@@ -1,7 +1,7 @@
 import { Point } from "../../../renderer/types.ts";
 import { TranslateInstruction } from "./types.ts";
 import BaseOptions, { useChangeHandler } from "../BaseOptions.tsx";
-import { OffsetForm } from "../../forms/OffsetForm.tsx";
+import { PointForm } from "../../forms/PointForm.tsx";
 
 export default function TranslateOptions({
   selectedInstruction,
@@ -12,7 +12,7 @@ export default function TranslateOptions({
 
   return (
     <BaseOptions name="Translate">
-      <OffsetForm
+      <PointForm
         point={selectedInstruction.params.offset}
         onChange={(offset: Point) => changeHandler({ offset })}
       />

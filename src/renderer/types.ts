@@ -112,6 +112,10 @@ export type Pivot =
   | "bottom-right"
   | Point;
 
+export function isPoint(pivot: Pivot): pivot is Point {
+  return typeof pivot === "object";
+}
+
 /**
  * Represents a list of palettes.
  */

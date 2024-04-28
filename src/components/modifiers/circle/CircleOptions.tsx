@@ -3,6 +3,8 @@ import ColorPickerForm from "../../forms/ColorPickerForm.tsx";
 import { CircleInstruction } from "./types.ts";
 import BaseOptions, { useChangeHandler } from "../BaseOptions.tsx";
 import { SingleIntForm } from "../../forms/SingleIntForm.tsx";
+import { Pivot } from "../../../renderer/types.ts";
+import PivotForm from "../../forms/PivotForm.tsx";
 
 export default function CircleOptions({
   selectedInstruction,
@@ -18,9 +20,13 @@ export default function CircleOptions({
         onChange={(color: Color) => handleChange({ color })}
       />
       <SingleIntForm
-        name="Radius"
-        value={selectedInstruction.params.radius}
-        onChange={(radius: number) => handleChange({ radius })}
+        name="Diameter"
+        value={selectedInstruction.params.diameter}
+        onChange={(diameter: number) => handleChange({ diameter })}
+      />
+      <PivotForm
+        pivot={selectedInstruction.params.pivot}
+        onChange={(pivot: Pivot) => handleChange({ pivot })}
       />
     </BaseOptions>
   );
