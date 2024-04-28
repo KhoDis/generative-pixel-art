@@ -1,5 +1,5 @@
-import { Render } from "../../../../renderer/types.ts";
-import { createRender, place } from "../../../../renderer/modifiers";
+import { Render } from "../../../renderer/types.ts";
+import { createRender, place } from "../../../renderer/modifiers";
 import { CircleParams } from "./types.ts";
 
 export default function renderCircle(params: CircleParams): Render {

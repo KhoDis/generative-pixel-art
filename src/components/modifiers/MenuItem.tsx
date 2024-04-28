@@ -1,7 +1,7 @@
 import { InstructionId } from "../../renderer/types.ts";
-import EmptyMenuItem from "./modifiers/empty/EmptyMenuItem.tsx";
-import CircleMenuItem from "./modifiers/circle/CircleMenuItem.tsx";
-import CombineMenuItem from "./modifiers/combine/CombineMenuItem.tsx";
+import EmptyMenuItem from "./empty/EmptyMenuItem.tsx";
+import CircleMenuItem from "./circle/CircleMenuItem.tsx";
+import CombineMenuItem from "./combine/CombineMenuItem.tsx";
 import {
   selectAllInstructions,
   selectInstructionById,

@@ -1,6 +1,6 @@
-import { useAppDispatch } from "../../../../redux/hooks.ts";
+import { useAppDispatch } from "../../../redux/hooks.ts";
 import { Button, Tooltip } from "react-daisyui";
-import { replaceSelectedInstruction } from "../../../../redux/slice.ts";
+import { replaceSelectedInstruction } from "../../../redux/slice.ts";
 import { DocumentIcon } from "@heroicons/react/24/solid";
 import createEmpty from "./createEmpty.ts";
 

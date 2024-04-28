@@ -1,7 +1,7 @@
 import { PixelMap } from "./core/PixelMap.ts";
-import { CircleInstruction } from "../components/modifier-tree/modifiers/circle/types.ts";
-import { EmptyInstruction } from "../components/modifier-tree/modifiers/empty/types.ts";
-import { CombineInstruction } from "../components/modifier-tree/modifiers/combine/types.ts";
+import { CircleInstruction } from "../components/modifiers/circle/types.ts";
+import { EmptyInstruction } from "../components/modifiers/empty/types.ts";
+import { CombineInstruction } from "../components/modifiers/combine/types.ts";
 import { Color } from "./colors.ts";
 
 /**

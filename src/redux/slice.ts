@@ -5,10 +5,10 @@ import {
 } from "@reduxjs/toolkit";
 import { Instruction, InstructionId, Render } from "../renderer/types.ts";
 import { RootState } from "./store.ts";
-import renderCircle from "../components/modifier-tree/modifiers/circle/renderCircle.ts";
-import renderCombine from "../components/modifier-tree/modifiers/combine/renderCombine.ts";
-import renderEmpty from "../components/modifier-tree/modifiers/empty/renderEmpty.ts";
-import createEmpty from "../components/modifier-tree/modifiers/empty/createEmpty.ts";
+import renderCircle from "../components/modifiers/circle/renderCircle.ts";
+import renderCombine from "../components/modifiers/combine/renderCombine.ts";
+import renderEmpty from "../components/modifiers/empty/renderEmpty.ts";
+import createEmpty from "../components/modifiers/empty/createEmpty.ts";
 
 export const instructionAdapter = createEntityAdapter<Instruction>();
 

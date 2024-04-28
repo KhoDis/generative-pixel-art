@@ -1,5 +1,5 @@
-import { Placement, Render } from "../../../../renderer/types.ts";
-import createRender from "../../../../renderer/modifiers/createRender.ts";
+import { Placement, Render } from "../../../renderer/types.ts";
+import createRender from "../../../renderer/modifiers/createRender.ts";
 
 export default function renderCombine(renders: Render[]): Render {
   const pixels: Placement[] = [];

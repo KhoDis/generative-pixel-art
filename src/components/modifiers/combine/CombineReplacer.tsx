@@ -1,10 +1,10 @@
 import { Button, Tooltip } from "react-daisyui";
 import { Square2StackIcon } from "@heroicons/react/24/outline";
-import { useAppDispatch } from "../../../../redux/hooks.ts";
+import { useAppDispatch } from "../../../redux/hooks.ts";
 import {
   addInstruction,
   replaceSelectedInstruction,
-} from "../../../../redux/slice.ts";
+} from "../../../redux/slice.ts";
 import createCombine from "./createCombine.ts";
 import createEmpty from "../empty/createEmpty.ts";
 

@@ -1,11 +1,11 @@
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks.ts";
 import {
   selectSelectedInstruction,
   updateParams,
-} from "../../../../redux/slice.ts";
+} from "../../../redux/slice.ts";
 import { CircleInstruction } from "./types.ts";
 
-import { Color, fromHex, toHex } from "../../../../renderer/colors.ts";
+import { Color, fromHex, toHex } from "../../../renderer/colors.ts";
 import { useEffect, useState } from "react";
 
 function IntInput({
@@ -152,7 +152,6 @@ export default function CircleOptions() {
             onChange={handleRadiusChange}
             min={0}
             max={50}
-            showStepper={true}
           />
         </div>
       </div>

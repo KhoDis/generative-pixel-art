@@ -1,10 +1,10 @@
 import { DocumentIcon } from "@heroicons/react/24/solid";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks.ts";
 import {
   selectInstruction,
   selectSelectedInstructionId,
-} from "../../../../redux/slice.ts";
-import { InstructionId } from "../../../../renderer/types.ts";
+} from "../../../redux/slice.ts";
+import { InstructionId } from "../../../renderer/types.ts";
 
 export default function EmptyMenuItem({
   instructionId,

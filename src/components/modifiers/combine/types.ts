@@ -3,7 +3,7 @@ import {
   MakeInstruction,
   NoParams,
   Variadic,
-} from "../../../../renderer/types.ts";
+} from "../../../renderer/types.ts";
 
 export type CombineInstruction = MakeInstruction<
   "combine",

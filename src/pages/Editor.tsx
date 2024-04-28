@@ -1,7 +1,7 @@
-import { Figures } from "../components/modifier-tree/Figures.tsx";
+import { Figures } from "../components/modifiers/Figures.tsx";
 import { Canvas } from "../components/canvas/Canvas.tsx";
 import { Options } from "../components/options/Options.tsx";
-import { Modifiers } from "../components/modifier-tree/Modifiers.tsx";
+import { Modifiers } from "../components/modifiers/Modifiers.tsx";
 import { Header } from "../components/header/Header.tsx";
 
 function Editor() {

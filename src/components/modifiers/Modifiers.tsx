@@ -1,6 +1,6 @@
-import { CircleReplacer } from "./modifiers/circle/CircleReplacer.tsx";
-import { EmptyReplacer } from "./modifiers/empty/EmptyReplacer.tsx";
-import { CombineReplacer } from "./modifiers/combine/CombineReplacer.tsx";
+import { CircleReplacer } from "./circle/CircleReplacer.tsx";
+import { EmptyReplacer } from "./empty/EmptyReplacer.tsx";
+import { CombineReplacer } from "./combine/CombineReplacer.tsx";
 
 export function Modifiers() {
   return (
