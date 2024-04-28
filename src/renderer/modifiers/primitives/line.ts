@@ -1,14 +1,8 @@
-import {
-  Color,
-  InstructionId,
-  Placement,
-  Point,
-  Render,
-  Shape,
-} from "../../types.ts";
+import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
 import place from "../place.ts";
 import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
+import { Color } from "../../colors.ts";
 
 export type LineParams = {
   start: Point;

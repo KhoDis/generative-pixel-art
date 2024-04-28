@@ -1,17 +1,11 @@
-import {
-  Color,
-  InstructionId,
-  Placement,
-  Point,
-  Render,
-  Shape,
-} from "../../types.ts";
+import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
 import {
   getDiagonalNeighbors,
   getStraightNeighbors,
 } from "../../utils/getNeighbors.ts";
 import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
+import { Color } from "../../colors.ts";
 
 export type TraversalMode = "straightOnly" | "includeDiagonals";
 

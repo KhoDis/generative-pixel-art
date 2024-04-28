@@ -1,14 +1,8 @@
-import {
-  Color,
-  InstructionId,
-  Pivot,
-  Point,
-  Render,
-  Shape,
-} from "../../types.ts";
+import { InstructionId, Pivot, Point, Render, Shape } from "../../types.ts";
 import { place } from "../index.ts";
 import createRender from "../createRender.ts";
 import { v4 as uuidv4 } from "uuid";
+import { Color } from "../../colors.ts";
 
 export type RectParams = {
   width: number;

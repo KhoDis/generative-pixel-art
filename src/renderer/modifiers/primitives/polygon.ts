@@ -1,14 +1,8 @@
-import {
-  Color,
-  InstructionId,
-  Placement,
-  Point,
-  Render,
-  Shape,
-} from "../../types.ts";
+import { InstructionId, Placement, Point, Render, Shape } from "../../types.ts";
 import createRender from "../createRender.ts";
 import Line from "./line.ts";
 import { v4 as uuidv4 } from "uuid";
+import { Color } from "../../colors.ts";
 
 export type PolygonParams = {
   points: Point[];

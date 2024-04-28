@@ -1,4 +1,5 @@
-import { Color, Placement } from "../types.ts";
+import { Placement } from "../types.ts";
+import { Color } from "../colors.ts";
 
 /**
  * Places a pixel at a specified position.

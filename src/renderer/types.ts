@@ -2,6 +2,7 @@ import { PixelMap } from "./core/PixelMap.ts";
 import { CircleInstruction } from "../components/modifier-tree/modifiers/circle/types.ts";
 import { EmptyInstruction } from "../components/modifier-tree/modifiers/empty/types.ts";
 import { CombineInstruction } from "../components/modifier-tree/modifiers/combine/types.ts";
+import { Color } from "./colors.ts";
 
 /**
  * Represents a point in a 2D space.
@@ -11,20 +12,6 @@ import { CombineInstruction } from "../components/modifier-tree/modifiers/combin
 export type Point = {
   x: number;
   y: number;
-};
-
-/**
- * Represents a color using RGBA.
- * @property r - The red component (0-255).
- * @property g - The green component (0-255).
- * @property b - The blue component (0-255).
- * @property a - The alpha component (0-255).
- */
-export type Color = {
-  r: number;
-  g: number;
-  b: number;
-  a?: number;
 };
 
 export type Render = {

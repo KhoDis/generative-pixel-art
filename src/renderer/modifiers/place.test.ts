@@ -1,5 +1,5 @@
-import { Color } from "../types.ts";
 import place from "./place.ts";
+import { Color } from "../colors.ts";
 
 describe("place", () => {
   it("should place a pixel at a specified position", () => {
