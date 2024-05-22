@@ -5,10 +5,37 @@ It provides a set of builder functions to construct and organize elements in the
 
 ## Table of Contents
 
+- [Upcoming Features](#upcoming-features)
+- [Overview](#overview)
 - [Installation](#installation)
 - [Usage](#usage)
 - [File Structure](#file-structure)
 - [Contributing](#contributing)
+
+## Upcoming Features
+
+We are currently working on an online visual editor for the pixel art renderer. This new feature is still a
+work-in-progress and will be released soon in version 1.0. Below is some screenshot of the upcoming editor:
+
+![Editor Screenshot 1](./public/editor.png)
+
+We are also planning to add the following features in the future:
+
+- Advanced algorithms for manipulating shapes
+- Exporting scenes to image files
+- Customizable color palettes and themes
+
+## Overview
+
+The pixel art renderer is a simple tool for creating pixel art scenes using basic shapes such as rectangles, circles, and lines.
+
+The renderer is built using the [Konva.js](https://konvajs.org/) library, which provides a canvas-based rendering engine for creating interactive graphics.
+
+The renderer supports the following features:
+
+- Drawing basic shapes such as rectangles, circles, and lines
+- Grouping shapes together to create complex scenes
+- Customizing the color and position of shapes
 
 ## Installation
 
@@ -70,11 +97,11 @@ The project follows the following file structure:
 
 - `src/components/`: React components (currently only the renderer)
 - `src/renderer/`: Core files for the pixel art renderer
-  - `primitives.ts`: Functions for basic constructions of Group and Shape
-  - `builders.ts`: Builder/helper functions for constructing elements
-  - `shapes/`: Functions for drawing primitives
-  - `algorithms`: Algorithms for advanced manipulations
-  - `types.ts`: Shared types used in the renderer
+    - `primitives.ts`: Functions for basic constructions of Group and Shape
+    - `builders.ts`: Builder/helper functions for constructing elements
+    - `shapes/`: Functions for drawing primitives
+    - `algorithms`: Algorithms for advanced manipulations
+    - `types.ts`: Shared types used in the renderer
 - `src/app/`: Application entry point and main components
 - `public/`: Static assets
 
